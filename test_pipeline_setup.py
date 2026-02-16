@@ -25,7 +25,6 @@ def test_setup():
         'notebooks/04_filtering.ipynb',
         'notebooks/05_reference_detection.ipynb',
         'notebooks/06_rotvec_omega.ipynb',
-        'notebooks/07_master_quality_report.ipynb',
     ]
     
     for file_path in required_files:
@@ -98,13 +97,13 @@ def test_setup():
     if all_good:
         print("✅ ALL TESTS PASSED - Ready to run pipeline!")
         print("\nNext steps:")
-        print("  1. Install dependencies: pip install -r pipeline_requirements.txt")
+        print("  1. Install dependencies: pip install -r requirements.txt")
         print("  2. Test run: python run_pipeline.py --dry-run --auto-discover")
         print("  3. Full run: python run_pipeline.py --auto-discover")
     else:
         print("⚠️  SOME ISSUES FOUND - Please fix before running pipeline")
         print("\nTo install missing dependencies:")
-        print("  pip install -r pipeline_requirements.txt")
+        print("  pip install -r requirements.txt")
     print("="*60)
     
     return all_good

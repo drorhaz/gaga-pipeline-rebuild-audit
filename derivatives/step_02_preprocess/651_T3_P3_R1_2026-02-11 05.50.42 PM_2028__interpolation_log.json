@@ -1,0 +1,7 @@
+{
+  "run_id": "651_T3_P3_R1_2026-02-11 05.50.42 PM_2028",
+  "note": "Per-joint interpolation details available in preprocess_summary.json",
+  "total_events": "See interpolation_per_joint section",
+  "fallback_tracking": "To be implemented in gap filling refactor",
+  "transparency_status": "Enhanced - per-joint tracking active"
+}

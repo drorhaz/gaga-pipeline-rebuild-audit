@@ -11,6 +11,23 @@ References:
 - Wu et al. (2005): Hip and knee  
 - ISB recommendations for ankle and spine
 
+KNOWN ISSUE (v3.0, 2026-02-16):
+    The ISB_EULER_SEQUENCES dict below defines the CORRECT ISB-compliant
+    sequences (ZXY for spine/limbs, YXY for shoulder). However, notebook
+    06_ultimate_kinematics.ipynb independently hardcodes ZYX for the axial
+    chain and XYZ for limbs. This means the validation_report.json and
+    Parquet outputs currently use ZYX/XYZ, NOT the ISB sequences.
+
+    Impact: ZYX/XYZ are computationally stable for the Gaga movement
+    vocabulary (no gimbal lock near neutral postures), but the Euler angle
+    columns do NOT directly map to ISB anatomical planes (Flexion-Lateral
+    Bending-Rotation). For ISB-compliant publication, either:
+      (a) Switch NB06 to call get_euler_sequence() from this module, or
+      (b) Re-decompose post-hoc using quaternion_to_isb_euler().
+
+    The src/pipeline.py path IS ISB-compliant (uses compute_euler_angles
+    which calls get_euler_sequence). Only the NB06 notebook path diverges.
+
 Author: Gaga Motion Analysis Pipeline
 Date: 2026-01-22
 """

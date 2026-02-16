@@ -76,9 +76,9 @@ BODY_REGIONS = {
     },
     'upper_distal': {
         'patterns': ['Elbow', 'Forearm', 'ForeArm', 'Wrist', 'Hand', 'Finger', 'Thumb', 'Index', 'Middle', 'Ring', 'Pinky'],
-        'fixed_cutoff': 10,           # Higher: 10 Hz for fast hand/finger movements
+        'fixed_cutoff': 12,           # Higher: 12 Hz for fast hand/finger movements in Gaga dance
         'cutoff_range': (8, 14),      # Range for validation only
-        'rationale': 'Hands/fingers - 10 Hz preserves hand flicks and finger articulation'
+        'rationale': 'Hands/fingers - 12 Hz preserves hand flicks and finger articulation (Gaga dance standard)'
     },
     'lower_proximal': {
         'patterns': ['Thigh', 'UpLeg', 'UpperLeg', 'Knee'],
@@ -109,6 +109,12 @@ def classify_marker_region(marker_name: str) -> str:
     Returns:
         Region name ('trunk', 'head', 'upper_proximal', 'upper_distal', 
                      'lower_proximal', 'lower_distal', 'unknown')
+                     
+    Note:
+        Unknown markers default to 'upper_proximal' (8 Hz) to avoid
+        frequency compression. The previous default of 'upper_distal'
+        (12 Hz) caused all unrecognized markers to receive a high-frequency
+        floor, compressing the 6-12 Hz dynamic range into 10-12 Hz.
     """
     # Extract base marker name (remove axis suffix)
     base_name = marker_name.replace('__px', '').replace('__py', '').replace('__pz', '')
@@ -119,9 +125,14 @@ def classify_marker_region(marker_name: str) -> str:
             if pattern.lower() in base_name.lower():
                 return region
     
-    # Default to upper_distal if unknown (conservative for dance)
-    logger.debug(f"Marker '{marker_name}' not matched to any region, defaulting to 'upper_distal'")
-    return 'upper_distal'
+    # Default to upper_proximal (8 Hz) for unknown markers.
+    # Rationale: upper_proximal sits at the midpoint of the 6-12 Hz Smart Bias
+    # range, avoiding the frequency compression that occurred when defaulting
+    # to upper_distal (12 Hz). This preserves the Trunk-Distal decoupling.
+    logger.warning(f"Marker '{marker_name}' not matched to any region, "
+                   f"defaulting to 'upper_proximal' (8 Hz). "
+                   f"Consider adding this marker to BODY_REGIONS patterns.")
+    return 'upper_proximal'
 
 
 def winter_residual_analysis(signal: np.ndarray, 
@@ -170,6 +181,30 @@ def winter_residual_analysis(signal: np.ndarray,
         Winter, D. A. (2009). Biomechanics and motor control of human movement.
         Note: fmax=16Hz for Gaga. If cutoff=fmax, method failed - investigate pipeline.
     """
+    # Safety net: filtfilt with a 2nd-order Butterworth requires padlen = 3*max(len(a),len(b)) = 9.
+    # Signal must be strictly longer than padlen. Use 15 as safe floor (margin for edge effects).
+    _MIN_WINTER_LEN = 15
+    if len(signal) < _MIN_WINTER_LEN:
+        logger.warning(
+            f"Signal too short ({len(signal)} frames, need >= {_MIN_WINTER_LEN}) "
+            f"for Winter residual analysis. Returning fmax={fmax} Hz fallback."
+        )
+        if return_details:
+            return {
+                'cutoff_hz': float(fmax),
+                'raw_cutoff_hz': float(fmax),
+                'method_used': 'signal_too_short_fallback',
+                'guardrail_applied': False,
+                'guardrail_delta_hz': 0.0,
+                'knee_point_found': False,
+                'rms_values': [],
+                'test_frequencies': [],
+                'residual_rms_final': 0.0,
+                'search_range_hz': [fmin, fmax],
+                'failure_reason': f"Signal too short ({len(signal)} frames < {_MIN_WINTER_LEN})"
+            }
+        return float(fmax)
+
     # Convert to float and detrend
     x = signal.astype(float)
     x = x - np.mean(x)
@@ -280,7 +315,8 @@ def winter_residual_analysis(signal: np.ndarray,
         else:
             # DATA-DRIVEN MODE: Use weighted compromise when needed
             # Get region configuration for biomechanical minimum
-            region_config = BODY_REGIONS.get(body_region, {'cutoff_range': (8, 14)})
+            # Default range (6, 12) aligns with the Smart Bias Lerp bounds
+            region_config = BODY_REGIONS.get(body_region, {'cutoff_range': (6, 12)})
             min_cutoff_region = region_config['cutoff_range'][0]
             
             # Find the diminishing_returns and strict_knee candidates
@@ -291,34 +327,57 @@ def winter_residual_analysis(signal: np.ndarray,
             # Use higher knee candidate if available (prefer strict over relaxed)
             higher_knee_candidate = strict_knee_candidate or relaxed_knee_candidate
             
-            # OPTION B: Weighted compromise when diminishing_returns is below minimum
-            # and a higher knee-point exists. Weights (0.3, 0.7) are fixed; could be
-            # made configurable or data-driven (e.g. from residual slope) for tuning.
+            # CONTINUOUS BIAS (Smart Weighting): region-aware weighted compromise
+            # when diminishing_returns is below minimum and a higher knee-point exists.
+            # Weights are derived from the body region's biomechanical expectation
+            # (min_cutoff_region), NOT hardcoded. This prevents a single "gravity well"
+            # cutoff across all body parts.
             if (diminishing_candidate and higher_knee_candidate and
                 diminishing_candidate[0] < min_cutoff_region and
                 higher_knee_candidate[0] > diminishing_candidate[0]):
 
-                # Weighted average: 30% diminishing_returns + 70% strict_knee
-                # Preserves more high-frequency content for Gaga dance
-                weighted_cutoff = (diminishing_candidate[0] * 0.3) + (higher_knee_candidate[0] * 0.7)
+                # --- Continuous Bias via Linear Interpolation (Lerp) ---
+                # 1. Define the "Trust Range" based on human physiology
+                #    6.0 Hz = Core/Stable regions (trust the low-freq diminishing_returns candidate)
+                #    12.0 Hz = Distal/Agile regions (trust the high-freq strict_knee candidate)
+                low_bound = 6.0
+                high_bound = 12.0
+
+                # 2. Calculate the "High-Freq Trust Factor" (0.0 to 1.0)
+                #    Uses min_cutoff_region from BODY_REGIONS cutoff_range
+                trust_factor = (min_cutoff_region - low_bound) / (high_bound - low_bound)
+                trust_factor = np.clip(trust_factor, 0.0, 1.0)
+
+                # 3. Map to Weighting (clamped for safety: never 100% of either extreme)
+                #    Range: knee_weight 0.2 (core/trunk) to 0.8 (distal)
+                knee_weight = 0.2 + (0.6 * trust_factor)
+                diminishing_weight = 1.0 - knee_weight
+
+                # 4. Calculate Final Weighted Cutoff
+                weighted_cutoff = (diminishing_candidate[0] * diminishing_weight) + (higher_knee_candidate[0] * knee_weight)
                 optimal_fc = round(weighted_cutoff, 1)
-                method_used = f"weighted_compromise({diminishing_candidate[0]:.1f}*0.3+{higher_knee_candidate[0]:.1f}*0.7)"
-                
-                logger.info(f"WEIGHTED COMPROMISE for {body_region}: diminishing_returns={diminishing_candidate[0]:.1f}Hz "
-                           f"is below min={min_cutoff_region}Hz, strict_knee={higher_knee_candidate[0]:.1f}Hz. "
-                           f"Using weighted average: {optimal_fc:.1f}Hz")
+                method_used = (f"smart_bias(dim={diminishing_candidate[0]:.1f}*{diminishing_weight:.2f}"
+                               f"+knee={higher_knee_candidate[0]:.1f}*{knee_weight:.2f})")
+
+                logger.info(f"SMART BIAS for {body_region}: min_cutoff_region={min_cutoff_region}Hz -> "
+                           f"trust_factor={trust_factor:.2f}, knee_weight={knee_weight:.2f}. "
+                           f"diminishing={diminishing_candidate[0]:.1f}Hz, strict_knee={higher_knee_candidate[0]:.1f}Hz. "
+                           f"Result: {optimal_fc:.1f}Hz")
             else:
                 # Original behavior: pick the lowest candidate
                 optimal_fc, method_used = candidates[0]
     else:
-        # NO KNEE POINT FOUND - Gate 3: Use region-specific fallback
-        # Get region's upper cutoff limit as fallback (not fmax/2)
-        region_config = BODY_REGIONS.get(body_region, {'cutoff_range': (8, 14)})
-        optimal_fc = region_config['cutoff_range'][1]  # Use region's max as fallback
-        method_used = f"no_knee_point_fallback_{body_region}"
+        # NO KNEE POINT FOUND - Use Standard Protocol (fixed_cutoff) as fallback
+        # When adaptive analysis fails, fall back to the literature-based fixed cutoff
+        # for the body region, NOT the upper range limit.
+        # Default fallback uses upper_proximal (8 Hz) to avoid frequency compression.
+        region_config = BODY_REGIONS.get(body_region, {'fixed_cutoff': 8, 'cutoff_range': (6, 12)})
+        optimal_fc = region_config.get('fixed_cutoff', region_config['cutoff_range'][1])
+        method_used = f"no_knee_point_standard_protocol_{body_region}"
         knee_point_found = False
         logger.warning(f"WINTER KNEE-POINT NOT FOUND for {body_region}: RMS curve is flat (range ratio={rms_range_ratio:.2%}). "
-                      f"Using region fallback cutoff {optimal_fc} Hz. This may indicate pre-smoothed data.")
+                      f"Using Standard Protocol fixed cutoff {optimal_fc} Hz (literature-based). "
+                      f"This may indicate pre-smoothed data.")
     
     raw_optimal_fc = optimal_fc  # Store pre-guardrail value
     
@@ -691,7 +750,8 @@ def apply_adaptive_winter_filter(signal: np.ndarray,
                                 fs: float,
                                 fmin: float = 1.0,
                                 fmax: float = 20.0,
-                                min_cutoff: Optional[float] = None) -> Tuple[np.ndarray, Dict]:
+                                min_cutoff: Optional[float] = None,
+                                body_region: str = "general") -> Tuple[np.ndarray, Dict]:
     """
     Stage 3: Adaptive Low-Pass using Winter's Residual Method.
     
@@ -706,16 +766,37 @@ def apply_adaptive_winter_filter(signal: np.ndarray,
         fmin: Minimum cutoff to test (Hz, default: 1.0)
         fmax: Maximum cutoff to test (Hz, default: 20.0)
         min_cutoff: Biomechanical minimum cutoff (Hz, optional)
+        body_region: Body region name for Smart Bias context. CRITICAL: must be
+                    passed from the caller to enable per-region frequency decoupling.
+                    Without this, Smart Bias uses a generic trust_factor that
+                    compresses the 6-12 Hz range into ~10 Hz.
         
     Returns:
         Tuple of (filtered_signal, metadata_dict)
         - filtered_signal: Low-pass filtered signal
         - metadata_dict: Contains cutoff_hz, method_used, etc.
     """
-    # Run Winter residual analysis
+    # Safety net: signal must be long enough for filtfilt (padlen=9 for 2nd-order Butterworth)
+    _MIN_FILTER_LEN = 15
+    if len(signal) < _MIN_FILTER_LEN:
+        logger.warning(
+            f"Signal too short ({len(signal)} frames, need >= {_MIN_FILTER_LEN}) "
+            f"for adaptive Winter filter. Returning unfiltered signal."
+        )
+        metadata = {
+            'cutoff_hz': None,
+            'method_used': 'signal_too_short_skipped',
+            'filter_applied': False,
+            'knee_point_found': False,
+            'failure_reason': f"Signal too short ({len(signal)} frames < {_MIN_FILTER_LEN})"
+        }
+        return signal.copy(), metadata
+
+    # Run Winter residual analysis with body_region context for Smart Bias
     winter_result = winter_residual_analysis(
         signal, fs, fmin=int(fmin), fmax=int(fmax),
-        min_cutoff=min_cutoff, return_details=True
+        min_cutoff=min_cutoff, body_region=body_region,
+        return_details=True
     )
     
     if isinstance(winter_result, dict):
@@ -734,7 +815,16 @@ def apply_adaptive_winter_filter(signal: np.ndarray,
     # Design 2nd-order Butterworth low-pass filter
     b, a = butter(N=2, Wn=cutoff_hz/(0.5*fs), btype='low')
     
-    # Apply zero-phase filter (filtfilt)
+    # Apply zero-phase filter (filtfilt) with length guard
+    if len(signal) <= max(len(a), len(b)) * 3:
+        logger.warning(
+            f"Signal length ({len(signal)}) barely exceeds filtfilt padlen. "
+            f"Returning unfiltered to avoid edge artifacts."
+        )
+        metadata['filter_applied'] = False
+        metadata['filter_type'] = 'skipped_near_padlen'
+        return signal.copy(), metadata
+
     filtered = filtfilt(b, a, signal.astype(float))
     
     metadata['filter_applied'] = True
@@ -796,6 +886,20 @@ def apply_signal_cleaning_pipeline(df: pd.DataFrame,
     Returns:
         Tuple of (cleaned_dataframe, pipeline_metadata)
     """
+    # Duration gate: reject DataFrames too short for meaningful filtering
+    _MIN_FRAMES_FOR_FILTERING = 30  # ~0.25 sec at 120 Hz
+    if len(df) < _MIN_FRAMES_FOR_FILTERING:
+        logger.warning(
+            f"DataFrame too short for 3-stage pipeline ({len(df)} frames, "
+            f"need >= {_MIN_FRAMES_FOR_FILTERING}). Returning unfiltered data."
+        )
+        return df.copy(), {
+            'pipeline_type': '3_stage_signal_cleaning',
+            'skipped': True,
+            'skip_reason': f"DataFrame too short ({len(df)} frames < {_MIN_FRAMES_FOR_FILTERING})",
+            'summary': {'total_columns_processed': 0},
+        }
+
     df_out = df.copy()
     pipeline_metadata = {
         'pipeline_type': '3_stage_signal_cleaning',
@@ -867,19 +971,51 @@ def apply_signal_cleaning_pipeline(df: pd.DataFrame,
         total_velocity_spikes += artifact_stats["n_velocity_spikes"]
         total_zscore_spikes += artifact_stats["n_zscore_spikes"]
 
-        # Interpolate artifacts (method: linear or cubic; document in summary)
+        # Interpolate artifacts with gap-size plausibility limit.
+        # At 120 Hz, 30 frames = 0.25 s — the same threshold used for
+        # quaternion gap filling (max_gap_quat_sec).  Gaps beyond this are
+        # physically implausible to reconstruct and are left as NaN so
+        # downstream stages (Winter LP) see them as missing data rather
+        # than hallucinated trajectories.
+        _MAX_INTERP_FRAMES = int(fs * 0.25)  # 0.25 s plausibility threshold
         signal_stage1 = signal.copy()
+        max_artifact_gap_frames = 0
+        n_unreliable_gaps = 0
         if n_artifacts > 0:
             signal_series = pd.Series(signal_stage1)
             signal_series.loc[artifact_mask] = np.nan
+
+            # Measure contiguous NaN runs to enforce gap limit
+            is_nan = signal_series.isna()
+            nan_groups = (is_nan != is_nan.shift()).cumsum()
+            gap_sizes = is_nan.groupby(nan_groups).sum()
+            gap_sizes = gap_sizes[gap_sizes > 0]
+            if len(gap_sizes) > 0:
+                max_artifact_gap_frames = int(gap_sizes.max())
+                n_unreliable_gaps = int((gap_sizes > _MAX_INTERP_FRAMES).sum())
+
+            if n_unreliable_gaps > 0:
+                logger.warning(
+                    f"[GAP_GUARD] {col}: {n_unreliable_gaps} artifact gap(s) exceed "
+                    f"{_MAX_INTERP_FRAMES} frames ({_MAX_INTERP_FRAMES/fs:.2f}s). "
+                    f"Largest gap: {max_artifact_gap_frames} frames "
+                    f"({max_artifact_gap_frames/fs:.2f}s). "
+                    f"These gaps will use bounded interpolation only."
+                )
+
             signal_stage1 = signal_series.interpolate(
                 method=stage1_interpolation_method,
+                limit=_MAX_INTERP_FRAMES,
                 limit_direction='both'
             ).values
-            signal_stage1 = pd.Series(signal_stage1).bfill().ffill().values
+            # Edge fill only for small boundary NaNs (1 frame)
+            s1_series = pd.Series(signal_stage1)
+            signal_stage1 = s1_series.bfill(limit=1).ffill(limit=1).values
 
         col_metadata['stage1_artifacts_detected'] = int(n_artifacts)
         col_metadata['stage1_segments_interpolated'] = n_segments
+        col_metadata['stage1_max_gap_frames'] = max_artifact_gap_frames
+        col_metadata['stage1_unreliable_gaps'] = n_unreliable_gaps
         col_metadata['stage1_velocity_spikes'] = artifact_stats["n_velocity_spikes"]
         col_metadata['stage1_zscore_spikes'] = artifact_stats["n_zscore_spikes"]
         
@@ -896,7 +1032,7 @@ def apply_signal_cleaning_pipeline(df: pd.DataFrame,
         # Stage 3: Adaptive Winter Filter
         # Determine minimum cutoff based on body region
         marker_region = classify_marker_region(col)
-        region_config = BODY_REGIONS.get(marker_region, BODY_REGIONS['upper_distal'])
+        region_config = BODY_REGIONS.get(marker_region, BODY_REGIONS['upper_proximal'])
         min_cutoff = region_config.get('fixed_cutoff', 6.0)  # Use fixed cutoff as minimum
         
         signal_stage3, winter_meta = apply_adaptive_winter_filter(
@@ -904,12 +1040,21 @@ def apply_signal_cleaning_pipeline(df: pd.DataFrame,
             fs=fs,
             fmin=winter_fmin,
             fmax=winter_fmax,
-            min_cutoff=min_cutoff
+            min_cutoff=min_cutoff,
+            body_region=marker_region
         )
         
         col_metadata['stage3_winter_cutoff'] = winter_meta.get('cutoff_hz', None)
         col_metadata['stage3_winter_method'] = winter_meta.get('method_used', 'unknown')
         col_metadata['marker_region'] = marker_region
+        
+        # [FILTER_DEBUG] Smart Bias traceability log
+        _fc_result = winter_meta.get('cutoff_hz', None)
+        _region_low = region_config.get('cutoff_range', (6, 12))[0]
+        _region_high = region_config.get('cutoff_range', (6, 12))[1]
+        _agility = (_region_low - 6.0) / (12.0 - 6.0) if 12.0 > 6.0 else 0.0
+        logger.info(f"[FILTER_DEBUG] Marker: {col} | Region: {marker_region} | "
+                    f"Agility: {_agility:.2f} | Weighted_Fc: {_fc_result}")
         
         # Store result
         df_out[col] = signal_stage3
@@ -929,6 +1074,22 @@ def apply_signal_cleaning_pipeline(df: pd.DataFrame,
         'avg_hampel_outliers_per_column': total_hampel_outliers / len(pos_cols_valid) if pos_cols_valid else 0,
         'artifact_frames_pct': (100.0 * total_artifacts / (len(pos_cols_valid) * n_frames_total)) if pos_cols_valid and n_frames_total else 0.0,
         'hampel_frames_pct': (100.0 * total_hampel_outliers / (len(pos_cols_valid) * n_frames_total)) if pos_cols_valid and n_frames_total else 0.0,
+        'stage1_max_interp_limit_frames': int(fs * 0.25),
+        'stage1_gap_guard': {
+            'max_gap_across_all_cols': int(max(
+                (m.get('stage1_max_gap_frames', 0)
+                 for m in pipeline_metadata['per_joint_results'].values()),
+                default=0
+            )),
+            'cols_with_unreliable_gaps': [
+                col for col, m in pipeline_metadata['per_joint_results'].items()
+                if m.get('stage1_unreliable_gaps', 0) > 0
+            ],
+            'total_unreliable_gaps': sum(
+                m.get('stage1_unreliable_gaps', 0)
+                for m in pipeline_metadata['per_joint_results'].values()
+            ),
+        },
     }
     
     # Compute cutoff statistics
@@ -1346,7 +1507,8 @@ def apply_winter_filter(df: pd.DataFrame,
                 continue
             
             # Get region configuration with FIXED cutoff
-            region_config = BODY_REGIONS.get(region, {'fixed_cutoff': 10, 'cutoff_range': (8, 12), 'rationale': 'default'})
+            # Default uses 8 Hz (upper_proximal) to preserve 6-12 Hz range
+            region_config = BODY_REGIONS.get(region, {'fixed_cutoff': 8, 'cutoff_range': (6, 12), 'rationale': 'default_upper_proximal'})
             fc_region = region_config.get('fixed_cutoff', 10)  # Use fixed cutoff
             min_cutoff_region, max_cutoff_region = region_config['cutoff_range']
             
@@ -1392,7 +1554,10 @@ def apply_winter_filter(df: pd.DataFrame,
             
             strict_knee = validation_details.get('strict_knee_hz', 'N/A')
             diminishing = validation_details.get('raw_diminishing_hz', 'N/A')
+            # Compute agility factor for this region (same formula as Smart Bias Lerp)
+            _agility_region = (min_cutoff_region - 6.0) / (12.0 - 6.0) if 12.0 > 6.0 else 0.0
             logger.info(f"  {region}: FIXED={fc_region:.0f} Hz | Winter RMS knee: {strict_knee} Hz, diminishing: {diminishing} Hz | {validation_status}")
+            logger.info(f"  [FILTER_DEBUG] Region: {region} | Agility: {_agility_region:.2f} | Weighted_Fc: {fc_region:.1f}")
             
             # Design and apply filter for this region
             b_region, a_region = butter(N=2, Wn=fc_region/(0.5*fs), btype='low')
@@ -1764,4 +1929,231 @@ def compute_filter_characteristics(fc: float, fs: float) -> Dict[str, float]:
         "phase_delay_fc": phase_delays[2] if len(phase_delays) > 2 else 0,
         "phase_delay_5x_fc": phase_delays[3] if len(phase_delays) > 3 else 0,
         "phase_delay_10x_fc": phase_delays[4] if len(phase_delays) > 4 else 0
+    }
+
+
+# =============================================================================
+# POST-FILTER PSD COMPARISON — "No Oversmoothing" GUARANTEE
+# =============================================================================
+
+def compute_psd_comparison(
+    signal_raw: np.ndarray,
+    signal_filtered: np.ndarray,
+    fs: float,
+    dance_band_hz: Tuple[float, float] = (1.0, 13.0),
+    noise_band_hz: Tuple[float, float] = (20.0, 50.0),
+    nperseg: int = 256,
+) -> Dict:
+    """
+    Compare power spectral density between raw and filtered signals.
+
+    Provides an explicit "No Oversmoothing" guarantee by verifying:
+    1. Signal power in the dance band (1-13 Hz) is preserved (delta < 3 dB).
+    2. Noise power above the cutoff is attenuated by >= 20 dB.
+    3. No spectral leakage from interpolation artifacts.
+
+    Uses Welch's method for robust PSD estimation.
+
+    Parameters
+    ----------
+    signal_raw : np.ndarray
+        Original (pre-filter) signal, 1-D.
+    signal_filtered : np.ndarray
+        Post-filter signal, same length as *signal_raw*.
+    fs : float
+        Sampling frequency in Hz.
+    dance_band_hz : tuple
+        (low, high) frequency bounds for the Gaga movement band.
+    noise_band_hz : tuple
+        (low, high) frequency bounds for the noise reference band.
+    nperseg : int
+        Welch segment length (default 256 ~ 2.1 s at 120 Hz).
+
+    Returns
+    -------
+    dict with keys:
+        psd_verdict : str
+            "PASS", "REVIEW_OVERSMOOTHING", or "REVIEW_NOISE_RESIDUAL"
+        dance_band_delta_dB : float
+            Mean power change in dance band (negative = power lost).
+        noise_band_attenuation_dB : float
+            Mean attenuation in noise band (positive = noise reduced).
+        max_dance_band_loss_dB : float
+            Worst-case power loss at any frequency in dance band.
+        freqs : np.ndarray
+            Frequency vector (for optional plotting).
+        psd_raw_dB : np.ndarray
+            Raw signal PSD in dB (for optional plotting).
+        psd_filt_dB : np.ndarray
+            Filtered signal PSD in dB (for optional plotting).
+    """
+    from scipy.signal import welch as scipy_welch
+
+    # Guard: skip if signals are too short or identical
+    if len(signal_raw) < nperseg:
+        nperseg = max(16, len(signal_raw) // 2)
+
+    # Remove NaNs (Welch cannot handle them)
+    valid = np.isfinite(signal_raw) & np.isfinite(signal_filtered)
+    if valid.sum() < nperseg:
+        return {
+            "psd_verdict": "SKIP_INSUFFICIENT_DATA",
+            "dance_band_delta_dB": 0.0,
+            "noise_band_attenuation_dB": 0.0,
+            "max_dance_band_loss_dB": 0.0,
+        }
+
+    sig_r = signal_raw[valid]
+    sig_f = signal_filtered[valid]
+
+    freqs, psd_raw = scipy_welch(sig_r, fs=fs, nperseg=nperseg)
+    _, psd_filt = scipy_welch(sig_f, fs=fs, nperseg=nperseg)
+
+    # Convert to dB (floor at -120 dB to avoid log(0))
+    eps = 1e-12
+    psd_raw_dB = 10 * np.log10(np.maximum(psd_raw, eps))
+    psd_filt_dB = 10 * np.log10(np.maximum(psd_filt, eps))
+    delta_dB = psd_filt_dB - psd_raw_dB  # positive = gain, negative = loss
+
+    # Dance band analysis (1-13 Hz)
+    dance_mask = (freqs >= dance_band_hz[0]) & (freqs <= dance_band_hz[1])
+    if dance_mask.any():
+        dance_delta = float(np.mean(delta_dB[dance_mask]))
+        max_dance_loss = float(np.min(delta_dB[dance_mask]))
+    else:
+        dance_delta = 0.0
+        max_dance_loss = 0.0
+
+    # Noise band analysis (20-50 Hz)
+    noise_mask = (freqs >= noise_band_hz[0]) & (freqs <= noise_band_hz[1])
+    if noise_mask.any():
+        noise_attenuation = float(-np.mean(delta_dB[noise_mask]))
+    else:
+        noise_attenuation = 0.0
+
+    # Verdict
+    if max_dance_loss < -3.0:
+        verdict = "REVIEW_OVERSMOOTHING"
+    elif noise_attenuation < 20.0 and noise_mask.any():
+        verdict = "REVIEW_NOISE_RESIDUAL"
+    else:
+        verdict = "PASS"
+
+    return {
+        "psd_verdict": verdict,
+        "dance_band_delta_dB": round(dance_delta, 2),
+        "noise_band_attenuation_dB": round(noise_attenuation, 2),
+        "max_dance_band_loss_dB": round(max_dance_loss, 2),
+        "freqs": freqs,
+        "psd_raw_dB": psd_raw_dB,
+        "psd_filt_dB": psd_filt_dB,
+    }
+
+
+def run_psd_audit(
+    df_raw: pd.DataFrame,
+    df_filtered: pd.DataFrame,
+    fs: float,
+    pos_cols: Optional[List[str]] = None,
+    dance_band_hz: Tuple[float, float] = (1.0, 13.0),
+    noise_band_hz: Tuple[float, float] = (20.0, 50.0),
+) -> Dict:
+    """
+    Run PSD comparison across all position columns (batch audit).
+
+    Aggregates per-column PSD verdicts into a session-level summary
+    for the Engineering Profile.
+
+    Parameters
+    ----------
+    df_raw : pd.DataFrame
+        DataFrame BEFORE 3-stage filtering.
+    df_filtered : pd.DataFrame
+        DataFrame AFTER 3-stage filtering.
+    fs : float
+        Sampling frequency.
+    pos_cols : list, optional
+        Position columns to audit. Auto-detected if None.
+    dance_band_hz, noise_band_hz : tuple
+        Frequency band boundaries.
+
+    Returns
+    -------
+    dict with:
+        session_psd_verdict : str
+            Overall verdict ("PASS" / "REVIEW_OVERSMOOTHING" / "REVIEW_NOISE_RESIDUAL").
+        n_columns_audited : int
+        n_oversmoothing : int
+            Columns where dance-band power loss > 3 dB.
+        n_noise_residual : int
+            Columns where noise attenuation < 20 dB.
+        mean_dance_delta_dB : float
+        mean_noise_attenuation_dB : float
+        worst_column : str or None
+        worst_dance_loss_dB : float
+        per_column : dict
+            Per-column PSD results (without raw arrays to keep JSON-safe).
+    """
+    if pos_cols is None:
+        pos_cols = [c for c in df_raw.columns
+                    if c.endswith(('__px', '__py', '__pz'))]
+
+    per_column = {}
+    dance_deltas = []
+    noise_attenuations = []
+    n_oversmoothing = 0
+    n_noise_residual = 0
+    worst_col = None
+    worst_loss = 0.0
+
+    for col in pos_cols:
+        if col not in df_raw.columns or col not in df_filtered.columns:
+            continue
+
+        result = compute_psd_comparison(
+            df_raw[col].values.astype(float),
+            df_filtered[col].values.astype(float),
+            fs,
+            dance_band_hz=dance_band_hz,
+            noise_band_hz=noise_band_hz,
+        )
+
+        # Store JSON-safe subset (no numpy arrays)
+        per_column[col] = {
+            "psd_verdict": result["psd_verdict"],
+            "dance_band_delta_dB": result["dance_band_delta_dB"],
+            "noise_band_attenuation_dB": result["noise_band_attenuation_dB"],
+            "max_dance_band_loss_dB": result["max_dance_band_loss_dB"],
+        }
+
+        if result["psd_verdict"] == "REVIEW_OVERSMOOTHING":
+            n_oversmoothing += 1
+        elif result["psd_verdict"] == "REVIEW_NOISE_RESIDUAL":
+            n_noise_residual += 1
+
+        dance_deltas.append(result["dance_band_delta_dB"])
+        noise_attenuations.append(result["noise_band_attenuation_dB"])
+
+        if result["max_dance_band_loss_dB"] < worst_loss:
+            worst_loss = result["max_dance_band_loss_dB"]
+            worst_col = col
+
+    # Session-level verdict
+    if n_oversmoothing > 0:
+        session_verdict = "REVIEW_OVERSMOOTHING"
+    elif n_noise_residual > len(pos_cols) * 0.5:
+        session_verdict = "REVIEW_NOISE_RESIDUAL"
+    else:
+        session_verdict = "PASS"
+
+    return {
+        "session_psd_verdict": session_verdict,
+        "n_columns_audited": len(per_column),
+        "n_oversmoothing": n_oversmoothing,
+        "n_noise_residual": n_noise_residual,
+        "mean_dance_delta_dB": round(float(np.mean(dance_deltas)), 2) if dance_deltas else 0.0,
+        "mean_noise_attenuation_dB": round(float(np.mean(noise_attenuations)), 2) if noise_attenuations else 0.0,
+        "worst_column": worst_col,
+        "worst_dance_loss_dB": round(worst_loss, 2),
+        "per_column": per_column,
     }

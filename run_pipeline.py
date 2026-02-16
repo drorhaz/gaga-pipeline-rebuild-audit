@@ -12,6 +12,7 @@ Usage:
 """
 
 import os
+import re
 import sys
 import yaml
 import json
@@ -35,6 +36,9 @@ class PipelineRunner:
         # Pipeline sequence (notebook numbers)
         self.pipeline_sequence = ['01', '02', '03', '04', '05', '06','08']
         
+        # Load subjects anthropometric registry once at startup
+        self.subjects_registry = self._load_subjects_registry()
+        
         # Setup logging
         self.setup_logging()
         
@@ -57,6 +61,69 @@ class PipelineRunner:
         self.logger = logging.getLogger(__name__)
         self.logger.info(f"Pipeline Runner initialized. Log: {log_file}")
     
+    def _load_subjects_registry(self) -> Dict:
+        """Load per-subject anthropometric registry from data/subjects_registry.json."""
+        registry_path = self.project_root / "data" / "subjects_registry.json"
+        if not registry_path.exists():
+            return {}
+        try:
+            with open(registry_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            # Strip metadata keys (prefixed with _)
+            return {k: v for k, v in data.items() if not k.startswith("_")}
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"WARNING: Could not load subjects registry: {e}")
+            return {}
+    
+    @staticmethod
+    def _extract_subject_id(csv_path: Path, data_dir: Path) -> Optional[str]:
+        """
+        Extract subject ID from CSV path.
+        
+        Tries: relative-path first directory component (e.g. '671/T1/...' -> '671'),
+        then leading digits in filename (e.g. '671_T1_...' -> '671').
+        """
+        try:
+            relative = csv_path.relative_to(data_dir)
+            parts = relative.parts
+            if parts and parts[0].isdigit():
+                return parts[0]
+        except ValueError:
+            pass
+        # Fallback: leading digits in filename
+        m = re.match(r"^(\d+)", csv_path.stem)
+        return m.group(1) if m else None
+    
+    def _get_subject_anthropometrics(self, csv_path: Path) -> Dict:
+        """
+        Look up height/weight for the subject that owns *csv_path*.
+        
+        Returns dict with subject_id, subject_height_cm, subject_mass_kg,
+        subject_height_source, subject_weight_source.  Values are None when
+        not found in the registry.
+        """
+        data_dir = self.project_root / "data"
+        subject_id = self._extract_subject_id(csv_path, data_dir)
+        result = {
+            "subject_id": subject_id,
+            "subject_height_cm": None,
+            "subject_mass_kg": None,
+            "subject_height_source": None,
+            "subject_weight_source": None,
+        }
+        if subject_id is None:
+            return result
+        
+        entry = self.subjects_registry.get(subject_id, {})
+        if entry.get("height_cm") is not None:
+            result["subject_height_cm"] = float(entry["height_cm"])
+            result["subject_height_source"] = entry.get("height_source", "registry")
+        if entry.get("weight_kg") is not None:
+            result["subject_mass_kg"] = float(entry["weight_kg"])
+            result["subject_weight_source"] = entry.get("weight_source", "registry")
+        
+        return result
+    
     def discover_csv_files(self, pattern: str = "**/*.csv") -> List[Path]:
         """Auto-discover CSV files in data directory."""
         data_dir = self.project_root / "data"
@@ -71,7 +138,7 @@ class PipelineRunner:
         return sorted(csv_files)
     
     def update_config(self, csv_path: Path) -> bool:
-        """Update config.yaml with new CSV path."""
+        """Update config.yaml with new CSV path and subject anthropometrics."""
         try:
             # Calculate relative path from data dir
             data_dir = self.project_root / "data"
@@ -84,12 +151,28 @@ class PipelineRunner:
             # Update CSV path (use forward slashes for cross-platform)
             config['current_csv'] = str(relative_path).replace('\\', '/')
             
+            # --- Inject subject anthropometrics from registry ---
+            anthro = self._get_subject_anthropometrics(csv_path)
+            config['subject_id'] = anthro['subject_id']
+            config['subject_height_cm'] = anthro['subject_height_cm']
+            config['subject_mass_kg'] = anthro['subject_mass_kg']
+            config['subject_height_source'] = anthro['subject_height_source']
+            config['subject_weight_source'] = anthro['subject_weight_source']
+            
             # Write back
             if not self.dry_run:
                 with open(self.config_file, 'w') as f:
                     yaml.dump(config, f, default_flow_style=False)
             
             self.logger.info(f"Config updated: current_csv = {config['current_csv']}")
+            if anthro['subject_id']:
+                height_str = f"{anthro['subject_height_cm']}cm" if anthro['subject_height_cm'] else "N/A"
+                weight_str = f"{anthro['subject_mass_kg']}kg" if anthro['subject_mass_kg'] else "N/A"
+                self.logger.info(
+                    f"  Subject {anthro['subject_id']}: height={height_str} "
+                    f"({anthro['subject_height_source'] or 'none'}), "
+                    f"weight={weight_str} ({anthro['subject_weight_source'] or 'none'})"
+                )
             return True
             
         except Exception as e:
@@ -277,29 +360,6 @@ class PipelineRunner:
         
         return all_exist
     
-    def run_master_report(self) -> bool:
-        """Execute notebook 07 to generate master quality report."""
-        self.logger.info("="*70)
-        self.logger.info("Generating Master Quality Report (Notebook 07)")
-        self.logger.info("="*70)
-        
-        result = self.run_notebook('07', timeout=300)
-        
-        if result['status'] == 'success':
-            self.logger.info("Master report generated successfully")
-            
-            # Find the generated Excel file
-            reports_dir = self.project_root / "reports"
-            excel_files = list(reports_dir.glob("Master_Audit_Log_*.xlsx"))
-            if excel_files:
-                latest = max(excel_files, key=lambda p: p.stat().st_mtime)
-                self.logger.info(f"Report: {latest}")
-            
-            return True
-        else:
-            self.logger.error("Master report generation failed")
-            return False
-    
     def process_batch(self, csv_files: List[Path], 
                       stop_on_error: bool = False) -> Dict:
         """
@@ -338,10 +398,6 @@ class PipelineRunner:
                     break
         
         batch_summary['end_time'] = datetime.now().isoformat()
-        
-        # Generate master report
-        if batch_summary['success_count'] > 0:
-            self.run_master_report()
         
         # Save batch summary
         self.save_batch_summary(batch_summary)

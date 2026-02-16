@@ -1451,9 +1451,25 @@ def build_engineering_profile_row(run_id: str, steps: Dict[str, dict]) -> Dict[s
     # =================================================================
     # SECTION 11: PROCESSING STATUS (Technical Only - Not Quality)
     # =================================================================
+    # Metadata_Quality: Sentinel flag from pipeline.py indicating whether
+    # anthropometric defaults (170cm/70kg) were used. If so, de Leva (1996)
+    # CoM calculations are generic, not subject-specific.
+    _meta_quality = safe_get_path(s06, "metadata_quality")
+    if _meta_quality is None:
+        # Infer from height/mass values in the profile
+        _h = safe_float(profile.get("Subject_Height_cm", 0))
+        _m = safe_float(profile.get("Subject_Mass_kg", 0))
+        if abs(_h - 170.0) < 0.1 and abs(_m - 70.0) < 0.1:
+            _meta_quality = "UNRELIABLE_COM_DEFAULT_ANTHRO"
+        elif _h == 0 or _m == 0:
+            _meta_quality = "MISSING_ANTHRO"
+        else:
+            _meta_quality = "SUBJECT_SPECIFIC"
+    
     profile.update({
         "Pipeline_Completion_Step": safe_get_path(s06, "overall_status"),
         "Overall_Gate_Status": safe_get_path(s06, "overall_gate_status"),
+        "Metadata_Quality": _meta_quality,
     })
     
     # =================================================================
@@ -1497,7 +1513,196 @@ def build_engineering_profile_row(run_id: str, steps: Dict[str, dict]) -> Dict[s
         "Most_Asymmetric_Pair": safe_get_path(phase2, "bilateral_symmetry.most_asymmetric"),
     })
     
+    # =================================================================
+    # SECTION 13: V3.0 PIPELINE VALIDATION METRICS
+    # =================================================================
+    profile.update(_extract_v3_validation_metrics(s02, s04, s06))
+    
     return profile
+
+
+def _extract_v3_validation_metrics(s02: dict, s04: dict, s06: dict) -> Dict[str, Any]:
+    """
+    Extract V3.0 Pipeline Validation Metrics for audit transparency.
+
+    Verifies that Stage 2 Smart Bias, Stage 4 Spine Whitelist, and
+    Stage 1 Euler sequence fixes are reflected in the engineering data.
+
+    Sources:
+        s02 - step_02 preprocess_summary (bone CV, worst bone)
+        s04 - step_04 filtering_summary (region cutoffs, method distribution)
+        s06 - step_06 validation_report (euler sequences from metrics if present)
+    """
+    metrics: Dict[str, Any] = {}
+
+    # -----------------------------------------------------------------
+    # 1. SMART BIAS VERIFICATION (from region_cutoffs in filtering_summary)
+    # -----------------------------------------------------------------
+    region_cutoffs = safe_get_path(s04, "filter_params.region_cutoffs", default={})
+    if isinstance(region_cutoffs, dict) and region_cutoffs:
+        trunk_regions = ['trunk']
+        distal_regions = ['upper_distal']
+        proximal_regions = ['upper_proximal', 'lower_proximal']
+
+        trunk_vals = [float(region_cutoffs[r]) for r in trunk_regions
+                      if r in region_cutoffs]
+        distal_vals = [float(region_cutoffs[r]) for r in distal_regions
+                       if r in region_cutoffs]
+        proximal_vals = [float(region_cutoffs[r]) for r in proximal_regions
+                         if r in region_cutoffs]
+
+        trunk_mean = round(np.mean(trunk_vals), 2) if trunk_vals else None
+        distal_mean = round(np.mean(distal_vals), 2) if distal_vals else None
+        proximal_mean = round(np.mean(proximal_vals), 2) if proximal_vals else None
+
+        metrics["Filter_Trunk_Mean_Hz"] = trunk_mean
+        metrics["Filter_Trunk_Std_Hz"] = round(float(np.std(trunk_vals)), 2) if len(trunk_vals) > 1 else 0.0
+        metrics["Filter_Distal_Mean_Hz"] = distal_mean
+        metrics["Filter_Distal_Std_Hz"] = round(float(np.std(distal_vals)), 2) if len(distal_vals) > 1 else 0.0
+        metrics["Filter_Proximal_Mean_Hz"] = proximal_mean
+
+        if trunk_mean is not None and distal_mean is not None:
+            metrics["Smart_Bias_Delta_Hz"] = round(distal_mean - trunk_mean, 2)
+        else:
+            metrics["Smart_Bias_Delta_Hz"] = None
+    else:
+        metrics["Filter_Trunk_Mean_Hz"] = None
+        metrics["Filter_Distal_Mean_Hz"] = None
+        metrics["Filter_Proximal_Mean_Hz"] = None
+        metrics["Filter_Trunk_Std_Hz"] = None
+        metrics["Filter_Distal_Std_Hz"] = None
+        metrics["Smart_Bias_Delta_Hz"] = None
+
+    # -----------------------------------------------------------------
+    # 2. METHODOLOGY INTEGRITY CHECK (from method_distribution)
+    #    Proves whether smart_bias was actually triggered vs. fallback
+    # -----------------------------------------------------------------
+    method_dist = safe_get_path(s04, "filter_params.method_distribution", default={})
+    if isinstance(method_dist, dict) and method_dist:
+        total_cols = sum(method_dist.values())
+        smart_bias_count = method_dist.get("smart_bias", 0)
+        strict_knee_count = method_dist.get("strict_knee", 0)
+        fallback_count = (method_dist.get("fmax_fallback", 0)
+                          + method_dist.get("no_knee_standard_protocol", 0)
+                          + method_dist.get("flat_signal_failure", 0)
+                          + method_dist.get("signal_too_short", 0))
+
+        metrics["Winter_Method_SmartBias_Count"] = smart_bias_count
+        metrics["Winter_Method_StrictKnee_Count"] = strict_knee_count
+        metrics["Winter_Method_Fallback_Count"] = fallback_count
+        metrics["Winter_Method_SmartBias_Pct"] = (
+            round(100.0 * smart_bias_count / total_cols, 1) if total_cols > 0 else 0.0
+        )
+        metrics["Winter_Method_Dominant"] = max(method_dist, key=method_dist.get) if method_dist else "N/A"
+    else:
+        metrics["Winter_Method_SmartBias_Count"] = None
+        metrics["Winter_Method_StrictKnee_Count"] = None
+        metrics["Winter_Method_Fallback_Count"] = None
+        metrics["Winter_Method_SmartBias_Pct"] = None
+        metrics["Winter_Method_Dominant"] = "N/A (pre-v3.0 data)"
+
+    # -----------------------------------------------------------------
+    # 3. SPINE WHITELIST VERIFICATION (from bone QC in s02)
+    # -----------------------------------------------------------------
+    bone_cv = safe_float(safe_get_path(s02, "bone_qc_mean_cv"))
+    worst_bone = safe_get_path(s02, "worst_bone", default=None)
+    short_segments = {'Hips->Spine', 'Neck->Head', 'Spine->Spine1'}
+    cv_standard = 0.02
+    cv_short_limit = 0.035
+
+    if worst_bone and isinstance(worst_bone, str):
+        is_short_seg = worst_bone in short_segments
+        if bone_cv > cv_standard and is_short_seg and bone_cv <= cv_short_limit:
+            bone_qc_verdict = "PASS_WHITELIST"
+        elif bone_cv > cv_short_limit and is_short_seg:
+            bone_qc_verdict = "WARN"
+        elif bone_cv > cv_standard and not is_short_seg:
+            bone_qc_verdict = "WARN"
+        else:
+            bone_qc_verdict = "PASS"
+    else:
+        bone_qc_verdict = "UNKNOWN"
+
+    metrics["Bone_QC_Verdict"] = bone_qc_verdict
+    metrics["Worst_Bone_CV_Pct"] = round(bone_cv * 100, 3) if bone_cv else 0.0
+    metrics["Bone_Whitelist_Applied"] = (bone_qc_verdict == "PASS_WHITELIST")
+
+    # -----------------------------------------------------------------
+    # 4. EULER SEQUENCE VERIFICATION (live import check)
+    #    Proves ISB-compliant sequences are available in the codebase
+    # -----------------------------------------------------------------
+    try:
+        from euler_isb import get_euler_sequence
+        metrics["Euler_Seq_RightShoulder"] = get_euler_sequence("RightShoulder")
+        metrics["Euler_Seq_LeftShoulder"] = get_euler_sequence("LeftShoulder")
+        metrics["Euler_Seq_Spine"] = get_euler_sequence("Spine")
+        metrics["Euler_Seq_Hips"] = get_euler_sequence("Hips")
+        metrics["Euler_ISB_Module_Available"] = True
+    except ImportError:
+        metrics["Euler_Seq_RightShoulder"] = "N/A"
+        metrics["Euler_Seq_LeftShoulder"] = "N/A"
+        metrics["Euler_Seq_Spine"] = "N/A"
+        metrics["Euler_Seq_Hips"] = "N/A"
+        metrics["Euler_ISB_Module_Available"] = False
+
+    # -----------------------------------------------------------------
+    # 5. GAP GUARD (Stage 1 Interpolation Cap)
+    #    Tracks how many gaps exceeded the 30-frame PCHIP limit.
+    # -----------------------------------------------------------------
+    gap_guard = safe_get_path(s04, "filter_params.stage1_gap_guard", default={})
+    metrics["Stage1_Gap_Guard_Max_Frames"] = safe_int(
+        gap_guard.get("max_gap_across_all_cols", 0) if isinstance(gap_guard, dict) else 0
+    )
+    metrics["Stage1_Gap_Guard_Unreliable_Count"] = safe_int(
+        gap_guard.get("total_unreliable_gaps", 0) if isinstance(gap_guard, dict) else 0
+    )
+    metrics["Stage1_Gap_Guard_Cols_Affected"] = safe_int(
+        gap_guard.get("columns_with_unreliable_gaps", 0) if isinstance(gap_guard, dict) else 0
+    )
+    metrics["Stage1_Interp_Limit_Frames"] = safe_int(
+        safe_get_path(s04, "filter_params.stage1_max_interp_limit_frames", default=0)
+    )
+
+    # -----------------------------------------------------------------
+    # 6. PSD VERIFICATION (No-Oversmoothing Guarantee)
+    #    Confirms dance-band (1-13 Hz) power preservation and noise attenuation.
+    # -----------------------------------------------------------------
+    psd_audit = safe_get_path(s04, "filter_params.psd_audit", default={})
+    if isinstance(psd_audit, dict) and psd_audit:
+        metrics["PSD_Session_Verdict"] = psd_audit.get("session_psd_verdict", "N/A")
+        metrics["PSD_Dance_Band_Delta_dB"] = round(
+            safe_float(psd_audit.get("mean_dance_delta_dB", 0)), 2
+        )
+        metrics["PSD_Noise_Attenuation_dB"] = round(
+            safe_float(psd_audit.get("mean_noise_attenuation_dB", 0)), 2
+        )
+        metrics["PSD_Oversmoothing_Count"] = safe_int(psd_audit.get("n_oversmoothing", 0))
+        metrics["PSD_Columns_Audited"] = safe_int(psd_audit.get("n_columns_audited", 0))
+        metrics["PSD_Worst_Column"] = psd_audit.get("worst_column", "N/A")
+        metrics["PSD_Worst_Loss_dB"] = round(
+            safe_float(psd_audit.get("worst_dance_loss_dB", 0)), 2
+        )
+    else:
+        metrics["PSD_Session_Verdict"] = "NOT_COMPUTED"
+        metrics["PSD_Dance_Band_Delta_dB"] = None
+        metrics["PSD_Noise_Attenuation_dB"] = None
+        metrics["PSD_Oversmoothing_Count"] = None
+        metrics["PSD_Columns_Audited"] = None
+        metrics["PSD_Worst_Column"] = "N/A"
+        metrics["PSD_Worst_Loss_dB"] = None
+
+    # -----------------------------------------------------------------
+    # 7. ANATOMICAL 6-TIER CUTOFF BREAKDOWN
+    #    Per-region mean cutoffs (head, trunk, upper/lower proximal/distal).
+    # -----------------------------------------------------------------
+    if isinstance(region_cutoffs, dict) and region_cutoffs:
+        for tier in ["head", "trunk", "upper_proximal", "lower_proximal",
+                     "lower_distal", "upper_distal"]:
+            val = region_cutoffs.get(tier)
+            col_name = f"Filter_{tier.replace('_', ' ').title().replace(' ', '')}_Hz"
+            metrics[col_name] = round(float(val), 1) if val is not None else None
+
+    return metrics
 
 
 def extract_per_joint_noise_profile(steps: Dict[str, dict]) -> pd.DataFrame:

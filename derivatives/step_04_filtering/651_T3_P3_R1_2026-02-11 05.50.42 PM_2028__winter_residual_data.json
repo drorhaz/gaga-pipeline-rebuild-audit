@@ -1,0 +1,28 @@
+{
+  "run_id": "651_T3_P3_R1_2026-02-11 05.50.42 PM_2028",
+  "cutoff_frequencies_hz": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "rms_residuals": [],
+  "knee_point_hz": null,
+  "knee_point_found": false,
+  "representative_signal": "N/A",
+  "analysis_method": "kneedle_algorithm",
+  "frequency_range": [
+    1,
+    12
+  ],
+  "data_available": false,
+  "note": "Placeholder - residual curve to be added to filtering module"
+}

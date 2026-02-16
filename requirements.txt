@@ -1,9 +1,32 @@
+# Gaga Mocap Pipeline - Unified Requirements
+# Install with: pip install -r requirements.txt
+
+# Core scientific stack
 numpy
 pandas
 scipy
 matplotlib
+
+# Configuration
 pyyaml
-tqdm
+
+# Parquet I/O (pandas backend)
+pyarrow
+
+# Excel export (used by notebook 08)
+xlsxwriter
+
+# EDA & PCA analysis (used by EDA_PCA.py)
+scikit-learn
+
+# Interactive visualization (optional, used by notebook 06 and EDA)
+plotly
+
+# Jupyter environment
 ipykernel
 jupyter
 jupyterlab
+tqdm
+
+# Pipeline automation (batch processing via run_pipeline.py)
+papermill>=2.4.0

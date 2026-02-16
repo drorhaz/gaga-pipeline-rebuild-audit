@@ -9,7 +9,7 @@ The `run_pipeline.py` script automates the complete motion capture processing pi
 ### 1. Install Dependencies
 
 ```bash
-pip install -r pipeline_requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 2. Run the Pipeline

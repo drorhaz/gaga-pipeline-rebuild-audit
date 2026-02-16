@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subject 671_p3_r1 — Numerical Results Archive</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; padding: 2rem 0; }
+    .report-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; color: #1a1a1a; }
+    .table { font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="container" style="max-width: 1200px;">
+    <h1 class="report-title">Subject 671_p3_r1 — Numerical Results Archive</h1>
+    <p class="text-muted">Phase 0–5 statistical tables. Generated from 10_EDA_PCA.ipynb.</p>
+    <section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 0: Numerical Verification Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Session ID</th>
+      <th>Frames</th>
+      <th>Median fs (Hz)</th>
+      <th>Duration (s)</th>
+      <th>Max Gap (ms)</th>
+      <th>ω cols</th>
+      <th>q cols</th>
+      <th>XYZ cols</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T2</td>
+      <td>7576</td>
+      <td>120.0</td>
+      <td>63.1</td>
+      <td>8.33</td>
+      <td>19</td>
+      <td>76</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>8853</td>
+      <td>120.0</td>
+      <td>73.8</td>
+      <td>8.33</td>
+      <td>19</td>
+      <td>76</td>
+      <td>57</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 1: Scaling Summary Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>Total Frames (T1+T2+T3)</th>
+      <th>Feature Count</th>
+      <th>Scaling Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>12000</td>
+      <td>19</td>
+      <td>PASS</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>12000</td>
+      <td>76</td>
+      <td>PASS</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>12000</td>
+      <td>57</td>
+      <td>PASS</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 2: Variance Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>PC1 %</th>
+      <th>PC2 %</th>
+      <th>PC3 %</th>
+      <th>Cumulative 3-PC %</th>
+      <th>Total Features</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>24.46</td>
+      <td>17.13</td>
+      <td>9.05</td>
+      <td>50.64</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>18.14</td>
+      <td>10.70</td>
+      <td>8.83</td>
+      <td>37.67</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>27.74</td>
+      <td>22.04</td>
+      <td>13.34</td>
+      <td>63.12</td>
+      <td>57</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 3: N90 Trend Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>T2 N90</th>
+      <th>T3 N90</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>24</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>9</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 3: Volume Trend Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>T2 Volume</th>
+      <th>T3 Volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>524.498226</td>
+      <td>447.582682</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>1475.245932</td>
+      <td>197.759888</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>1068.496487</td>
+      <td>436.262095</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 4: Joint Loadings (Top 5 per branch)</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>Top 1 Joint (%)</th>
+      <th>Top 2 Joint (%)</th>
+      <th>Top 3 Joint (%)</th>
+      <th>Top 4 Joint (%)</th>
+      <th>Top 5 Joint (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Head (8.75%)</td>
+      <td>Neck (7.82%)</td>
+      <td>RightFoot (5.84%)</td>
+      <td>Hips (5.83%)</td>
+      <td>LeftFoot (5.61%)</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Hips (7.18%)</td>
+      <td>RightFoot (6.65%)</td>
+      <td>LeftUpLeg (6.56%)</td>
+      <td>Spine (6.52%)</td>
+      <td>RightUpLeg (6.39%)</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftFoot (6.77%)</td>
+      <td>Spine (6.58%)</td>
+      <td>LeftLeg (6.58%)</td>
+      <td>Spine1 (6.38%)</td>
+      <td>LeftShoulder (6.2%)</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 4: Session Loadings (Longitudinal)</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>Joint</th>
+      <th>T2 %</th>
+      <th>T3 %</th>
+      <th>Change (T3-T2)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Spine</td>
+      <td>6.13</td>
+      <td>4.46</td>
+      <td>-1.68</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>RightLeg</td>
+      <td>6.01</td>
+      <td>4.60</td>
+      <td>-1.41</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Hips</td>
+      <td>4.86</td>
+      <td>6.02</td>
+      <td>1.16</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Head</td>
+      <td>4.96</td>
+      <td>5.92</td>
+      <td>0.96</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Neck</td>
+      <td>4.80</td>
+      <td>5.65</td>
+      <td>0.85</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>RightFoot</td>
+      <td>5.10</td>
+      <td>5.94</td>
+      <td>0.84</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>LeftLeg</td>
+      <td>5.62</td>
+      <td>4.80</td>
+      <td>-0.83</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>RightShoulder</td>
+      <td>5.73</td>
+      <td>5.00</td>
+      <td>-0.73</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>LeftForeArm</td>
+      <td>5.68</td>
+      <td>5.01</td>
+      <td>-0.67</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>LeftFoot</td>
+      <td>5.16</td>
+      <td>5.81</td>
+      <td>0.66</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Spine</td>
+      <td>5.04</td>
+      <td>3.88</td>
+      <td>-1.16</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightArm</td>
+      <td>5.29</td>
+      <td>6.31</td>
+      <td>1.02</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Hips</td>
+      <td>5.27</td>
+      <td>4.29</td>
+      <td>-0.98</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>LeftFoot</td>
+      <td>5.07</td>
+      <td>4.17</td>
+      <td>-0.90</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightForeArm</td>
+      <td>5.21</td>
+      <td>6.08</td>
+      <td>0.86</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightUpLeg</td>
+      <td>5.26</td>
+      <td>4.41</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>LeftUpLeg</td>
+      <td>5.21</td>
+      <td>4.36</td>
+      <td>-0.85</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Head</td>
+      <td>5.28</td>
+      <td>6.10</td>
+      <td>0.83</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightShoulder</td>
+      <td>5.22</td>
+      <td>5.90</td>
+      <td>0.69</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightFoot</td>
+      <td>5.36</td>
+      <td>4.75</td>
+      <td>-0.62</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>RightUpLeg</td>
+      <td>6.25</td>
+      <td>5.70</td>
+      <td>-0.55</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftUpLeg</td>
+      <td>6.06</td>
+      <td>5.56</td>
+      <td>-0.50</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Spine1</td>
+      <td>5.37</td>
+      <td>5.63</td>
+      <td>0.26</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftShoulder</td>
+      <td>6.03</td>
+      <td>6.26</td>
+      <td>0.23</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>RightHand</td>
+      <td>5.58</td>
+      <td>5.81</td>
+      <td>0.23</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftLeg</td>
+      <td>4.28</td>
+      <td>4.06</td>
+      <td>-0.21</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Head</td>
+      <td>6.13</td>
+      <td>6.34</td>
+      <td>0.20</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Neck</td>
+      <td>6.17</td>
+      <td>6.37</td>
+      <td>0.20</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftHand</td>
+      <td>5.58</td>
+      <td>5.78</td>
+      <td>0.20</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>RightShoulder</td>
+      <td>6.12</td>
+      <td>6.24</td>
+      <td>0.12</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 5: Longitudinal Strategy Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>Metric</th>
+      <th>T2</th>
+      <th>T3</th>
+      <th>% Change (T2 vs T3)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Gini</td>
+      <td>0.0468</td>
+      <td>0.0508</td>
+      <td>8.55</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Shannon</td>
+      <td>2.9411</td>
+      <td>2.9404</td>
+      <td>-0.02</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>AxialPeripheral</td>
+      <td>0.7909</td>
+      <td>0.8370</td>
+      <td>5.82</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Sparseness</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Gini</td>
+      <td>0.0121</td>
+      <td>0.0784</td>
+      <td>550.24</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Shannon</td>
+      <td>2.9442</td>
+      <td>2.9345</td>
+      <td>-0.33</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>AxialPeripheral</td>
+      <td>0.8420</td>
+      <td>0.8289</td>
+      <td>-1.56</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Sparseness</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Gini</td>
+      <td>0.1123</td>
+      <td>0.1166</td>
+      <td>3.74</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Shannon</td>
+      <td>2.8832</td>
+      <td>2.8821</td>
+      <td>-0.04</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>AxialPeripheral</td>
+      <td>0.6963</td>
+      <td>0.7162</td>
+      <td>2.85</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Sparseness</td>
+      <td>5.2632</td>
+      <td>5.2632</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table></div>
+</section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

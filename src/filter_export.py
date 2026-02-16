@@ -13,6 +13,28 @@ import numpy as np
 import pandas as pd
 
 
+def _classify_winter_method(raw_method: str) -> str:
+    """Map verbose per-column Winter method strings to canonical categories."""
+    m = raw_method.lower()
+    if m.startswith("smart_bias"):
+        return "smart_bias"
+    if "strict_knee" in m:
+        return "strict_knee"
+    if "relaxed_knee" in m:
+        return "relaxed_knee"
+    if "diminishing" in m:
+        return "diminishing_returns"
+    if "no_knee_point" in m or "standard_protocol" in m:
+        return "no_knee_standard_protocol"
+    if "fmax_fallback" in m:
+        return "fmax_fallback"
+    if "flat_signal" in m:
+        return "flat_signal_failure"
+    if "too_short" in m:
+        return "signal_too_short"
+    return raw_method
+
+
 def _snr_analysis_dict(snr_report: Dict[str, Any]) -> Dict[str, Any]:
     """Build the SNR block for filtering summary JSON (shared by 3-stage and per-region/single paths)."""
     if snr_report is None:
@@ -268,6 +290,7 @@ def _export_3stage(
 
     region_cutoffs: Dict[str, list] = {}
     region_counts: Dict[str, int] = {}
+    method_counts: Dict[str, int] = {}
     for col, meta in per_joint.items():
         region = meta.get("marker_region", "unknown")
         cutoff = meta.get("stage3_winter_cutoff")
@@ -277,6 +300,9 @@ def _export_3stage(
                 region_counts[region] = 0
             region_cutoffs[region].append(cutoff)
             region_counts[region] += 1
+        method = meta.get("stage3_winter_method", "unknown")
+        method_key = _classify_winter_method(method)
+        method_counts[method_key] = method_counts.get(method_key, 0) + 1
     region_avg_cutoffs = {r: round(float(np.mean(c)), 1) for r, c in region_cutoffs.items()}
 
     n_frames = summary_stats.get("n_frames_total", 0)
@@ -335,6 +361,12 @@ def _export_3stage(
             "region_cutoffs": region_avg_cutoffs,
             "region_marker_counts": region_counts,
             "cutoff_range_hz": list(winter_meta.get("cutoff_range", [1.0, 20.0])),
+            "method_distribution": method_counts,
+            # Gap Guard (Stage 1 interpolation cap)
+            "stage1_max_interp_limit_frames": summary_stats.get("stage1_max_interp_limit_frames", 0),
+            "stage1_gap_guard": summary_stats.get("stage1_gap_guard", {}),
+            # PSD Verification (No-Oversmoothing Guarantee)
+            "psd_audit": winter_meta.get("psd_audit", {}),
         },
     }
     snr_block = _snr_analysis_dict(snr_report)
@@ -364,6 +396,12 @@ def _export_3stage(
     for region in sorted(region_avg_cutoffs):
         avg_cutoff = region_avg_cutoffs[region]
         print(f"      - {region}: {avg_cutoff:.1f} Hz ({region_counts.get(region, 0)} markers)")
+    gap_guard = summary_stats.get("stage1_gap_guard", {})
+    if gap_guard:
+        interp_limit = summary_stats.get("stage1_max_interp_limit_frames", 0)
+        print(f"   Gap Guard: interp_limit={interp_limit} frames, "
+              f"max_gap={gap_guard.get('max_gap_across_all_cols', 0)} frames, "
+              f"unreliable_gaps={gap_guard.get('total_unreliable_gaps', 0)}")
     print(f"{'='*60}\n")
     return out_path
 

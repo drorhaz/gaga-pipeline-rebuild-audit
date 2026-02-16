@@ -1,0 +1,71 @@
+{
+    "audit": {
+        "offsets": {
+            "Left": {
+                "bone_detected": "LeftArm",
+                "measured_angle_deg": 7.32,
+                "correction_value_deg": -7.32,
+                "is_significant": true
+            },
+            "Right": {
+                "bone_detected": "RightArm",
+                "measured_angle_deg": 4.89,
+                "correction_value_deg": -4.89,
+                "is_significant": false
+            }
+        },
+        "scaling": 0.001,
+        "bone_m": {
+            "Spine": 0.0318,
+            "Spine1": 0.3892,
+            "Neck": NaN,
+            "Head": NaN,
+            "LeftShoulder": 0.0946,
+            "LeftArm": 0.1207,
+            "LeftForeArm": 0.319,
+            "LeftHand": 0.2036,
+            "RightShoulder": 0.0946,
+            "RightArm": 0.1207,
+            "RightForeArm": 0.319,
+            "RightHand": 0.2036,
+            "LeftUpLeg": 0.0838,
+            "LeftLeg": 0.5009,
+            "LeftFoot": 0.3958,
+            "RightUpLeg": 0.0838,
+            "RightLeg": 0.5009,
+            "RightFoot": 0.3958
+        }
+    },
+    "config_params": {
+        "calibration_thresholds": {
+            "max_allowable_offset_deg": 5.0,
+            "arm_span_stature_ratio_min": 0.85,
+            "femur_length_stature_ratio": 0.245,
+            "max_femur_error_pct": 15.0
+        },
+        "naming_conventions": {
+            "arm_segments": [
+                "L_Arm",
+                "LeftArm",
+                "L_UpArm",
+                "R_Arm",
+                "RightArm",
+                "R_UpArm"
+            ],
+            "femur_segments": [
+                "UpLeg",
+                "Thigh",
+                "Femur"
+            ]
+        },
+        "gap_filling": {
+            "mad_multiplier": 6.0,
+            "max_gap_s": 0.1
+        },
+        "metadata": {
+            "reference_author": "R\u05b3\u00a1cz et al. (2025)",
+            "standard": "ISB / CAST Technique"
+        }
+    },
+    "is_corrected": true
+}
