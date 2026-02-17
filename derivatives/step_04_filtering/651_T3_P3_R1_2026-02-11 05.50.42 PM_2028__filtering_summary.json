@@ -1,7 +1,7 @@
 {
     "run_id": "651_T3_P3_R1_2026-02-11 05.50.42 PM_2028",
     "identity": {
-        "timestamp": "2026-02-16 15:23",
+        "timestamp": "2026-02-16 20:00",
         "pipeline_version": "v3.0_3stage_signal_cleaning"
     },
     "subject_metadata": {
@@ -68,20 +68,20 @@
             "std": 1.724546233268395
         },
         "region_cutoffs": {
+            "head": 8.0,
             "lower_distal": 10.1,
+            "trunk": 6.0,
             "upper_proximal": 8.0,
             "lower_proximal": 8.0,
-            "upper_distal": 12.0,
-            "trunk": 6.0,
-            "head": 8.0
+            "upper_distal": 12.0
         },
         "region_marker_counts": {
+            "head": 6,
             "lower_distal": 12,
+            "trunk": 9,
             "upper_proximal": 18,
             "lower_proximal": 6,
-            "upper_distal": 6,
-            "trunk": 9,
-            "head": 6
+            "upper_distal": 6
         },
         "cutoff_range_hz": [
             6.0,
@@ -89,17 +89,17 @@
         ],
         "method_distribution": {
             "smart_bias": 46,
-            "diminishing_returns": 9,
-            "no_knee_standard_protocol": 2
+            "no_knee_standard_protocol": 2,
+            "diminishing_returns": 9
         },
         "stage1_max_interp_limit_frames": 30,
         "stage1_gap_guard": {
             "max_gap_across_all_cols": 69,
             "cols_with_unreliable_gaps": [
                 "Neck__py",
-                "RightShoulder__py",
                 "Spine1__py",
                 "Head__py",
+                "RightShoulder__py",
                 "LeftShoulder__py"
             ],
             "total_unreliable_gaps": 5
