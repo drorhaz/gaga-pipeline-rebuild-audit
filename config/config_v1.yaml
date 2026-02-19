@@ -1,7 +1,7 @@
 crop_sec:
 - 10.0
 - 110.0
-current_csv: 763/T2/763_T2_P2_R2_Take_2025-12-25 10.51.23 AM_005.csv
+current_csv: 671/T3/671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001.csv
 data_dir: data
 deriv_method: savgol
 derivatives_dir: derivatives
@@ -77,11 +77,11 @@ shortest_rotation: true
 static_search_step_sec: 0.1
 step_06:
   enforce_cleaning: false
-subject_height_cm: null
-subject_height_source: null
-subject_id: '763'
-subject_mass_kg: null
-subject_weight_source: null
+subject_height_cm: 179.0
+subject_height_source: measured
+subject_id: '671'
+subject_mass_kg: 72.0
+subject_weight_source: measured
 thresh:
   bone_cv_alert: 0.05
   bone_cv_warn: 0.02
