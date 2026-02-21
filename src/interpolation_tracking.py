@@ -54,19 +54,14 @@ def compute_per_joint_interpolation_stats(df_pre, df_post, max_gap):
         frames_fixed = nans_pre - nans_post
         frames_fixed_percent = (frames_fixed / total_values) * 100 if total_values > 0 else 0.0
         
-        # Determine interpolation method used
-        # Linear is used for positions, Linear+Renormalize for quaternions
         has_quaternions = any(c.endswith(('__qx', '__qy', '__qz', '__qw')) for c in joint_cols)
         
         if frames_fixed > 0:
             if has_quaternions:
-                method = "linear_quaternion_normalized"
+                method = "slerp"
             else:
-                method = "linear"
-                
-            # Check if gap was too large for spline (linear fallback indicator)
-            # If max gap > threshold, spline wasn't possible
-            method_note = "linear_fallback" if method == "linear" and max_gap > 5 else method
+                method = "pchip_single_pass"
+            method_note = method
         else:
             method = "none_required"
             method_note = "pristine"

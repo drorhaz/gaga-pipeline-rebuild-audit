@@ -68,6 +68,14 @@ The following are stored as key-value pairs in the Parquet file's schema metadat
 | `com_mass_coverage_pct` | Percentage of total body mass covered by available segments |
 | `nan_guard_status` | `CLEAN`, `MINOR`, or `CRITICAL` — NaN integrity status |
 | `metadata_quality` | `SUBJECT_SPECIFIC`, `UNRELIABLE_COM_DEFAULT_ANTHRO`, or `MISSING_ANTHRO` |
+| `derivative_method` | `savgol_chunked` — NaN-safe Savitzky-Golay via contiguous-segment dispatch |
+| `chunking_guard` | `true` — confirms NaN-safe chunking is active |
+| `sg_window_len` | SavGol window length in samples (e.g., `21`) |
+| `sg_polyorder` | SavGol polynomial order (e.g., `3`) |
+| `subject_height_source` | `measured`, `mocap_corrected`, or `unknown` |
+| `com_reliability_score` | 0.0–1.0 score based on mass coverage (< 0.90 = UNRELIABLE) |
+| `com_reliability_flag` | `RELIABLE` or `UNRELIABLE` |
+| `euler_standard` | `ISB` — confirms ISB-compliant Euler sequences are used |
 
 ---
 
@@ -323,6 +331,7 @@ Second-order Savitzky-Golay derivative of root-relative positions. Computed dire
 | `wbc_com_x` | mm | Whole-body center of mass, X (root-relative) |
 | `wbc_com_y` | mm | Whole-body center of mass, Y (root-relative) |
 | `wbc_com_z` | mm | Whole-body center of mass, Z (root-relative) |
+| `com_reliability_score` | 0.0–1.0 | Mass coverage fraction; < 0.90 indicates UNRELIABLE WBCoM |
 
 **How computed:**
 
@@ -379,21 +388,22 @@ This ensures the WBCoM never becomes NaN and the effective total mass remains 10
 
 **How computed:**
 
-Decomposition from the zeroed quaternion into Euler angles using joint-specific rotation orders:
+Decomposition from the zeroed quaternion into ISB-standard Euler angles using joint-specific rotation orders defined in `src/euler_isb.py`:
 
 ```
-For axial chain joints (Hips, Spine, Spine1, Neck, Head):
-    euler = Rotation.from_quat(q_zeroed).as_euler('ZYX', degrees=True)
-    Meaning: [Z: Axial Rotation, Y: Lateral Bending, X: Flexion/Extension]
-
-For limb joints (all others):
-    euler = Rotation.from_quat(q_zeroed).as_euler('XYZ', degrees=True)
-    Meaning: [X: Flexion/Extension, Y: Abduction/Adduction, Z: Internal/External Rotation]
+seq = get_euler_sequence(joint_name)   # e.g., 'ZXY' for spine, 'YXY' for shoulder
+euler = Rotation.from_quat(q_zeroed).as_euler(seq, degrees=True)
 ```
 
-**What it represents:** Joint angles decomposed into anatomically meaningful planes. Euler angles are more interpretable than quaternions for clinical reporting (e.g., "the knee is flexed 45°"), but suffer from gimbal lock at extreme angles. The rotation order is chosen per joint region to minimize gimbal lock risk for typical dance movements.
+| Joint Group | ISB Sequence | Anatomical Meaning |
+|-------------|-------------|-------------------|
+| Spine/Pelvis/Head (Hips, Spine, Spine1, Neck, Head) | ZXY | Z: Flex/Ext, X: Lat. Bend, Y: Axial Rot. |
+| Shoulders (LeftShoulder, RightShoulder) | YXY | Y1: Plane of elev., X: Elevation, Y2: Axial Rot. |
+| All other limbs | ZXY | Z: Flex/Ext, X: Ab/Adduction, Y: Int/Ext Rot. |
 
-**Known caveat:** The notebook (NB06) uses ZYX for axial chain and XYZ for limbs. The `src/euler_isb.py` module defines the ISB-standard sequences (ZXY for most joints, YXY for shoulders). These differ slightly — see `src/euler_isb.py` header for full details and reconciliation guidance.
+**What it represents:** Joint angles decomposed into anatomically meaningful planes per ISB recommendations (Wu et al. 2002, 2005). Euler angles are more interpretable than quaternions for clinical reporting (e.g., "the knee is flexed 45°"), but suffer from gimbal lock at extreme angles. The YXY sequence for shoulders prevents gimbal lock during arm elevation.
+
+**Column naming:** `euler_x`, `euler_y`, `euler_z` are positional labels (1st, 2nd, 3rd decomposition angle in the sequence). The physical axis meaning depends on the joint's ISB sequence — consult the table above or the `euler_sequences_used` field in the validation report JSON.
 
 ---
 
@@ -427,7 +437,19 @@ A frame is flagged if **any** criterion is exceeded. Joint-level flags combine r
 
 ## 9. Smoothing & Derivative Method
 
-All derivatives and smoothing in the master kinematics pipeline use the **Savitzky-Golay filter** (Savitzky & Golay, 1964), which fits a local polynomial to the data and uses its analytical derivative. This provides simultaneous smoothing and differentiation.
+All derivatives and smoothing in the master kinematics pipeline use the **NaN-safe chunked Savitzky-Golay filter** (`chunked_savgol` in `src/filtering.py`), which applies `scipy.signal.savgol_filter` strictly within contiguous segments of finite data. This prevents "NaN bleeding" where the filter window would bridge a data gap and destroy valid data near the gap boundary.
+
+### Chunking Guard (Phase 4)
+
+The `chunked_savgol` function implements three-tier segment handling:
+
+| Tier | Condition | Behavior |
+|------|-----------|----------|
+| **1 (Full)** | `seg_len >= window_length` | Standard SavGol with nominal window |
+| **2 (Reduced)** | `min_window <= seg_len < window_length` | SavGol with window shrunk to largest odd ≤ seg_len |
+| **3 (Too short)** | `seg_len < min_window` | Pass-through for deriv=0; NaN for deriv>0 (derivative undefined) |
+
+Where `min_window = polyorder + 2` (forced odd) — the minimum SciPy allows.
 
 ### Parameters
 
@@ -436,16 +458,18 @@ All derivatives and smoothing in the master kinematics pipeline use the **Savitz
 | Window duration | `sg_window_sec` | 0.175 s | Physical window duration |
 | Window length | computed | 21 samples @ 120 Hz | `round(sg_window_sec * FS)`, forced odd, min 5 |
 | Polynomial order | `sg_polyorder` | 3 | Degree of fitted polynomial |
-| Boundary mode | — | `interp` | How boundaries are handled |
+| Boundary mode | — | `interp` | How boundaries are handled within each chunk |
 
 ### What the SavGol filter is applied to
 
-| Target | Derivative Order | Purpose |
-|--------|-----------------|---------|
-| Raw-relative quaternion components (qx, qy, qz, qw) | 0 (smoothing only) | Noise reduction before kinematic derivation |
-| Root-relative positions (px, py, pz) | 1 | Linear velocity |
-| Root-relative positions (px, py, pz) | 2 | Linear acceleration |
-| Angular velocity (ωx, ωy, ωz) | 1 | Angular acceleration |
+| Target | Derivative Order | Purpose | Direct? |
+|--------|-----------------|---------|---------|
+| Raw-relative quaternion components (qx, qy, qz, qw) | 0 (smoothing only) | Noise reduction before kinematic derivation | — |
+| Root-relative positions (px, py, pz) | 1 | Linear velocity | Yes |
+| Root-relative positions (px, py, pz) | 2 | Linear acceleration | Yes (directly from position, no cascade) |
+| Angular velocity (ωx, ωy, ωz) | 1 | Angular acceleration | Yes (directly from ω, no cascade) |
+
+**Quaternion manifold preservation:** After SavGol smoothing of quaternion components (deriv=0), all quaternions are renormalized to unit length (`||q|| = 1`). A manifold guard rejects any row where `||q|| < 0.99` post-renorm.
 
 ---
 

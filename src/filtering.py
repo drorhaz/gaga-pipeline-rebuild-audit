@@ -15,7 +15,7 @@ import numpy as np
 import pandas as pd
 import logging
 from typing import Tuple, List, Dict, Optional, Union
-from scipy.signal import butter, filtfilt
+from scipy.signal import butter, filtfilt, savgol_filter
 
 logger = logging.getLogger(__name__)
 
@@ -135,6 +135,406 @@ def classify_marker_region(marker_name: str) -> str:
     return 'upper_proximal'
 
 
+# =============================================================================
+# CHUNKING GUARD — NaN-safe filtfilt for gappy signals
+# =============================================================================
+
+def _find_contiguous_finite_segments(x: np.ndarray):
+    """
+    Return list of (start, end) slices for contiguous runs of finite values in *x*.
+    Each segment covers x[start:end] (end is exclusive).
+    """
+    finite = np.isfinite(x)
+    diff = np.diff(np.concatenate(([0], finite.astype(np.int8), [0])))
+    starts = np.where(diff == 1)[0]
+    ends = np.where(diff == -1)[0]
+    return list(zip(starts.tolist(), ends.tolist()))
+
+
+def chunked_filtfilt(b: np.ndarray,
+                     a: np.ndarray,
+                     x: np.ndarray,
+                     padlen: Optional[int] = None,
+                     return_meta: bool = False):
+    """
+    NaN-safe wrapper around ``scipy.signal.filtfilt``.
+
+    Finds contiguous segments of finite data and applies ``filtfilt`` to each
+    segment independently.  Segments shorter than or equal to *padlen* are
+    returned **unfiltered but valid** (no scipy call, no ringing).  NaN
+    positions in the input are preserved as NaN in the output.
+
+    Parameters
+    ----------
+    b, a : array_like
+        Numerator / denominator of the IIR filter (e.g. from ``butter``).
+    x : np.ndarray
+        1-D signal, may contain NaNs.
+    padlen : int, optional
+        Padding length passed to ``filtfilt``.  If *None* the scipy default
+        ``3 * max(len(a), len(b))`` is used.
+    return_meta : bool
+        If True return ``(out, meta_dict)`` instead of just ``out``.
+
+    Returns
+    -------
+    np.ndarray  or  (np.ndarray, dict)
+        Filtered signal, same shape as *x*.  NaNs where *x* was NaN;
+        unfiltered where segment was too short.
+        When *return_meta* is True the second element is a dict with:
+        ``n_chunks``, ``n_chunks_filtered``, ``n_chunks_too_short``,
+        ``short_chunk_frames`` (total frames left unfiltered due to padlen).
+    """
+    if padlen is None:
+        padlen = 3 * max(len(a), len(b))
+
+    out = np.full_like(x, np.nan, dtype=float)
+    segments = _find_contiguous_finite_segments(x)
+
+    n_filtered = 0
+    n_too_short = 0
+    short_chunk_frames = 0
+
+    for s, e in segments:
+        seg = x[s:e].astype(float)
+        if len(seg) > padlen:
+            out[s:e] = filtfilt(b, a, seg, padlen=padlen)
+            n_filtered += 1
+        else:
+            out[s:e] = seg
+            n_too_short += 1
+            short_chunk_frames += len(seg)
+
+    if return_meta:
+        meta = {
+            "n_chunks": len(segments),
+            "n_chunks_filtered": n_filtered,
+            "n_chunks_too_short": n_too_short,
+            "short_chunk_frames": short_chunk_frames,
+        }
+        return out, meta
+    return out
+
+
+# =============================================================================
+# CHUNKING GUARD — NaN-safe Savitzky-Golay for gappy signals
+# =============================================================================
+
+def chunked_savgol(x: np.ndarray,
+                   window_length: int,
+                   polyorder: int,
+                   deriv: int = 0,
+                   delta: float = 1.0,
+                   mode: str = 'interp',
+                   return_meta: bool = False):
+    """
+    NaN-safe wrapper around ``scipy.signal.savgol_filter``.
+
+    Finds contiguous segments of finite data and applies the Savitzky-Golay
+    filter to each segment independently, preventing NaN bleed where the
+    filter window would otherwise bridge a data gap.
+
+    Three-tier segment handling:
+
+    * **Tier 1** (``seg_len >= window_length``): full SavGol with the
+      requested window.
+    * **Tier 2** (``min_window <= seg_len < window_length``): SavGol with
+      the window reduced to the largest odd integer ``<= seg_len``.
+    * **Tier 3** (``seg_len < min_window``): raw pass-through for
+      ``deriv == 0`` (smoothing only); NaN for ``deriv > 0`` (derivative
+      is undefined with too few points).
+
+    ``min_window`` is the smallest odd integer ``>= polyorder + 2``, which
+    is the absolute minimum scipy allows for ``savgol_filter``.
+
+    Parameters
+    ----------
+    x : np.ndarray
+        1-D signal, may contain NaNs / Infs.
+    window_length : int
+        Nominal SavGol window (odd, ``>= polyorder + 1``).
+    polyorder : int
+        Polynomial order.
+    deriv : int
+        Derivative order (0 = smooth, 1 = velocity, 2 = acceleration).
+    delta : float
+        Sample spacing (``1.0 / fs``).
+    mode : str
+        Boundary mode passed to ``savgol_filter`` (default ``'interp'``).
+    return_meta : bool
+        If True return ``(out, meta_dict)`` instead of just ``out``.
+
+    Returns
+    -------
+    np.ndarray  or  (np.ndarray, dict)
+        Filtered signal, same shape as *x*.  NaN where *x* was non-finite
+        or where the segment was too short for the requested derivative.
+    """
+    out = np.full_like(x, np.nan, dtype=float)
+    segments = _find_contiguous_finite_segments(x)
+
+    # Smallest usable odd window for this polyorder
+    min_window = polyorder + 2 if (polyorder + 2) % 2 == 1 else polyorder + 3
+
+    n_full = 0
+    n_reduced = 0
+    n_too_short = 0
+    too_short_frames = 0
+
+    for s, e in segments:
+        seg = x[s:e].astype(float)
+        seg_len = len(seg)
+
+        if seg_len >= window_length:
+            # Tier 1 — nominal window
+            out[s:e] = savgol_filter(seg, window_length, polyorder,
+                                     deriv=deriv, delta=delta, mode=mode)
+            n_full += 1
+
+        elif seg_len >= min_window:
+            # Tier 2 — reduced window (largest odd <= seg_len)
+            reduced_w = seg_len if seg_len % 2 == 1 else seg_len - 1
+            out[s:e] = savgol_filter(seg, reduced_w, polyorder,
+                                     deriv=deriv, delta=delta, mode=mode)
+            n_reduced += 1
+
+        else:
+            # Tier 3 — too short for any polynomial fit
+            if deriv == 0:
+                out[s:e] = seg  # pass-through raw values
+            # else: leave as NaN — derivative is undefined
+            n_too_short += 1
+            too_short_frames += seg_len
+
+    if return_meta:
+        meta = {
+            "n_chunks": len(segments),
+            "n_full": n_full,
+            "n_reduced": n_reduced,
+            "n_too_short": n_too_short,
+            "too_short_frames": too_short_frames,
+        }
+        return out, meta
+    return out
+
+
+# =============================================================================
+# ADAPTIVE SAVGOL WINDOWING — per-joint frequency-aware W_LEN
+# =============================================================================
+
+def _round_to_odd(x: float) -> int:
+    """Round to nearest odd integer.  e.g. 15.625 → 15, 20.83 → 21."""
+    return 2 * int(round((x - 1) / 2)) + 1
+
+
+def compute_adaptive_sg_windows(
+    per_joint_cutoffs: dict,
+    fs: float,
+    polyorder: int = 3,
+    multiplier: float = 1.2,
+    floor_w: int = 7,
+    ceiling_w: int = 21,
+) -> tuple:
+    """
+    Compute per-segment Savitzky-Golay window lengths from Butterworth cutoffs.
+
+    For each segment (e.g. ``Hips``), the window is chosen so that the SavGol
+    effective cutoff is approximately ``multiplier * f_butter``, preventing the
+    differentiator from discarding bandwidth preserved by Step 04.
+
+    Formula (inverted from the SavGol 3-dB approximation)::
+
+        W = round_odd( (polyorder + 1) * fs / (3.2 * multiplier * f_butter) )
+
+    Per-axis cutoffs (``Hips__px``, ``Hips__py``, ``Hips__pz``) are aggregated
+    per segment via ``max`` so that all three axes share one window.
+
+    Parameters
+    ----------
+    per_joint_cutoffs : dict
+        ``{column_name: cutoff_hz}`` — e.g. ``{"Hips__px": 6.0, ...}``.
+        May also contain quaternion columns (``__qx`` etc.) which are ignored.
+    fs : float
+        Sampling rate in Hz.
+    polyorder : int
+        SavGol polynomial order.
+    multiplier : float
+        Target SavGol F_3dB = multiplier * f_butter.
+    floor_w : int
+        Minimum allowed window length (odd, >= polyorder + 2).
+    ceiling_w : int
+        Maximum allowed window length (odd).
+
+    Returns
+    -------
+    w_len_map : dict
+        ``{segment_name: window_length}`` — odd integers in [floor_w, ceiling_w].
+    audit : dict
+        ``{segment_name: {butter_cutoff_hz, sg_w_len, sg_f3db_hz, actual_multiplier}}``.
+    """
+    if floor_w % 2 == 0:
+        floor_w += 1
+    if ceiling_w % 2 == 0:
+        ceiling_w -= 1
+    floor_w = max(floor_w, polyorder + 2 if (polyorder + 2) % 2 == 1 else polyorder + 3)
+
+    seg_cutoffs: dict = {}
+    for col, cutoff in per_joint_cutoffs.items():
+        if cutoff is None:
+            continue
+        # Only position columns (__px, __py, __pz)
+        for suffix in ('__px', '__py', '__pz'):
+            if col.endswith(suffix):
+                seg = col[: -len(suffix)]
+                seg_cutoffs.setdefault(seg, []).append(float(cutoff))
+                break
+
+    w_len_map = {}
+    audit = {}
+    for seg, cutoffs in seg_cutoffs.items():
+        f_butter = max(cutoffs)
+        f_target = multiplier * f_butter
+        raw_w = (polyorder + 1) * fs / (3.2 * f_target)
+        w = _round_to_odd(raw_w)
+        w = max(floor_w, min(ceiling_w, w))
+        if w % 2 == 0:
+            w += 1
+        f3db = (polyorder + 1) * fs / (3.2 * w)
+        actual_mult = f3db / f_butter if f_butter > 0 else 0.0
+
+        w_len_map[seg] = w
+        audit[seg] = {
+            "butter_cutoff_hz": round(f_butter, 2),
+            "sg_w_len": w,
+            "sg_f3db_hz": round(f3db, 2),
+            "actual_multiplier": round(actual_mult, 2),
+        }
+
+    return w_len_map, audit
+
+
+def compute_adaptive_sg_windows_from_regions(
+    region_cutoffs: dict,
+    joint_names: list,
+    fs: float,
+    polyorder: int = 3,
+    multiplier: float = 1.2,
+    floor_w: int = 7,
+    ceiling_w: int = 21,
+) -> tuple:
+    """
+    Fallback: compute per-segment SavGol windows from region-level cutoffs.
+
+    Maps each joint to its body region via :func:`classify_marker_region`,
+    then uses the region's mean Butterworth cutoff.
+
+    Parameters
+    ----------
+    region_cutoffs : dict
+        ``{region_name: mean_cutoff_hz}`` from filtering_summary.json.
+    joint_names : list
+        Segment names present in the dataset (e.g. ``["Hips", "Head", ...]``).
+    fs, polyorder, multiplier, floor_w, ceiling_w :
+        Same as :func:`compute_adaptive_sg_windows`.
+
+    Returns
+    -------
+    w_len_map, audit : same structure as :func:`compute_adaptive_sg_windows`.
+    """
+    per_joint_cutoffs = {}
+    for seg in joint_names:
+        region = classify_marker_region(f"{seg}__px")
+        cutoff = region_cutoffs.get(region)
+        if cutoff is not None:
+            for axis in ('px', 'py', 'pz'):
+                per_joint_cutoffs[f"{seg}__{axis}"] = float(cutoff)
+    return compute_adaptive_sg_windows(
+        per_joint_cutoffs, fs, polyorder, multiplier, floor_w, ceiling_w,
+    )
+
+
+# =============================================================================
+# DYNAMIC RMS WINDOWING — energetic-mask builder for non-stationary signals
+# =============================================================================
+
+def compute_energetic_mask(signal: np.ndarray,
+                           fs: float,
+                           window_sec: float = 1.0,
+                           energy_quantile: float = 0.80,
+                           min_valid_frac: float = 0.50) -> np.ndarray:
+    """
+    Build a boolean mask that is *True* for samples inside the most energetic
+    windows of a 1-D signal.
+
+    Used by ``winter_residual_analysis`` so that the residual RMS is computed
+    only where the joint is actively moving, preventing long stillness from
+    dragging the optimal cutoff to artificially low frequencies.
+
+    Parameters
+    ----------
+    signal : np.ndarray
+        1-D position signal (may contain NaNs).
+    fs : float
+        Sampling rate (Hz).
+    window_sec : float
+        Sliding-window length in seconds (default 1.0 s).
+    energy_quantile : float
+        Percentile threshold (0–1).  Windows with energy above this quantile
+        are selected (default 0.80 = top 20 %).
+    min_valid_frac : float
+        Minimum fraction of finite samples required in a window for its energy
+        to be considered valid (default 0.50).
+
+    Returns
+    -------
+    np.ndarray
+        Boolean mask of shape ``(len(signal),)``.  *True* for every sample that
+        falls inside at least one top-energy window.  If no windows pass
+        validity or the signal is too short, returns an all-True mask (fallback
+        to global RMS behaviour).
+    """
+    T = len(signal)
+    win = max(1, int(round(window_sec * fs)))
+
+    if T < win:
+        return np.ones(T, dtype=bool)
+
+    n_windows = T - win + 1
+    finite = np.isfinite(signal).astype(float)
+
+    finite_cumsum = np.concatenate(([0.0], np.cumsum(finite)))
+    valid_counts = finite_cumsum[win:] - finite_cumsum[:n_windows]
+    min_count = min_valid_frac * win
+
+    sig = signal.copy().astype(float)
+    sig[~np.isfinite(sig)] = 0.0
+
+    cumsum = np.concatenate(([0.0], np.cumsum(sig)))
+    cumsum2 = np.concatenate(([0.0], np.cumsum(sig ** 2)))
+
+    window_sum = cumsum[win:] - cumsum[:n_windows]
+    window_sum2 = cumsum2[win:] - cumsum2[:n_windows]
+    with np.errstate(invalid="ignore"):
+        energy = (window_sum2 / valid_counts) - (window_sum / valid_counts) ** 2
+
+    energy[valid_counts < min_count] = np.nan
+
+    finite_energies = energy[np.isfinite(energy)]
+    if len(finite_energies) == 0:
+        return np.ones(T, dtype=bool)
+
+    threshold = np.percentile(finite_energies, energy_quantile * 100)
+    top_windows = np.where(np.isfinite(energy) & (energy >= threshold))[0]
+
+    if len(top_windows) == 0:
+        return np.ones(T, dtype=bool)
+
+    mask = np.zeros(T, dtype=bool)
+    for start in top_windows:
+        mask[start:start + win] = True
+    return mask
+
+
 def winter_residual_analysis(signal: np.ndarray, 
                        fs: float, 
                        fmin: int = 1, 
@@ -142,7 +542,8 @@ def winter_residual_analysis(signal: np.ndarray,
                        min_cutoff: Optional[float] = None,
                        body_region: str = "general",
                        return_details: bool = False,
-                       validation_mode: bool = False) -> Union[float, Dict]:
+                       validation_mode: bool = False,
+                       energetic_mask: Optional[np.ndarray] = None) -> Union[float, Dict]:
     """
     Perform Winter residual analysis to determine optimal low-pass cutoff frequency.
     
@@ -161,6 +562,10 @@ def winter_residual_analysis(signal: np.ndarray,
         body_region: Body region for biomechanical context ("trunk", "distal", "general")
         return_details: If True, return dict with full analysis details instead of just cutoff
         validation_mode: If True, return raw Winter result without weighted compromise (for validation)
+        energetic_mask: Optional boolean array, same length as *signal*.  When
+            provided, residual RMS is computed only at positions where the mask
+            is True **and** the residual is finite (Dynamic RMS Windowing).
+            When *None*, global RMS is used (legacy behaviour).
         
     Returns:
         If return_details=False: Optimal cutoff frequency (Hz)
@@ -231,17 +636,33 @@ def winter_residual_analysis(signal: np.ndarray,
     # Test cutoff frequencies
     cutoffs = np.arange(fmin, fmax + 1)
     rms_values = np.zeros(len(cutoffs))
-    
+
+    # Dynamic RMS Windowing tracking
+    _MIN_ENERGETIC_SAMPLES = 50
+    _dynamic_rms_used = energetic_mask is not None
+    _dynamic_rms_fallback = False
+
+    if energetic_mask is None:
+        _rms_mask = np.ones(len(x), dtype=bool)
+    else:
+        _rms_mask = energetic_mask
+    _rms_mask = _rms_mask & np.isfinite(x)
+
+    if _rms_mask.sum() < _MIN_ENERGETIC_SAMPLES:
+        logger.info("Energetic mask has < %d valid samples; falling back to global RMS.", _MIN_ENERGETIC_SAMPLES)
+        _rms_mask = np.isfinite(x)
+        if _dynamic_rms_used:
+            _dynamic_rms_fallback = True
+
     for i, fc in enumerate(cutoffs):
-        # Design 2nd-order Butterworth low-pass filter
         b, a = butter(N=2, Wn=fc/(0.5*fs), btype='low')
-        
-        # Apply zero-lag filtering (forward-backward)
-        xf = filtfilt(b, a, x)
-        
-        # Compute residual RMS
+        xf = chunked_filtfilt(b, a, x)
         residual = x - xf
-        rms_values[i] = np.sqrt(np.mean(residual**2))
+        valid = _rms_mask & np.isfinite(residual)
+        if valid.sum() > 0:
+            rms_values[i] = np.sqrt(np.mean(residual[valid]**2))
+        else:
+            rms_values[i] = 0.0
     
     # Enhanced knee rule: find optimal cutoff using multiple criteria
     r_floor = rms_values[-1]  # RMS at fmax
@@ -471,7 +892,9 @@ def winter_residual_analysis(signal: np.ndarray,
             'strict_knee_hz': float(strict_knee_hz) if strict_knee_hz else None,
             'relaxed_knee_hz': float(relaxed_knee_hz) if relaxed_knee_hz else None,
             'diminishing_returns_hz': float(diminishing_returns_hz) if diminishing_returns_hz else None,
-            'raw_diminishing_hz': float(raw_diminishing_hz) if raw_diminishing_hz else None
+            'raw_diminishing_hz': float(raw_diminishing_hz) if raw_diminishing_hz else None,
+            'dynamic_rms_used': _dynamic_rms_used,
+            'dynamic_rms_fallback_to_global': _dynamic_rms_fallback,
         }
     
     return float(optimal_fc)
@@ -792,11 +1215,15 @@ def apply_adaptive_winter_filter(signal: np.ndarray,
         }
         return signal.copy(), metadata
 
+    # Build dynamic RMS energetic mask for this signal
+    em = compute_energetic_mask(signal, fs)
+
     # Run Winter residual analysis with body_region context for Smart Bias
     winter_result = winter_residual_analysis(
         signal, fs, fmin=int(fmin), fmax=int(fmax),
         min_cutoff=min_cutoff, body_region=body_region,
-        return_details=True
+        return_details=True,
+        energetic_mask=em,
     )
     
     if isinstance(winter_result, dict):
@@ -808,27 +1235,16 @@ def apply_adaptive_winter_filter(signal: np.ndarray,
     
     # Apply Butterworth filter with optimal cutoff
     if cutoff_hz >= fs * 0.5 - 1:
-        # Cutoff too high, skip filtering
         logger.warning(f"Cutoff {cutoff_hz:.1f} Hz too close to Nyquist ({fs*0.5:.1f} Hz), skipping filter")
         return signal.copy(), metadata
     
-    # Design 2nd-order Butterworth low-pass filter
     b, a = butter(N=2, Wn=cutoff_hz/(0.5*fs), btype='low')
-    
-    # Apply zero-phase filter (filtfilt) with length guard
-    if len(signal) <= max(len(a), len(b)) * 3:
-        logger.warning(
-            f"Signal length ({len(signal)}) barely exceeds filtfilt padlen. "
-            f"Returning unfiltered to avoid edge artifacts."
-        )
-        metadata['filter_applied'] = False
-        metadata['filter_type'] = 'skipped_near_padlen'
-        return signal.copy(), metadata
 
-    filtered = filtfilt(b, a, signal.astype(float))
+    filtered, chunk_meta = chunked_filtfilt(b, a, signal.astype(float), return_meta=True)
     
     metadata['filter_applied'] = True
-    metadata['filter_type'] = 'Butterworth 2nd-order (zero-phase)'
+    metadata['filter_type'] = 'Butterworth 2nd-order (zero-phase, chunked)'
+    metadata['chunking_guard'] = chunk_meta
     
     return filtered, metadata
 
@@ -1047,6 +1463,9 @@ def apply_signal_cleaning_pipeline(df: pd.DataFrame,
         col_metadata['stage3_winter_cutoff'] = winter_meta.get('cutoff_hz', None)
         col_metadata['stage3_winter_method'] = winter_meta.get('method_used', 'unknown')
         col_metadata['marker_region'] = marker_region
+        col_metadata['stage3_dynamic_rms_used'] = winter_meta.get('dynamic_rms_used', False)
+        col_metadata['stage3_dynamic_rms_fallback'] = winter_meta.get('dynamic_rms_fallback_to_global', False)
+        col_metadata['stage3_chunking_guard'] = winter_meta.get('chunking_guard', {})
         
         # [FILTER_DEBUG] Smart Bias traceability log
         _fc_result = winter_meta.get('cutoff_hz', None)
@@ -1103,6 +1522,30 @@ def apply_signal_cleaning_pipeline(df: pd.DataFrame,
             'median': float(np.median(cutoffs)),
             'std': float(np.std(cutoffs))
         }
+
+    # Dynamic RMS Windowing & Chunking Guard aggregate statistics
+    pj = pipeline_metadata['per_joint_results']
+    n_drms = sum(1 for m in pj.values() if m.get('stage3_dynamic_rms_used'))
+    n_drms_fb = sum(1 for m in pj.values() if m.get('stage3_dynamic_rms_fallback'))
+    total_chunks = sum(m.get('stage3_chunking_guard', {}).get('n_chunks', 0) for m in pj.values())
+    total_short = sum(m.get('stage3_chunking_guard', {}).get('n_chunks_too_short', 0) for m in pj.values())
+    total_short_frames = sum(m.get('stage3_chunking_guard', {}).get('short_chunk_frames', 0) for m in pj.values())
+    pipeline_metadata['summary']['dynamic_rms_windowing'] = {
+        'enabled': True,
+        'energy_quantile': 0.80,
+        'joints_with_dynamic_rms': n_drms,
+        'joints_fallback_to_global_rms': n_drms_fb,
+        'fallback_joints': [col for col, m in pj.items() if m.get('stage3_dynamic_rms_fallback')],
+    }
+    pipeline_metadata['summary']['chunking_guard'] = {
+        'total_chunks_all_joints': total_chunks,
+        'total_chunks_too_short': total_short,
+        'total_unfiltered_frames': total_short_frames,
+        'joints_with_short_chunks': [
+            col for col, m in pj.items()
+            if m.get('stage3_chunking_guard', {}).get('n_chunks_too_short', 0) > 0
+        ],
+    }
     
     logger.info(
         f"3-stage pipeline complete: Stage1 interpolated {total_artifacts} frames in {total_artifact_segments} segments "

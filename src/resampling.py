@@ -11,9 +11,9 @@ Author: Gaga Motion Analysis Pipeline
 """
 
 import numpy as np
-from scipy.interpolate import CubicSpline, interp1d
+from scipy.interpolate import CubicSpline, interp1d, PchipInterpolator
 from scipy.spatial.transform import Rotation as R, Slerp
-from typing import Dict
+from typing import Dict, Optional
 
 from .quaternion_ops import (
     quat_normalize,
@@ -171,6 +171,97 @@ def resample_time_grid(time_s, fs_target):
     t1 = float(time_s[-1])
     n = int(round((t1 - t0) * fs_target)) + 1
     return t0 + np.arange(n) / fs_target
+
+
+def _min_distance_to_valid_timestamps(t_dst: np.ndarray, tv: np.ndarray) -> np.ndarray:
+    """
+    Vectorized: for each t_dst[i], return min over tv of |t_dst[i] - tv[k]|.
+    tv must be sorted ascending.
+    """
+    if len(tv) == 0:
+        return np.full(len(t_dst), np.inf)
+    idx = np.searchsorted(tv, t_dst, side="left")
+    left_idx = np.maximum(0, idx - 1)
+    right_idx = np.minimum(len(tv) - 1, idx)
+    dist_left = np.abs(t_dst - tv[left_idx])
+    dist_right = np.abs(t_dst - tv[right_idx])
+    return np.minimum(dist_left, dist_right)
+
+
+def resample_pos_pchip(
+    time_s: np.ndarray,
+    pos: np.ndarray,
+    t_dst: Optional[np.ndarray] = None,
+    max_gap_pos_sec: float = 1.0,
+    fs_target: float = 120.0,
+) -> np.ndarray:
+    """
+    Single-pass PCHIP position resampler: gap-healing and uniform resampling in one step.
+
+    Uses only valid (t, x) per joint (all three axes must be non-NaN for a timestamp
+    to count as valid). No extrapolation; grid points outside [first_valid_t, last_valid_t]
+    or farther than max_gap_pos_sec/2 from any valid timestamp are set to NaN.
+
+    Parameters
+    ----------
+    time_s : np.ndarray
+        Raw timestamps in seconds, shape (T,).
+    pos : np.ndarray
+        Positions in meters, shape (T, J, 3). May contain NaNs.
+    t_dst : np.ndarray, optional
+        Target grid times. If None, built from time_s[0], time_s[-1] and fs_target.
+    max_gap_pos_sec : float
+        Maximum gap (seconds) to consider "trusted"; half-gap rule uses max_gap_pos_sec / 2.
+    fs_target : float
+        Used only when t_dst is None to build the uniform grid.
+
+    Returns
+    -------
+    out : np.ndarray
+        Shape (len(t_dst), J, 3). NaN where extrapolated or beyond half-gap.
+    """
+    T, J, C = pos.shape
+    assert C == 3, "pos must have shape (T, J, 3)"
+    if t_dst is None:
+        t_dst = resample_time_grid(time_s, fs_target)
+    N = len(t_dst)
+    out = np.full((N, J, 3), np.nan)
+
+    max_dist = max_gap_pos_sec / 2.0
+
+    for j in range(J):
+        valid_j = (
+            np.isfinite(pos[:, j, 0])
+            & np.isfinite(pos[:, j, 1])
+            & np.isfinite(pos[:, j, 2])
+            & np.isfinite(time_s)
+        )
+        tv_j = time_s[valid_j]
+        xv_j = pos[valid_j, j, 0]
+        yv_j = pos[valid_j, j, 1]
+        zv_j = pos[valid_j, j, 2]
+        n_valid = len(tv_j)
+
+        if n_valid < 2:
+            continue
+
+        pchip_x = PchipInterpolator(tv_j, xv_j)
+        pchip_y = PchipInterpolator(tv_j, yv_j)
+        pchip_z = PchipInterpolator(tv_j, zv_j)
+        out[:, j, 0] = pchip_x(t_dst)
+        out[:, j, 1] = pchip_y(t_dst)
+        out[:, j, 2] = pchip_z(t_dst)
+
+        min_dist = _min_distance_to_valid_timestamps(t_dst, tv_j)
+        mask_j = (
+            (t_dst < tv_j[0])
+            | (t_dst > tv_j[-1])
+            | (min_dist > max_dist)
+        )
+        out[mask_j, j, :] = np.nan
+
+    return out
+
 
 def resample_pos(time_s, pos, t_dst, method):
     T, J, C = pos.shape

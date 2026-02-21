@@ -305,6 +305,13 @@ def _export_3stage(
         method_counts[method_key] = method_counts.get(method_key, 0) + 1
     region_avg_cutoffs = {r: round(float(np.mean(c)), 1) for r, c in region_cutoffs.items()}
 
+    # Per-joint cutoffs for adaptive SavGol windowing in Step 06
+    per_joint_cutoffs: Dict[str, float] = {}
+    for col, meta in per_joint.items():
+        cutoff = meta.get("stage3_winter_cutoff")
+        if cutoff is not None:
+            per_joint_cutoffs[col] = round(float(cutoff), 2)
+
     n_frames = summary_stats.get("n_frames_total", 0)
     n_cols = summary_stats.get("total_columns_processed", 1)
     total_position_samples = n_frames * n_cols if n_cols else 0
@@ -313,7 +320,7 @@ def _export_3stage(
         "run_id": run_id,
         "identity": {
             "timestamp": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
-            "pipeline_version": "v3.0_3stage_signal_cleaning",
+            "pipeline_version": "v3.1_3stage_dynamic_rms_chunked",
         },
         "subject_metadata": {
             "mass_kg": mass,
@@ -338,7 +345,7 @@ def _export_3stage(
                 "per_joint_winter": stages.get("stage3_adaptive_winter", {}).get("per_joint"),
             },
             "filter_type": "3-Stage Signal Cleaning Pipeline",
-            "filter_method": "Artifact Detection + Hampel Filter + Adaptive Winter",
+            "filter_method": "Artifact Detection + Hampel + Adaptive Winter (Dynamic RMS, Chunked filtfilt)",
             "filtering_mode": "3_stage_pipeline",
             "filter_order": 2,
             "quaternion_filtering": False,
@@ -359,6 +366,7 @@ def _export_3stage(
             "hampel_frames_pct": round(summary_stats.get("hampel_frames_pct", 0), 4),
             "winter_cutoff_stats": summary_stats.get("winter_cutoff_stats", {}),
             "region_cutoffs": region_avg_cutoffs,
+            "per_joint_cutoffs": per_joint_cutoffs,
             "region_marker_counts": region_counts,
             "cutoff_range_hz": list(winter_meta.get("cutoff_range", [1.0, 20.0])),
             "method_distribution": method_counts,
@@ -367,6 +375,10 @@ def _export_3stage(
             "stage1_gap_guard": summary_stats.get("stage1_gap_guard", {}),
             # PSD Verification (No-Oversmoothing Guarantee)
             "psd_audit": winter_meta.get("psd_audit", {}),
+            # Dynamic RMS Windowing aggregate
+            "dynamic_rms_windowing": summary_stats.get("dynamic_rms_windowing", {}),
+            # Chunking Guard aggregate
+            "chunking_guard": summary_stats.get("chunking_guard", {}),
         },
     }
     snr_block = _snr_analysis_dict(snr_report)
@@ -402,6 +414,22 @@ def _export_3stage(
         print(f"   Gap Guard: interp_limit={interp_limit} frames, "
               f"max_gap={gap_guard.get('max_gap_across_all_cols', 0)} frames, "
               f"unreliable_gaps={gap_guard.get('total_unreliable_gaps', 0)}")
+    drms = summary_stats.get("dynamic_rms_windowing", {})
+    if drms.get("enabled"):
+        n_fb = drms.get("joints_fallback_to_global_rms", 0)
+        print(f"   Dynamic RMS Windowing: ON (quantile={drms.get('energy_quantile', 0.80)}), "
+              f"joints={drms.get('joints_with_dynamic_rms', 0)}, "
+              f"fallback_to_global={n_fb}")
+        if n_fb:
+            print(f"      Fallback joints: {drms.get('fallback_joints', [])}")
+    cg = summary_stats.get("chunking_guard", {})
+    if cg:
+        print(f"   Chunking Guard: {cg.get('total_chunks_all_joints', 0)} chunks, "
+              f"{cg.get('total_chunks_too_short', 0)} too-short, "
+              f"{cg.get('total_unfiltered_frames', 0)} unfiltered frames")
+        short_joints = cg.get("joints_with_short_chunks", [])
+        if short_joints:
+            print(f"      Joints with unfiltered segments: {short_joints}")
     print(f"{'='*60}\n")
     return out_path
 

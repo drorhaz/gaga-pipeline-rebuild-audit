@@ -67,6 +67,9 @@ _UPPERCASE_ALIASES = {
     "subject_id": "SUBJECT_ID",
     "subject_height_source": "SUBJECT_HEIGHT_SOURCE",
     "subject_weight_source": "SUBJECT_WEIGHT_SOURCE",
+    "gravity_axis": "GRAVITY_AXIS",
+    "min_head_pelvis_vertical_m": "MIN_HEAD_PELVIS_VERTICAL_M",
+    "head_to_floor_stature_ratio": "HEAD_TO_FLOOR_STATURE_RATIO",
 }
 
 # Defaults for uppercase aliases when YAML key is missing (so pipeline.py, reference.py, qc.py keep working)
@@ -81,7 +84,7 @@ _ALIAS_DEFAULTS = {
     "MOTION_THR_LOW": 0.30,
     "MOTION_THR_STD": 0.15,
     "TIME_REG_POLICY": "resample_to_fs_target",
-    "POS_RESAMPLE_METHOD": "cubic_spline",
+    "POS_RESAMPLE_METHOD": "pchip_single_pass",
     "QUAT_RESAMPLE_METHOD": "slerp",
     "JOINTS_VIZ": ["Hips", "Spine", "Spine1", "Neck", "Head", "LeftArm", "RightArm", "LeftUpLeg", "RightUpLeg"],
     "EXCLUDE_GROUPS": ["Fingers", "Toes"],
@@ -99,7 +102,7 @@ _ALIAS_DEFAULTS = {
     "ROTATION_REP": "rotvec_relative_reference",
     "OMEGA_METHOD": "quat_log",
     "OMEGA_FRAME": "child_body",
-    "MISSING_POLICY_POS": "interp_linear_or_spline",
+    "MISSING_POLICY_POS": "pchip_single_pass",
     "MISSING_POLICY_QUAT": "interp_slerp",
     "MAX_GAP_POS_SEC": 1.0,
     "MAX_GAP_QUAT_SEC": 0.25,
@@ -110,6 +113,9 @@ _ALIAS_DEFAULTS = {
     "SUBJECT_ID": None,
     "SUBJECT_HEIGHT_SOURCE": None,
     "SUBJECT_WEIGHT_SOURCE": None,
+    "GRAVITY_AXIS": "y",
+    "MIN_HEAD_PELVIS_VERTICAL_M": 0.5,
+    "HEAD_TO_FLOOR_STATURE_RATIO": 0.87,
 }
 
 # THRESH: YAML uses lowercase keys; code (e.g. qc.py) expects CONFIG["THRESH"]["BONE_CV_ALERT"] etc.

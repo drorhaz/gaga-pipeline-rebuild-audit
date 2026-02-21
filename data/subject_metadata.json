@@ -4,10 +4,12 @@
         "height_cm": 179.0,
         "body_type": "average",
         "height_estimated": true,
-        "height_estimation_method": "direct_vertical",
-        "mocap_height_cm": 150.3020346909864,
+        "height_estimation_method": "direct_vertical_ratio_corrected",
+        "mocap_height_cm": 176.47521149078915,
         "registry_height_cm": 179.0,
-        "height_cross_validation": "REVIEW"
+        "height_cross_validation": "PASS",
+        "mocap_height_raw_cm": 153.53343399698656,
+        "stature_ratio_used": 0.87
     },
     "pipeline_switches": {
         "force_unit_normalization": false,

@@ -310,6 +310,47 @@ def compute_whole_body_com(
     return wbcom, report
 
 
+def compute_com_reliability(
+    mass_available_pct: float,
+    threshold_pct: float = 90.0,
+) -> Dict[str, object]:
+    """
+    Derive a reliability score and flag for the WBCoM estimate.
+
+    Parameters
+    ----------
+    mass_available_pct : float
+        Percentage of total body mass accounted for by available segments
+        (from ``compute_whole_body_com`` report).
+    threshold_pct : float
+        Minimum mass coverage (%) to consider WBCoM RELIABLE.
+        Default 90 % — below this, missing limbs distort the estimate.
+
+    Returns
+    -------
+    dict with:
+        ``com_reliability_score`` : float in [0.0, 1.0]
+        ``com_reliability_flag``  : ``"RELIABLE"`` or ``"UNRELIABLE"``
+        ``com_mass_coverage_pct`` : echo of input
+        ``reliability_threshold_pct`` : echo of threshold
+    """
+    score = min(max(mass_available_pct / 100.0, 0.0), 1.0)
+    flag = "RELIABLE" if mass_available_pct >= threshold_pct else "UNRELIABLE"
+
+    if flag == "UNRELIABLE":
+        logger.warning(
+            "WBCoM UNRELIABLE: mass coverage %.1f%% < %.0f%% threshold.",
+            mass_available_pct, threshold_pct,
+        )
+
+    return {
+        "com_reliability_score": round(score, 4),
+        "com_reliability_flag": flag,
+        "com_mass_coverage_pct": round(mass_available_pct, 2),
+        "reliability_threshold_pct": threshold_pct,
+    }
+
+
 def add_com_to_dataframe(
     df: pd.DataFrame,
     col_template: str = "{joint}__lin_rel_p{axis}",

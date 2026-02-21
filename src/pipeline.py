@@ -8,9 +8,9 @@ from scipy.spatial.transform import Rotation as R
 from scipy.signal import savgol_filter
 
 from .config import CONFIG
-from .utils import ensure_dirs, fingerprint_file, write_json, log_event
+from .utils import ensure_dirs, fingerprint_file, write_json
 from .preprocessing import parse_optitrack_csv
-from .resampling import estimate_fs, resample_time_grid, resample_pos, resample_quat_slerp
+from .resampling import estimate_fs, resample_time_grid, resample_pos, resample_pos_pchip, resample_quat_slerp
 from .quaternion_ops import quat_normalize, quat_shortest, quat_enforce_continuity, quat_mul, quat_inv
 from .reference import detect_static_reference, compute_q_ref_and_ref_qc
 from .qc import bone_length_qc
@@ -213,7 +213,14 @@ def run_pipeline(csv_path, schema, seg_map, run_id="run1", cfg=CONFIG, output_ro
         fs_target = cfg["FS_TARGET"]
         t_dst = resample_time_grid(time_s, fs_target)
         if cfg["TIME_REG_POLICY"] == "resample_to_fs_target":
-            pos_m = resample_pos(time_s, pos_m, t_dst, method=cfg["POS_RESAMPLE_METHOD"])
+            if cfg["POS_RESAMPLE_METHOD"] == "pchip_single_pass":
+                pos_m = resample_pos_pchip(
+                    time_s, pos_m, t_dst=t_dst,
+                    max_gap_pos_sec=cfg.get("MAX_GAP_POS_SEC", 1.0),
+                    fs_target=fs_target,
+                )
+            else:
+                pos_m = resample_pos(time_s, pos_m, t_dst, method=cfg["POS_RESAMPLE_METHOD"])
             q_global = resample_quat_slerp(time_s, q_global, t_dst)
             frame_idx = np.arange(len(t_dst))
             time_s = t_dst
@@ -225,9 +232,26 @@ def run_pipeline(csv_path, schema, seg_map, run_id="run1", cfg=CONFIG, output_ro
         j2i = {j: i for i, j in enumerate(joint_names)}
         viz_idx = [j2i[j] for j in cfg["JOINTS_VIZ"] if j in j2i]
         
-        ref_info = detect_static_reference(time_s, q_local, viz_idx, cfg)
+        ref_info = detect_static_reference(
+            time_s, q_local, viz_idx, cfg,
+            pos_m=pos_m, schema=schema,
+        )
         export_idx = [i for i, g in enumerate(seg_map["group"]) if g not in cfg["EXCLUDE_GROUPS"]]
         q_ref, ref_qc = compute_q_ref_and_ref_qc(time_s, q_local, ref_info, export_idx, viz_idx, cfg)
+
+        # 3b. Step 05 artifact — persist reference provenance immediately
+        _ref_meta = {
+            "ref_start": ref_info.get("ref_start"),
+            "ref_end": ref_info.get("ref_end"),
+            "ref_is_fallback": ref_info.get("ref_is_fallback", False),
+            "t_pose_failed": ref_info.get("t_pose_failed", False),
+            "gravity_guard_passed": ref_info.get("gravity_guard_passed", False),
+            "method": ref_info.get("method", "unknown"),
+            "metrics": ref_info.get("metrics", {}),
+            "identity_error_ref_med": ref_qc.get("identity_error_ref_med"),
+            "ref_quality_score": ref_qc.get("ref_quality_score"),
+        }
+        write_json(os.path.join(out_dir, f"{run_id}__reference_info.json"), _ref_meta)
 
         # 4. Kinematics & QC
         rotvec, rv_mag, omega, omega_mag = compute_kinematics(q_local, q_ref, fs_target)
@@ -288,6 +312,10 @@ def run_pipeline(csv_path, schema, seg_map, run_id="run1", cfg=CONFIG, output_ro
         
         ctx.metrics.update(ref_qc)
         ctx.metrics.update(bone_sum)
+        ctx.metrics["ref_method"] = ref_info.get("method", "unknown")
+        ctx.metrics["ref_is_fallback"] = ref_info.get("ref_is_fallback", False)
+        ctx.metrics["t_pose_failed"] = ref_info.get("t_pose_failed", False)
+        ctx.metrics["gravity_guard_passed"] = ref_info.get("gravity_guard_passed", False)
         ctx.metrics["euler_sequences_used"] = euler_sequences
         ctx.metrics["metadata_quality"] = _metadata_quality
         ctx.metrics["subject_height_cm"] = float(_height) if _height is not None else None

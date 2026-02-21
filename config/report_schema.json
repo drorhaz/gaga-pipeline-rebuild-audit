@@ -289,7 +289,7 @@
         "subject_context.height_cm": {
           "type": "float",
           "section": "S0",
-          "description": "Subject height computed from skeleton in reference pose. Formula: $h = \\|p_{head} - p_{foot\\_midpoint}\\|_2$ in global frame. Cross-validated against metadata. Used for anthropometric scaling and sanity checks. Code: notebooks/05_reference.ipynb -> compute_subject_height()"
+          "description": "Subject height from registry or ratio-corrected mocap estimate. Formula: $h = (Head_Y - Floor_Y) / r$ where $r$ = head_to_floor_stature_ratio (default 0.87, de Leva 1996). Corrects for missing crown and sole segments. Cross-validated against registry within 5%."
         },
         "subject_context.scaling_factor": {
           "type": "float",
@@ -299,7 +299,7 @@
         "subject_context.height_status": {
           "type": "str",
           "section": "S0",
-          "description": "Height validation result: PASS (within 10% of metadata), REVIEW (10-20% deviation), FAIL (>20% or impossible value). Catches unit errors or wrong subject association"
+          "description": "Height validation result: PASS (within 5% of registry), REVIEW (5-15% deviation), FAIL (>15% or impossible value). Catches unit errors, non-upright reference, or wrong subject association"
         },
         "static_offset_audit.Left.measured_angle_deg": {
           "type": "float",

@@ -95,6 +95,7 @@ def apply_surgical_repair(
     dt: float,
     omega_thresh: float,
     lin_acc_thresh: float,
+    w_len_map: Dict[str, int] | None = None,
 ) -> None:
     """
     Apply surgical repair in-place: modify result, pos_rel, validation_rows, lin_audit.
@@ -103,13 +104,19 @@ def apply_surgical_repair(
       critical frames, re-derive ω/α and zeroed quat/ω/α, update validation_rows.
     - Linear: for each segment in linear_critical_segments, PCHIP-repair root-relative
       position at critical frames, re-derive v/a, update lin_audit.
+
+    When *w_len_map* is provided, the per-joint adaptive window is used for
+    re-derivation.  Falls back to *w_len* for joints/segments not in the map.
     """
+    if w_len_map is None:
+        w_len_map = {}
     T = len(result.get("time_s", []))
     if T == 0:
         return
 
     # --- Angular: SLERP on raw_rel quat at critical frames, re-derive ω/α and zeroed ---
     for joint_name in angular_critical_joints:
+        _jw = w_len_map.get(joint_name, w_len)
         qc = [
             f"{joint_name}__raw_rel_qx",
             f"{joint_name}__raw_rel_qy",
@@ -153,7 +160,7 @@ def apply_surgical_repair(
         alpha_raw = np.column_stack(
             [
                 savgol_filter(
-                    omega_raw_deg[:, j], w_len, sg_polyorder, deriv=1, delta=dt, mode="interp"
+                    omega_raw_deg[:, j], _jw, sg_polyorder, deriv=1, delta=dt, mode="interp"
                 )
                 for j in range(3)
             ]
@@ -194,7 +201,7 @@ def apply_surgical_repair(
             [
                 savgol_filter(
                     omega_zeroed_deg[:, j],
-                    w_len,
+                    _jw,
                     sg_polyorder,
                     deriv=1,
                     delta=dt,
@@ -230,6 +237,7 @@ def apply_surgical_repair(
 
     # --- Linear: PCHIP on root-relative position at critical frames, re-derive v, a ---
     for seg in linear_critical_segments:
+        _sw = w_len_map.get(seg, w_len)
         lv = lin_vel_mag.get(seg)
         la = lin_acc_mag.get(seg)
         if lv is None and la is None:
@@ -255,22 +263,22 @@ def apply_surgical_repair(
             pos_rel[col] = arr
 
         vel_x = savgol_filter(
-            pos_rel[f"{seg}__px"], w_len, sg_polyorder, deriv=1, delta=dt, mode="interp"
+            pos_rel[f"{seg}__px"], _sw, sg_polyorder, deriv=1, delta=dt, mode="interp"
         )
         vel_y = savgol_filter(
-            pos_rel[f"{seg}__py"], w_len, sg_polyorder, deriv=1, delta=dt, mode="interp"
+            pos_rel[f"{seg}__py"], _sw, sg_polyorder, deriv=1, delta=dt, mode="interp"
         )
         vel_z = savgol_filter(
-            pos_rel[f"{seg}__pz"], w_len, sg_polyorder, deriv=1, delta=dt, mode="interp"
+            pos_rel[f"{seg}__pz"], _sw, sg_polyorder, deriv=1, delta=dt, mode="interp"
         )
         acc_x = savgol_filter(
-            pos_rel[f"{seg}__px"], w_len, sg_polyorder, deriv=2, delta=dt, mode="interp"
+            pos_rel[f"{seg}__px"], _sw, sg_polyorder, deriv=2, delta=dt, mode="interp"
         )
         acc_y = savgol_filter(
-            pos_rel[f"{seg}__py"], w_len, sg_polyorder, deriv=2, delta=dt, mode="interp"
+            pos_rel[f"{seg}__py"], _sw, sg_polyorder, deriv=2, delta=dt, mode="interp"
         )
         acc_z = savgol_filter(
-            pos_rel[f"{seg}__pz"], w_len, sg_polyorder, deriv=2, delta=dt, mode="interp"
+            pos_rel[f"{seg}__pz"], _sw, sg_polyorder, deriv=2, delta=dt, mode="interp"
         )
         for ax, letter in enumerate(["x", "y", "z"]):
             result[f"{seg}__lin_vel_rel_{letter}"] = [vel_x, vel_y, vel_z][ax]
