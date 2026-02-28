@@ -4,12 +4,15 @@ Automated Motion Capture Pipeline Runner
 Processes multiple CSV files through the complete pipeline.
 
 Usage:
+    python run_pipeline.py                    # default: Subject_671_All_Sessions
+    python run_pipeline.py --json batch_configs/subject_671_all.json
     python run_pipeline.py --csv-list csv_files.txt
     python run_pipeline.py --auto-discover
     python run_pipeline.py --single "data/734/T1/file.csv"
 """
 
 import os
+import re
 import sys
 import yaml
 import json
@@ -31,7 +34,10 @@ class PipelineRunner:
         self.dry_run = dry_run
         
         # Pipeline sequence (notebook numbers)
-        self.pipeline_sequence = ['01', '02', '03', '04', '05', '06']
+        self.pipeline_sequence = ['01', '02', '03', '04', '05', '06','08']
+        
+        # Load subjects anthropometric registry once at startup
+        self.subjects_registry = self._load_subjects_registry()
         
         # Setup logging
         self.setup_logging()
@@ -55,6 +61,69 @@ class PipelineRunner:
         self.logger = logging.getLogger(__name__)
         self.logger.info(f"Pipeline Runner initialized. Log: {log_file}")
     
+    def _load_subjects_registry(self) -> Dict:
+        """Load per-subject anthropometric registry from data/subjects_registry.json."""
+        registry_path = self.project_root / "data" / "subjects_registry.json"
+        if not registry_path.exists():
+            return {}
+        try:
+            with open(registry_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            # Strip metadata keys (prefixed with _)
+            return {k: v for k, v in data.items() if not k.startswith("_")}
+        except (json.JSONDecodeError, OSError) as e:
+            print(f"WARNING: Could not load subjects registry: {e}")
+            return {}
+    
+    @staticmethod
+    def _extract_subject_id(csv_path: Path, data_dir: Path) -> Optional[str]:
+        """
+        Extract subject ID from CSV path.
+        
+        Tries: relative-path first directory component (e.g. '671/T1/...' -> '671'),
+        then leading digits in filename (e.g. '671_T1_...' -> '671').
+        """
+        try:
+            relative = csv_path.relative_to(data_dir)
+            parts = relative.parts
+            if parts and parts[0].isdigit():
+                return parts[0]
+        except ValueError:
+            pass
+        # Fallback: leading digits in filename
+        m = re.match(r"^(\d+)", csv_path.stem)
+        return m.group(1) if m else None
+    
+    def _get_subject_anthropometrics(self, csv_path: Path) -> Dict:
+        """
+        Look up height/weight for the subject that owns *csv_path*.
+        
+        Returns dict with subject_id, subject_height_cm, subject_mass_kg,
+        subject_height_source, subject_weight_source.  Values are None when
+        not found in the registry.
+        """
+        data_dir = self.project_root / "data"
+        subject_id = self._extract_subject_id(csv_path, data_dir)
+        result = {
+            "subject_id": subject_id,
+            "subject_height_cm": None,
+            "subject_mass_kg": None,
+            "subject_height_source": None,
+            "subject_weight_source": None,
+        }
+        if subject_id is None:
+            return result
+        
+        entry = self.subjects_registry.get(subject_id, {})
+        if entry.get("height_cm") is not None:
+            result["subject_height_cm"] = float(entry["height_cm"])
+            result["subject_height_source"] = entry.get("height_source", "registry")
+        if entry.get("weight_kg") is not None:
+            result["subject_mass_kg"] = float(entry["weight_kg"])
+            result["subject_weight_source"] = entry.get("weight_source", "registry")
+        
+        return result
+    
     def discover_csv_files(self, pattern: str = "**/*.csv") -> List[Path]:
         """Auto-discover CSV files in data directory."""
         data_dir = self.project_root / "data"
@@ -69,7 +138,7 @@ class PipelineRunner:
         return sorted(csv_files)
     
     def update_config(self, csv_path: Path) -> bool:
-        """Update config.yaml with new CSV path."""
+        """Update config.yaml with new CSV path and subject anthropometrics."""
         try:
             # Calculate relative path from data dir
             data_dir = self.project_root / "data"
@@ -82,31 +151,51 @@ class PipelineRunner:
             # Update CSV path (use forward slashes for cross-platform)
             config['current_csv'] = str(relative_path).replace('\\', '/')
             
+            # --- Inject subject anthropometrics from registry ---
+            anthro = self._get_subject_anthropometrics(csv_path)
+            config['subject_id'] = anthro['subject_id']
+            config['subject_height_cm'] = anthro['subject_height_cm']
+            config['subject_mass_kg'] = anthro['subject_mass_kg']
+            config['subject_height_source'] = anthro['subject_height_source']
+            config['subject_weight_source'] = anthro['subject_weight_source']
+            
             # Write back
             if not self.dry_run:
                 with open(self.config_file, 'w') as f:
                     yaml.dump(config, f, default_flow_style=False)
             
             self.logger.info(f"Config updated: current_csv = {config['current_csv']}")
+            if anthro['subject_id']:
+                height_str = f"{anthro['subject_height_cm']}cm" if anthro['subject_height_cm'] else "N/A"
+                weight_str = f"{anthro['subject_mass_kg']}kg" if anthro['subject_mass_kg'] else "N/A"
+                self.logger.info(
+                    f"  Subject {anthro['subject_id']}: height={height_str} "
+                    f"({anthro['subject_height_source'] or 'none'}), "
+                    f"weight={weight_str} ({anthro['subject_weight_source'] or 'none'})"
+                )
             return True
             
         except Exception as e:
             self.logger.error(f"Failed to update config: {e}")
             return False
     
-    def run_notebook(self, notebook_num: str, timeout: int = 600) -> Dict:
+    def run_notebook(self, notebook_num: str, timeout: int = 600,
+                     run_id: Optional[str] = None,
+                     current_csv: Optional[str] = None) -> Dict:
         """
         Execute a single notebook using papermill.
         
         Args:
             notebook_num: Notebook number (e.g., '01', '02')
             timeout: Max execution time in seconds
+            run_id: When running in batch, the current run ID (CSV stem) to inject
+            current_csv: When running in batch, the current_csv path for config consistency
             
         Returns:
             Dict with status, error, execution_time
         """
         notebook_name = f"{notebook_num}_*.ipynb"
-        notebooks = list(self.notebooks_dir.glob(notebook_name))
+        notebooks = sorted(self.notebooks_dir.glob(notebook_name))
         
         if not notebooks:
             return {
@@ -114,6 +203,12 @@ class PipelineRunner:
                 'error': f'Notebook {notebook_num} not found',
                 'execution_time': 0
             }
+        
+        # Prefer *_output.ipynb for step 04 so the notebook that writes parquet runs consistently
+        if notebook_num == '04' and len(notebooks) > 1:
+            output_nb = [n for n in notebooks if 'output' in n.stem.lower()]
+            if output_nb:
+                notebooks = output_nb + [n for n in notebooks if n not in output_nb]
         
         notebook_path = notebooks[0]
         output_path = notebook_path.parent / f"{notebook_path.stem}_output.ipynb"
@@ -123,6 +218,13 @@ class PipelineRunner:
         if self.dry_run:
             self.logger.info("   [DRY RUN - Skipped]")
             return {'status': 'skipped', 'error': None, 'execution_time': 0}
+        
+        # Inject run context so notebooks use correct RUN_ID when config is read at import time
+        parameters = {}
+        if run_id is not None:
+            parameters['RUN_ID'] = run_id
+        if current_csv is not None:
+            parameters['current_csv'] = current_csv
         
         start_time = datetime.now()
         
@@ -141,7 +243,8 @@ class PipelineRunner:
                     kernel_name='python3',
                     timeout=timeout,
                     progress_bar=False,
-                    cwd=str(self.project_root)  # Set working directory
+                    cwd=str(self.project_root),  # Set working directory
+                    parameters=parameters if parameters else None
                 )
             finally:
                 # Restore original directory
@@ -195,12 +298,19 @@ class PipelineRunner:
             run_summary['error'] = 'Config update failed'
             return run_summary
         
-        # Step 2: Run pipeline notebooks
+        # Step 2: Run pipeline notebooks (inject run context so each notebook sees correct RUN_ID)
+        data_dir = self.project_root / "data"
+        try:
+            current_csv_rel = str(csv_path.relative_to(data_dir)).replace('\\', '/')
+        except ValueError:
+            current_csv_rel = csv_path.name
+        run_id = csv_path.stem
+        
         total_time = 0
         all_success = True
         
         for notebook_num in self.pipeline_sequence:
-            result = self.run_notebook(notebook_num, timeout=600)
+            result = self.run_notebook(notebook_num, timeout=600, run_id=run_id, current_csv=current_csv_rel)
             run_summary['notebooks'][notebook_num] = result
             total_time += result['execution_time']
             
@@ -237,8 +347,8 @@ class PipelineRunner:
             f"step_02_preprocess/{run_id}__preprocessed.parquet",
             f"step_03_resample/{run_id}__resampled.parquet",
             f"step_04_filtering/{run_id}__filtered.parquet",
-            f"step_06_kinematics/{run_id}__kinematics.parquet",
-            f"step_06_kinematics/{run_id}__kinematics_summary.json",
+            f"step_06_kinematics/{run_id}__kinematics_master.parquet",
+            f"step_06_kinematics/{run_id}__validation_report.json",
         ]
         
         all_exist = True
@@ -249,29 +359,6 @@ class PipelineRunner:
                 all_exist = False
         
         return all_exist
-    
-    def run_master_report(self) -> bool:
-        """Execute notebook 07 to generate master quality report."""
-        self.logger.info("="*70)
-        self.logger.info("Generating Master Quality Report (Notebook 07)")
-        self.logger.info("="*70)
-        
-        result = self.run_notebook('07', timeout=300)
-        
-        if result['status'] == 'success':
-            self.logger.info("Master report generated successfully")
-            
-            # Find the generated Excel file
-            reports_dir = self.project_root / "reports"
-            excel_files = list(reports_dir.glob("Master_Audit_Log_*.xlsx"))
-            if excel_files:
-                latest = max(excel_files, key=lambda p: p.stat().st_mtime)
-                self.logger.info(f"Report: {latest}")
-            
-            return True
-        else:
-            self.logger.error("Master report generation failed")
-            return False
     
     def process_batch(self, csv_files: List[Path], 
                       stop_on_error: bool = False) -> Dict:
@@ -311,10 +398,6 @@ class PipelineRunner:
                     break
         
         batch_summary['end_time'] = datetime.now().isoformat()
-        
-        # Generate master report
-        if batch_summary['success_count'] > 0:
-            self.run_master_report()
         
         # Save batch summary
         self.save_batch_summary(batch_summary)
@@ -369,7 +452,8 @@ def main():
     parser.add_argument(
         '--json',
         type=str,
-        help='JSON file with batch configuration (see batch_configs/ folder)'
+        default='batch_configs/subject_671_all.json',
+        help='JSON file with batch configuration (default: Subject_671_All_Sessions)'
     )
     
     parser.add_argument(
@@ -397,22 +481,21 @@ def main():
     elif args.csv_list:
         with open(args.csv_list, 'r') as f:
             csv_files = [Path(line.strip()) for line in f if line.strip()]
-    elif args.json:
-        # Load from JSON batch configuration
-        with open(args.json, 'r') as f:
+    elif args.auto_discover:
+        csv_files = runner.discover_csv_files()
+    else:
+        # Default: use JSON batch config (e.g. subject_671_all.json)
+        json_path = Path(args.json)
+        if not json_path.is_absolute():
+            json_path = runner.project_root / args.json
+        with open(json_path, 'r') as f:
             batch_config = json.load(f)
         
-        # Convert relative paths to full paths (relative to data/ directory)
         data_dir = runner.project_root / "data"
         csv_files = [data_dir / csv_path for csv_path in batch_config['csv_files']]
         
         print(f"Loaded batch config: {batch_config.get('batch_name', 'Unnamed')}")
         print(f"Description: {batch_config.get('description', 'N/A')}")
-    elif args.auto_discover:
-        csv_files = runner.discover_csv_files()
-    else:
-        parser.print_help()
-        sys.exit(1)
     
     if not csv_files:
         print("ERROR: No CSV files found to process")

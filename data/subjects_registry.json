@@ -1,0 +1,22 @@
+{
+  "_metadata": {
+    "description": "Per-subject anthropometric registry. Single source of truth for researcher-provided height and weight.",
+    "usage": "Loaded by run_pipeline.py before each CSV run. Values injected into config_v1.yaml as subject_height_cm / subject_mass_kg.",
+    "fallback_chain": "Registry (measured) > Step 05 mocap estimate > Default (70kg, skeleton-derived height)",
+    "updated": "2026-02-15"
+  },
+  "671": {
+    "height_cm": 179,
+    "weight_kg": 72,
+    "height_source": "measured",
+    "weight_source": "measured",
+    "notes": "Fill in measured values before running pipeline. Mocap estimate ~153.6 cm from step 05."
+  },
+  "651": {
+    "height_cm": 184,
+    "weight_kg": 78,
+    "height_source": "measured",
+    "weight_source": "measured",
+    "notes": "Fill in measured values before running pipeline. Mocap estimate ~153.6 cm from step 05."
+  }
+}

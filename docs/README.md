@@ -8,27 +8,26 @@ Complete documentation for the Gaga Motion Capture Kinematic Analysis Pipeline.
 
 ```
 docs/
-├── README.md                    # This index file
-├── guides/                      # User guides
-│   ├── PIPELINE_USAGE.md       # Complete pipeline documentation
-│   ├── QUICK_START_734.md      # Example: processing subject 734
-│   ├── JSON_BATCH_SYSTEM.md    # JSON batch configuration guide
-│   ├── DASHBOARD_GUIDE.md      # Visualization dashboard guide
-│   └── JOINT_STATISTICS_GUIDE.md # Joint QC interpretation
-├── technical/                   # Technical documentation
-│   ├── METHODS_DOCUMENTATION.md    # Scientific methods
-│   ├── SCIENTIFIC_METHODS.md       # ISB compliance, SNR, validation
+├── README.md                        # This index file
+├── PIPELINE_RUN_CONVENTION.md       # How RUN_ID propagates through pipeline
+├── JOINT_NAMING_CONVENTION.md       # Standard joint names reference
+├── ANATOMICAL_REGION_MAPPING.md     # Joint-to-region aggregation
+├── ROM_DOCUMENTATION.md             # Range of Motion analysis
+├── HEIGHT_ESTIMATION_DOCUMENTATION.md # Anthropometric calculations
+├── guides/                          # User guides
+│   ├── PIPELINE_USAGE.md           # Complete pipeline documentation
+│   ├── QUICK_START_734.md          # Example: processing subject 734
+│   ├── JSON_BATCH_SYSTEM.md        # JSON batch configuration guide
+│   ├── DASHBOARD_GUIDE.md          # Visualization dashboard guide
+│   └── JOINT_STATISTICS_GUIDE.md   # Joint QC interpretation
+├── technical/                       # Technical documentation
+│   ├── METHODS_DOCUMENTATION.md    # Scientific methods (publication-ready)
 │   ├── PIPELINE_COMPONENTS_EXPLAINED.md # Component deep-dive
-│   └── PARAMETER_SCHEMA.md         # Report field definitions
-├── quality_control/             # Quality control framework
-│   ├── 00_OVERVIEW.md          # QC documentation overview
-│   ├── 01_RECORDING_AUDIT_CHECKLIST.md
-│   ├── 02_MASTER_QUALITY_REPORT_REVIEW.md
-│   ├── 03_JOINT_LEVEL_TRACKING.md
-│   ├── 04_COMPLETE_REPORT_SCHEMA.md
-│   └── 05_ENHANCEMENT_VISUAL_SUMMARY.md
-├── ROM_DOCUMENTATION.md         # Range of Motion analysis
-└── HEIGHT_ESTIMATION_DOCUMENTATION.md # Anthropometric calculations
+│   └── PARAMETER_SCHEMA.md         # Report field definitions (all JSON params)
+└── quality_control/                 # Quality control framework
+    ├── 00_OVERVIEW.md              # QC documentation overview
+    ├── 01_RECORDING_AUDIT_CHECKLIST.md # Audit protocol per recording
+    └── 03_JOINT_LEVEL_TRACKING.md  # Joint-level debugging rationale
 ```
 
 ---
@@ -45,9 +44,11 @@ docs/
 | **Use the dashboard** | [guides/DASHBOARD_GUIDE.md](guides/DASHBOARD_GUIDE.md) |
 | **Interpret joint QC** | [guides/JOINT_STATISTICS_GUIDE.md](guides/JOINT_STATISTICS_GUIDE.md) |
 | **Audit a recording** | [quality_control/01_RECORDING_AUDIT_CHECKLIST.md](quality_control/01_RECORDING_AUDIT_CHECKLIST.md) |
-| **Review quality report** | [quality_control/02_MASTER_QUALITY_REPORT_REVIEW.md](quality_control/02_MASTER_QUALITY_REPORT_REVIEW.md) |
 | **Understand methods** | [technical/METHODS_DOCUMENTATION.md](technical/METHODS_DOCUMENTATION.md) |
 | **View report schema** | [technical/PARAMETER_SCHEMA.md](technical/PARAMETER_SCHEMA.md) |
+| **Understand RUN_ID flow** | [PIPELINE_RUN_CONVENTION.md](PIPELINE_RUN_CONVENTION.md) |
+| **Look up joint names** | [JOINT_NAMING_CONVENTION.md](JOINT_NAMING_CONVENTION.md) |
+| **Region mapping** | [ANATOMICAL_REGION_MAPPING.md](ANATOMICAL_REGION_MAPPING.md) |
 | **Access ROM data** | [ROM_DOCUMENTATION.md](ROM_DOCUMENTATION.md) |
 | **Height estimation** | [HEIGHT_ESTIMATION_DOCUMENTATION.md](HEIGHT_ESTIMATION_DOCUMENTATION.md) |
 
@@ -65,10 +66,13 @@ docs/
 2. [quality_control/01_RECORDING_AUDIT_CHECKLIST.md](quality_control/01_RECORDING_AUDIT_CHECKLIST.md) - Audit protocol
 3. [guides/JOINT_STATISTICS_GUIDE.md](guides/JOINT_STATISTICS_GUIDE.md) - Interpret results
 
-### For Developers
-1. [technical/PIPELINE_COMPONENTS_EXPLAINED.md](technical/PIPELINE_COMPONENTS_EXPLAINED.md) - Architecture
-2. [technical/SCIENTIFIC_METHODS.md](technical/SCIENTIFIC_METHODS.md) - Implementation details
-3. [technical/PARAMETER_SCHEMA.md](technical/PARAMETER_SCHEMA.md) - Data schema
+### For Developers / AI Agents
+1. [PIPELINE_RUN_CONVENTION.md](PIPELINE_RUN_CONVENTION.md) - How RUN_ID and current_csv flow
+2. [technical/PIPELINE_COMPONENTS_EXPLAINED.md](technical/PIPELINE_COMPONENTS_EXPLAINED.md) - Architecture
+3. [technical/PARAMETER_SCHEMA.md](technical/PARAMETER_SCHEMA.md) - JSON field definitions
+4. [technical/METHODS_DOCUMENTATION.md](technical/METHODS_DOCUMENTATION.md) - Scientific methods
+5. [JOINT_NAMING_CONVENTION.md](JOINT_NAMING_CONVENTION.md) - Joint name reference
+6. [ANATOMICAL_REGION_MAPPING.md](ANATOMICAL_REGION_MAPPING.md) - Region aggregation
 
 ---
 
@@ -86,8 +90,8 @@ Located in [`../references/`](../references/):
 - Winter (2009) - Biomechanics textbook
 - Wu et al. (2005) - ISB joint coordinate standards
 - Skurowski et al. - Artifact truncation methods
-- Rácz et al. (2025) - CAST technique
+- Racz et al. (2025) - CAST technique
 
 ---
 
-**Last Updated:** January 2026
+**Last Updated:** February 2026

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subject 671_p2_r1 — Numerical Results Archive</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; padding: 2rem 0; }
+    .report-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; color: #1a1a1a; }
+    .table { font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="container" style="max-width: 1200px;">
+    <h1 class="report-title">Subject 671_p2_r1 — Numerical Results Archive</h1>
+    <p class="text-muted">Phase 0–5 statistical tables. Generated from 10_EDA_PCA.ipynb.</p>
+    <section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 0: Numerical Verification Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Session ID</th>
+      <th>Frames</th>
+      <th>Median fs (Hz)</th>
+      <th>Duration (s)</th>
+      <th>Max Gap (ms)</th>
+      <th>ω cols</th>
+      <th>q cols</th>
+      <th>XYZ cols</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T1</td>
+      <td>16914</td>
+      <td>120.0</td>
+      <td>141.0</td>
+      <td>8.33</td>
+      <td>19</td>
+      <td>76</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <td>T2</td>
+      <td>20046</td>
+      <td>120.0</td>
+      <td>167.0</td>
+      <td>8.33</td>
+      <td>19</td>
+      <td>76</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>21772</td>
+      <td>120.0</td>
+      <td>181.4</td>
+      <td>8.33</td>
+      <td>19</td>
+      <td>76</td>
+      <td>57</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 1: Scaling Summary Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>Total Frames (T1+T2+T3)</th>
+      <th>Feature Count</th>
+      <th>Scaling Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>43200</td>
+      <td>19</td>
+      <td>PASS</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>43200</td>
+      <td>76</td>
+      <td>PASS</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>43200</td>
+      <td>54</td>
+      <td>PASS</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 2: Variance Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>PC1 %</th>
+      <th>PC2 %</th>
+      <th>PC3 %</th>
+      <th>Cumulative 3-PC %</th>
+      <th>Total Features</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>16.89</td>
+      <td>10.63</td>
+      <td>9.49</td>
+      <td>37.01</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>10.05</td>
+      <td>8.83</td>
+      <td>7.99</td>
+      <td>26.88</td>
+      <td>76</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>22.51</td>
+      <td>20.82</td>
+      <td>12.23</td>
+      <td>55.56</td>
+      <td>54</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 3 — Table A: Complexity Stats</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Session</th>
+      <th>Branch</th>
+      <th>N90</th>
+      <th>Shannon Entropy (bits)</th>
+      <th>Sample Entropy</th>
+      <th>Variance Inequality (Gini)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T1</td>
+      <td>Dynamics (ω)</td>
+      <td>14</td>
+      <td>6.64</td>
+      <td>0.5998</td>
+      <td>0.0430</td>
+    </tr>
+    <tr>
+      <td>T2</td>
+      <td>Dynamics (ω)</td>
+      <td>14</td>
+      <td>7.51</td>
+      <td>0.5462</td>
+      <td>0.0409</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>Dynamics (ω)</td>
+      <td>15</td>
+      <td>7.19</td>
+      <td>0.5393</td>
+      <td>0.0302</td>
+    </tr>
+    <tr>
+      <td>T1</td>
+      <td>Pose (q)</td>
+      <td>38</td>
+      <td>6.83</td>
+      <td>0.3302</td>
+      <td>0.0422</td>
+    </tr>
+    <tr>
+      <td>T2</td>
+      <td>Pose (q)</td>
+      <td>37</td>
+      <td>7.34</td>
+      <td>0.4104</td>
+      <td>0.0603</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>Pose (q)</td>
+      <td>40</td>
+      <td>7.45</td>
+      <td>0.3571</td>
+      <td>0.0460</td>
+    </tr>
+    <tr>
+      <td>T1</td>
+      <td>Reach (XYZ)</td>
+      <td>13</td>
+      <td>7.17</td>
+      <td>0.2644</td>
+      <td>0.0348</td>
+    </tr>
+    <tr>
+      <td>T2</td>
+      <td>Reach (XYZ)</td>
+      <td>12</td>
+      <td>7.76</td>
+      <td>0.2320</td>
+      <td>0.0108</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>Reach (XYZ)</td>
+      <td>12</td>
+      <td>7.92</td>
+      <td>0.2579</td>
+      <td>0.0230</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 3 — Table B: Spatial Stats</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Session</th>
+      <th>Branch</th>
+      <th>Convex Hull Volume</th>
+      <th>Hull Volume (95% robust)</th>
+      <th>Centroid Displacement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T1</td>
+      <td>Dynamics (ω)</td>
+      <td>200.19</td>
+      <td>122.20</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <td>T2</td>
+      <td>Dynamics (ω)</td>
+      <td>414.14</td>
+      <td>248.90</td>
+      <td>1.7977</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>Dynamics (ω)</td>
+      <td>444.30</td>
+      <td>189.22</td>
+      <td>1.9538</td>
+    </tr>
+    <tr>
+      <td>T1</td>
+      <td>Pose (q)</td>
+      <td>345.00</td>
+      <td>282.36</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <td>T2</td>
+      <td>Pose (q)</td>
+      <td>834.02</td>
+      <td>491.30</td>
+      <td>1.8619</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>Pose (q)</td>
+      <td>769.32</td>
+      <td>514.65</td>
+      <td>5.9211</td>
+    </tr>
+    <tr>
+      <td>T1</td>
+      <td>Reach (XYZ)</td>
+      <td>1246.29</td>
+      <td>1018.56</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <td>T2</td>
+      <td>Reach (XYZ)</td>
+      <td>2073.60</td>
+      <td>1516.57</td>
+      <td>0.3598</td>
+    </tr>
+    <tr>
+      <td>T3</td>
+      <td>Reach (XYZ)</td>
+      <td>2595.50</td>
+      <td>2165.20</td>
+      <td>2.0285</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 4: Joint Loadings (Top 5 per branch)</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>Top 1 Joint (%)</th>
+      <th>Top 2 Joint (%)</th>
+      <th>Top 3 Joint (%)</th>
+      <th>Top 4 Joint (%)</th>
+      <th>Top 5 Joint (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Head (8.18%)</td>
+      <td>Neck (8.16%)</td>
+      <td>LeftUpLeg (6.5%)</td>
+      <td>RightShoulder (6.14%)</td>
+      <td>RightHand (6.01%)</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Spine1 (7.77%)</td>
+      <td>Spine (7.24%)</td>
+      <td>RightUpLeg (6.85%)</td>
+      <td>LeftUpLeg (6.78%)</td>
+      <td>Head (6.6%)</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>RightArm (6.73%)</td>
+      <td>RightUpLeg (6.56%)</td>
+      <td>LeftUpLeg (6.53%)</td>
+      <td>LeftArm (6.46%)</td>
+      <td>RightShoulder (6.26%)</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 4: Session Loadings (Longitudinal)</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>Joint</th>
+      <th>T1 %</th>
+      <th>T2 %</th>
+      <th>T3 %</th>
+      <th>Change (T2-T1)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>RightHand</td>
+      <td>5.55</td>
+      <td>4.83</td>
+      <td>4.80</td>
+      <td>-0.72</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Neck</td>
+      <td>5.53</td>
+      <td>6.08</td>
+      <td>4.69</td>
+      <td>0.55</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Hips</td>
+      <td>5.71</td>
+      <td>5.19</td>
+      <td>5.17</td>
+      <td>-0.53</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>RightForeArm</td>
+      <td>5.91</td>
+      <td>5.39</td>
+      <td>5.07</td>
+      <td>-0.51</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Head</td>
+      <td>5.53</td>
+      <td>6.01</td>
+      <td>4.79</td>
+      <td>0.48</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>RightArm</td>
+      <td>4.60</td>
+      <td>5.03</td>
+      <td>5.60</td>
+      <td>0.43</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>LeftHand</td>
+      <td>5.43</td>
+      <td>5.10</td>
+      <td>5.06</td>
+      <td>-0.33</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Spine1</td>
+      <td>4.66</td>
+      <td>4.92</td>
+      <td>5.29</td>
+      <td>0.26</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>LeftForeArm</td>
+      <td>5.97</td>
+      <td>5.71</td>
+      <td>5.04</td>
+      <td>-0.25</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>LeftUpLeg</td>
+      <td>4.85</td>
+      <td>4.62</td>
+      <td>5.34</td>
+      <td>-0.23</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightLeg</td>
+      <td>5.34</td>
+      <td>6.22</td>
+      <td>5.92</td>
+      <td>0.89</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Hips</td>
+      <td>5.51</td>
+      <td>5.96</td>
+      <td>5.44</td>
+      <td>0.45</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>LeftHand</td>
+      <td>5.33</td>
+      <td>4.92</td>
+      <td>4.94</td>
+      <td>-0.41</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightHand</td>
+      <td>5.22</td>
+      <td>4.83</td>
+      <td>4.90</td>
+      <td>-0.39</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>LeftLeg</td>
+      <td>5.30</td>
+      <td>5.67</td>
+      <td>5.77</td>
+      <td>0.36</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>LeftUpLeg</td>
+      <td>5.63</td>
+      <td>5.95</td>
+      <td>5.86</td>
+      <td>0.32</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>LeftForeArm</td>
+      <td>4.78</td>
+      <td>4.51</td>
+      <td>4.57</td>
+      <td>-0.27</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>LeftArm</td>
+      <td>5.48</td>
+      <td>5.22</td>
+      <td>5.24</td>
+      <td>-0.26</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightShoulder</td>
+      <td>4.87</td>
+      <td>5.10</td>
+      <td>5.12</td>
+      <td>0.23</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>RightArm</td>
+      <td>5.22</td>
+      <td>4.99</td>
+      <td>5.13</td>
+      <td>-0.23</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>RightUpLeg</td>
+      <td>6.01</td>
+      <td>5.52</td>
+      <td>5.69</td>
+      <td>-0.49</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftUpLeg</td>
+      <td>6.00</td>
+      <td>5.52</td>
+      <td>5.69</td>
+      <td>-0.49</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Spine</td>
+      <td>4.91</td>
+      <td>5.34</td>
+      <td>5.23</td>
+      <td>0.43</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Spine1</td>
+      <td>4.81</td>
+      <td>5.23</td>
+      <td>5.49</td>
+      <td>0.42</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Neck</td>
+      <td>5.24</td>
+      <td>5.64</td>
+      <td>5.83</td>
+      <td>0.39</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftShoulder</td>
+      <td>5.25</td>
+      <td>5.62</td>
+      <td>5.79</td>
+      <td>0.37</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftHand</td>
+      <td>5.91</td>
+      <td>5.55</td>
+      <td>5.43</td>
+      <td>-0.36</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>RightShoulder</td>
+      <td>5.29</td>
+      <td>5.64</td>
+      <td>5.78</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Head</td>
+      <td>5.27</td>
+      <td>5.63</td>
+      <td>5.87</td>
+      <td>0.35</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>LeftForeArm</td>
+      <td>5.84</td>
+      <td>5.50</td>
+      <td>5.56</td>
+      <td>-0.34</td>
+    </tr>
+  </tbody>
+</table></div>
+</section><section class="mb-5">
+  <h2 class="h5 text-primary border-bottom pb-2">Phase 5: Longitudinal Strategy Table</h2>
+  <div class="table-responsive"><table class="dataframe table table-hover table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Branch</th>
+      <th>Metric</th>
+      <th>T1</th>
+      <th>T2</th>
+      <th>T3</th>
+      <th>% Change (T1 vs T2)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Variance Inequality (Gini)</td>
+      <td>0.0430</td>
+      <td>0.0409</td>
+      <td>0.0302</td>
+      <td>-4.89</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>Shannon Entropy (nats)</td>
+      <td>2.9416</td>
+      <td>2.9418</td>
+      <td>2.9430</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <td>Dynamics (ω)</td>
+      <td>AxialPeripheral</td>
+      <td>0.8091</td>
+      <td>0.8719</td>
+      <td>0.8130</td>
+      <td>7.77</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Variance Inequality (Gini)</td>
+      <td>0.0422</td>
+      <td>0.0603</td>
+      <td>0.0460</td>
+      <td>42.89</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>Shannon Entropy (nats)</td>
+      <td>2.9415</td>
+      <td>2.9389</td>
+      <td>2.9412</td>
+      <td>-0.09</td>
+    </tr>
+    <tr>
+      <td>Pose (q)</td>
+      <td>AxialPeripheral</td>
+      <td>0.7955</td>
+      <td>0.8334</td>
+      <td>0.8502</td>
+      <td>4.76</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Variance Inequality (Gini)</td>
+      <td>0.0348</td>
+      <td>0.0108</td>
+      <td>0.0230</td>
+      <td>-69.09</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>Shannon Entropy (nats)</td>
+      <td>2.8884</td>
+      <td>2.8902</td>
+      <td>2.8896</td>
+      <td>0.06</td>
+    </tr>
+    <tr>
+      <td>Reach (XYZ)</td>
+      <td>AxialPeripheral</td>
+      <td>0.5840</td>
+      <td>0.6501</td>
+      <td>0.6953</td>
+      <td>11.33</td>
+    </tr>
+  </tbody>
+</table></div>
+</section>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

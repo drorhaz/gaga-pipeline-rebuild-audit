@@ -1,5 +1,0 @@
-# Pipeline Automation Script Requirements
-# Install with: pip install -r pipeline_requirements.txt
-
-papermill>=2.4.0
-pyyaml>=6.0

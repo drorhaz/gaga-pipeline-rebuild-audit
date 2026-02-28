@@ -1,10 +1,15 @@
 {
     "subject_info": {
         "weight_kg": null,
-        "height_cm": 158.24669254583807,
+        "height_cm": 179.0,
         "body_type": "average",
         "height_estimated": true,
-        "height_estimation_method": "direct_vertical"
+        "height_estimation_method": "direct_vertical_ratio_corrected",
+        "mocap_height_cm": 176.47521149078915,
+        "registry_height_cm": 179.0,
+        "height_cross_validation": "PASS",
+        "mocap_height_raw_cm": 153.53343399698656,
+        "stature_ratio_used": 0.87
     },
     "pipeline_switches": {
         "force_unit_normalization": false,

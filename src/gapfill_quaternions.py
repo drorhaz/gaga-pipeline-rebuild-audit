@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import warnings
 from typing import List, Optional
-from .quaternions import renormalize_all_quat_cols
+from .quaternions import renormalize_all_quat_cols, renormalize_quat_cols
 
 
 def gapfill_quaternion_slerp(df: pd.DataFrame, joint_name: str, max_gap_sec: float = 0.25) -> pd.DataFrame:

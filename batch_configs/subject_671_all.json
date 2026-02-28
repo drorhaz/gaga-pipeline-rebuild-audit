@@ -1,0 +1,13 @@
+{
+  "batch_name": "Subject_671_All_Sessions",
+  "description": "All CSV files for subject 671 (T1, T2, T3 sessions)",
+  "created_date": "2026-02-15",
+  "csv_files": [
+    "671/T1/671_T1_P1_R1_Take 2026-01-06 03.57.12 PM_001.csv",
+    "671/T2/671_T2_P1_R1_Take 2026-01-15 04.35.25 PM_005.csv",
+    "671/T3/671_T3_P1_R1_Take 2026-02-03 08.05.01 PM_000.csv"
+
+  ],
+  "total_files": 14,
+  "notes": "Use with: python run_pipeline.py --json batch_configs/subject_671_all.json"
+}

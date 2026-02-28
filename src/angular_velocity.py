@@ -21,8 +21,23 @@ import pandas as pd
 import logging
 from typing import Tuple, Dict, Optional, List
 from scipy.spatial.transform import Rotation as R
+from scipy.signal import savgol_filter
 
 logger = logging.getLogger(__name__)
+
+
+def savgol_window_len(fs: float, w_sec: float, polyorder: int) -> int:
+    """
+    Savitzky-Golay window length per README §9: round(w_sec*fs), forced odd, min 5, >= polyorder+2.
+    Used by NB06 and QA validation. Safe to import from notebooks (no relative imports).
+    """
+    w_len = int(round(w_sec * fs))
+    if w_len % 2 == 0:
+        w_len += 1
+    w_len = max(5, w_len, polyorder + 2)
+    if w_len % 2 == 0:
+        w_len += 1
+    return w_len
 
 
 def quaternion_log_angular_velocity(q: np.ndarray, 
@@ -216,6 +231,61 @@ def _compute_omega_simple(q0: np.ndarray, q1: np.ndarray, dt: float, frame: str)
     return dR.as_rotvec() / dt
 
 
+def _find_finite_quat_segments(q: np.ndarray):
+    """
+    Return ``[(start, end), ...]`` for contiguous runs where all 4
+    quaternion components are finite.  Mirrors the logic of
+    ``filtering._find_contiguous_finite_segments`` but operates on a 2-D
+    quaternion array of shape ``(T, 4)``.
+    """
+    finite_mask = np.all(np.isfinite(q), axis=1).astype(np.int8)
+    diff = np.diff(np.concatenate(([0], finite_mask, [0])))
+    starts = np.where(diff == 1)[0]
+    ends = np.where(diff == -1)[0]
+    return list(zip(starts.tolist(), ends.tolist()))
+
+
+def _chunked_omega_dispatch(q: np.ndarray,
+                            fs: float,
+                            omega_fn,
+                            frame: str = 'local') -> np.ndarray:
+    """
+    NaN-safe wrapper that applies *omega_fn* per contiguous finite segment.
+
+    Frames inside NaN gaps and segments with fewer than 2 finite
+    quaternions are left as NaN, preventing the omega function from
+    differencing across a data gap.
+
+    Parameters
+    ----------
+    q : (T, 4)
+        Quaternion array (may contain NaN rows).
+    fs : float
+        Sampling frequency.
+    omega_fn : callable
+        One of ``quaternion_log_angular_velocity``,
+        ``finite_difference_5point``, or
+        ``central_difference_angular_velocity``.
+    frame : str
+        ``'local'`` or ``'global'``.
+
+    Returns
+    -------
+    omega : (T, 3) — NaN where input was NaN or segment too short.
+    """
+    T = len(q)
+    omega = np.full((T, 3), np.nan)
+    segments = _find_finite_quat_segments(q)
+
+    for s, e in segments:
+        seg_len = e - s
+        if seg_len < 2:
+            continue  # need at least 2 frames to compute a difference
+        omega[s:e] = omega_fn(q[s:e], fs, frame)
+
+    return omega
+
+
 def compare_angular_velocity_methods(q: np.ndarray,
                                      fs: float,
                                      frame: str = 'local') -> Dict[str, any]:
@@ -286,6 +356,91 @@ def _recommend_method(noise_qlog: float, noise_5pt: float, noise_central: float)
         return 'quaternion_log (default recommendation)'
 
 
+def _normalize_omega_method(method: str) -> str:
+    """
+    Map config-style method names to API names used by compute_angular_velocity_enhanced.
+    Config: quat_log | 5pt | central  ->  API: quaternion_log | 5point | central
+    """
+    m = (method or "").strip().lower()
+    if m in ("quat_log", "quaternion_log"):
+        return "quaternion_log"
+    if m in ("5pt", "5point"):
+        return "5point"
+    if m == "central":
+        return "central"
+    return "quaternion_log"
+
+
+def compute_angular_acceleration(omega_rad: np.ndarray,
+                                 fs: float,
+                                 window_len: int,
+                                 polyorder: int,
+                                 mode: str = "interp") -> np.ndarray:
+    """
+    Compute angular acceleration (d(omega)/dt) via NaN-safe Savitzky-Golay.
+
+    Uses ``chunked_savgol`` so that NaN gaps in *omega_rad* do not bleed
+    into neighbouring valid frames.
+
+    Parameters
+    ----------
+    omega_rad : (T, 3) in rad/s
+    fs : sampling frequency Hz
+    window_len, polyorder : SavGol parameters
+    mode : boundary mode (passed through to ``savgol_filter``)
+
+    Returns
+    -------
+    alpha_rad : (T, 3) in rad/s²
+    """
+    try:
+        from filtering import chunked_savgol
+    except ImportError:
+        from .filtering import chunked_savgol
+
+    dt = 1.0 / fs
+    alpha_rad = np.column_stack([
+        chunked_savgol(omega_rad[:, j], window_len, polyorder,
+                       deriv=1, delta=dt, mode=mode)
+        for j in range(3)
+    ])
+    return alpha_rad
+
+
+def compute_omega_and_alpha(q: np.ndarray,
+                            fs: float,
+                            method: str = "quat_log",
+                            frame: str = "local",
+                            savgol_window: Optional[int] = None,
+                            savgol_poly: int = 3) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Single entry point for angular velocity and acceleration from quaternions.
+
+    Method is applied only to omega (q -> omega); alpha is always d(omega)/dt via SavGol.
+    Config-style method names are accepted: quat_log | 5pt | central.
+
+    Args:
+        q: (T, 4) quaternions xyzw
+        fs: sampling frequency Hz
+        method: 'quat_log' | '5pt' | 'central' (or API names quaternion_log | 5point | central)
+        frame: 'local' or 'global'
+        savgol_window: SavGol window length for alpha (derivative of omega). If None, a default is used.
+        savgol_poly: SavGol polynomial order for alpha
+
+    Returns:
+        omega_rad: (T, 3) rad/s
+        alpha_rad: (T, 3) rad/s²
+    """
+    method_api = _normalize_omega_method(method)
+    omega_rad, _ = compute_angular_velocity_enhanced(q, fs, method=method_api, frame=frame)
+    if savgol_window is None:
+        savgol_window = max(5, int(round(0.175 * fs)) | 1, savgol_poly + 2)
+    if savgol_window % 2 == 0:
+        savgol_window += 1
+    alpha_rad = compute_angular_acceleration(omega_rad, fs, savgol_window, savgol_poly)
+    return omega_rad, alpha_rad
+
+
 def compute_angular_velocity_enhanced(q: np.ndarray,
                                      fs: float,
                                      method: str = 'quaternion_log',
@@ -302,46 +457,46 @@ def compute_angular_velocity_enhanced(q: np.ndarray,
     Returns:
         Tuple of (omega array, metadata dict)
     """
+    # Resolve the raw omega function (un-chunked) by method name
+    _METHOD_MAP = {
+        'quaternion_log': quaternion_log_angular_velocity,
+        '5point': finite_difference_5point,
+        'central': central_difference_angular_velocity,
+    }
+    if method not in _METHOD_MAP:
+        raise ValueError(f"Unknown method: {method}")
+    omega_fn = _METHOD_MAP[method]
+
     if q.ndim == 2:
-        # Single sequence
-        if method == 'quaternion_log':
-            omega = quaternion_log_angular_velocity(q, fs, frame)
-        elif method == '5point':
-            omega = finite_difference_5point(q, fs, frame)
-        elif method == 'central':
-            omega = central_difference_angular_velocity(q, fs, frame)
-        else:
-            raise ValueError(f"Unknown method: {method}")
-        
+        # Single sequence — NaN-safe via chunked dispatch
+        omega = _chunked_omega_dispatch(q, fs, omega_fn, frame)
+
+        omega_mag = np.linalg.norm(omega, axis=1)
         metadata = {
             'method': method,
             'frame': frame,
-            'mean_magnitude_rad_s': float(np.nanmean(np.linalg.norm(omega, axis=1))),
-            'max_magnitude_rad_s': float(np.nanmax(np.linalg.norm(omega, axis=1)))
+            'chunked': True,
+            'mean_magnitude_rad_s': float(np.nanmean(omega_mag)),
+            'max_magnitude_rad_s': float(np.nanmax(omega_mag) if np.any(np.isfinite(omega_mag)) else 0.0),
         }
-        
+
     elif q.ndim == 3:
-        # Multiple sequences (T, J, 4)
-        T, J, _ = q.shape
-        omega = np.zeros((T, J, 3))
-        
+        # Multiple sequences (T, J, 4) — chunk each joint independently
+        T_len, J, _ = q.shape
+        omega = np.full((T_len, J, 3), np.nan)
+
         for j in range(J):
-            if method == 'quaternion_log':
-                omega[:, j, :] = quaternion_log_angular_velocity(q[:, j, :], fs, frame)
-            elif method == '5point':
-                omega[:, j, :] = finite_difference_5point(q[:, j, :], fs, frame)
-            elif method == 'central':
-                omega[:, j, :] = central_difference_angular_velocity(q[:, j, :], fs, frame)
-        
+            omega[:, j, :] = _chunked_omega_dispatch(q[:, j, :], fs, omega_fn, frame)
+
         omega_mag = np.linalg.norm(omega, axis=2)
-        
         metadata = {
             'method': method,
             'frame': frame,
+            'chunked': True,
             'n_joints': J,
             'mean_magnitude_rad_s': float(np.nanmean(omega_mag)),
-            'max_magnitude_rad_s': float(np.nanmax(omega_mag)),
-            'per_joint_max': omega_mag.max(axis=0).tolist()
+            'max_magnitude_rad_s': float(np.nanmax(omega_mag) if np.any(np.isfinite(omega_mag)) else 0.0),
+            'per_joint_max': np.nanmax(omega_mag, axis=0).tolist(),
         }
     else:
         raise ValueError(f"Invalid quaternion shape: {q.shape}")

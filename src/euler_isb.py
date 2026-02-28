@@ -11,6 +11,12 @@ References:
 - Wu et al. (2005): Hip and knee  
 - ISB recommendations for ankle and spine
 
+RESOLVED (Phase 4 refactor, 2026-02-21):
+    NB06 now calls get_euler_sequence() from this module for all joints.
+    The legacy ZYX (axial) / XYZ (limbs) hardcode has been retired.
+    Both the NB06 notebook path and the src/pipeline.py path are now
+    ISB-compliant, using the sequences defined in ISB_EULER_SEQUENCES.
+
 Author: Gaga Motion Analysis Pipeline
 Date: 2026-01-22
 """

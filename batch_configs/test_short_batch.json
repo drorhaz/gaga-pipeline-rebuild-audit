@@ -3,9 +3,20 @@
   "description": "Short test batch with 2 files to check pipeline (734 T1 P1 R1 and R2)",
   "created_date": "2026-01-23",
   "csv_files": [
-    "734/T1/734_T1_P1_R1_Take 2025-12-01 02.18.27 PM.csv",
-    "734/T1/734_T1_P1_R2_Take 2025-12-01 02.32.02 PM.csv"
+    "651/T1/651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005.csv",
+    "651/T2/651_T2_P2_R2_Take 2026-01-26 05.24.12 PM_003.csv",
+    "651/T3/651_T3_P2_R2_2026-02-11 05.50.42 PM_2030.csv",
+    "651/T1/651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002.csv",
+    "651/T2/651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000.csv",
+    "651/T3/651_T3_P2_R1_2026-02-11 05.50.42 PM_2027.csv",
+    "671/T1/671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004.csv",
+    "671/T2/671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010.csv",
+    "671/T3/671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006.csv",
+    "671/T1/671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002.csv",
+    "671/T2/671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006.csv",
+    "671/T3/671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001.csv"
   ],
-  "total_files": 2,
+  
+  "total_files": 12,
   "notes": "Use with: python run_pipeline.py --json batch_configs/test_short_batch.json"
 }

@@ -365,6 +365,7 @@
       "RightToeBase"
     ]
   ],
+  "_offsets_note": "REFERENCE ONLY: These offsets are session-specific (extracted from BVH file). Not used by default in QC (use_bvh_offsets=False). Kept for documentation/reference only. For multi-subject data, QC uses consistency check (CV%) instead of BVH comparison.",
   "offsets": {
     "Hips": [
       0.0,
@@ -624,6 +625,7 @@
   },
   "notes": {
     "quat_convention": "xyzw (SciPy Rotation format)",
-    "intended_use": "schema + bone-length QC + joint hierarchy for q_local"
+    "intended_use": "schema + bone-length QC + joint hierarchy for q_local",
+    "offsets_note": "Offsets are session-specific (from BVH file). Not used by default in QC (use_bvh_offsets=False). Keep for reference/documentation only. For multi-subject data, QC uses consistency check (CV%) instead of BVH comparison."
   }
 }

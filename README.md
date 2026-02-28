@@ -75,14 +75,18 @@ All documentation is organized in the `docs/` directory:
 
 ### Technical Documentation
 - [Methods Documentation](docs/technical/METHODS_DOCUMENTATION.md) - Scientific methods
-- [Scientific Methods](docs/technical/SCIENTIFIC_METHODS.md) - ISB compliance, SNR analysis
 - [Pipeline Components](docs/technical/PIPELINE_COMPONENTS_EXPLAINED.md) - Component details
 - [Parameter Schema](docs/technical/PARAMETER_SCHEMA.md) - Report field definitions
+
+### Conventions & Reference
+- [Pipeline Run Convention](docs/PIPELINE_RUN_CONVENTION.md) - RUN_ID propagation
+- [Joint Naming Convention](docs/JOINT_NAMING_CONVENTION.md) - Standard joint names
+- [Anatomical Region Mapping](docs/ANATOMICAL_REGION_MAPPING.md) - Joint-to-region aggregation
 
 ### Quality Control
 - [QC Overview](docs/quality_control/00_OVERVIEW.md) - Quality control framework
 - [Recording Audit Checklist](docs/quality_control/01_RECORDING_AUDIT_CHECKLIST.md)
-- [Master Quality Report](docs/quality_control/02_MASTER_QUALITY_REPORT_REVIEW.md)
+- [Joint-Level Tracking](docs/quality_control/03_JOINT_LEVEL_TRACKING.md) - Joint-level debugging
 
 ### Features
 - [ROM Documentation](docs/ROM_DOCUMENTATION.md) - Range of Motion analysis

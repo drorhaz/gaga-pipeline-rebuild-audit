@@ -26,7 +26,8 @@ def find_stable_window(df: pd.DataFrame,
                       window_duration_sec: float = 1.0,
                       step_sec: float = 0.1,
                       fs: float = 120.0,
-                      variance_threshold: float = 100.0) -> Tuple[pd.DataFrame, Dict]:
+                      variance_threshold: float = 100.0,
+                      motion_thr_low: float = 0.30) -> Tuple[pd.DataFrame, Dict]:
     """
     Find the most stable window in the first N seconds of recording.
     
@@ -42,6 +43,9 @@ def find_stable_window(df: pd.DataFrame,
         step_sec: Step size for sliding window
         fs: Sampling frequency
         variance_threshold: Max acceptable variance score (above = low confidence fallback)
+        motion_thr_low: Angular-velocity threshold (rad/s) used to compute
+            Reference_Quality_Index = 1.0 - (mean_motion / motion_thr_low).
+            Should match config ``motion_thr_low`` (default 0.30 rad/s).
         
     Returns:
         Tuple of (reference DataFrame slice, metadata dict with quality metrics)
@@ -122,28 +126,28 @@ def find_stable_window(df: pd.DataFrame,
             max_motion = max(max_motion, float(diff.max()))
     
     # 3. Detection Method & Fallback Flag
-    #    If variance_score > threshold, confidence is low
+    #    If variance_score > threshold, confidence is low but we keep the
+    #    least-motion window (best_start_idx already points to it).
     ref_is_fallback = min_score > variance_threshold
-    detection_method = "auto_stable_window" if not ref_is_fallback else "first_N_frames_fallback"
+    detection_method = "auto_stable_window" if not ref_is_fallback else "least_motion_window_fallback"
     
-    # If fallback triggered, use first N frames instead of "best" window
     if ref_is_fallback:
-        logger.warning(f"Low confidence reference detection (variance={min_score:.2f} > threshold={variance_threshold}). Using first {window_duration_sec}s as fallback.")
-        best_start_idx = 0
-        ref_df = df.iloc[0:window_samples].copy()
-        # Recalculate metrics for fallback window
-        variance_score_fallback = 0.0
-        for col in position_cols:
-            variance_score_fallback += ref_df[col].var()
-        min_score = variance_score_fallback
+        logger.warning(
+            f"Low confidence reference detection (variance={min_score:.2f} > "
+            f"threshold={variance_threshold}). Keeping least-motion window at "
+            f"idx={best_start_idx} instead of falling back to frame 0."
+        )
     
-    # 4. Quality Score: 0-1 confidence metric
-    #    Based on inverse of variance (lower variance = higher confidence)
-    #    Normalized using threshold as reference point
-    if min_score <= 0:
+    # 4. Reference Quality Index (physically interpretable)
+    #    Formula: 1.0 - (actual_mean_velocity / MOTION_THR_LOW)
+    #      1.0  = perfectly still (mean_motion == 0)
+    #      0.0  = at threshold    (mean_motion == MOTION_THR_LOW)
+    #      <0   = clamped to 0    (above threshold)
+    if motion_thr_low > 0 and np.isfinite(mean_motion):
+        ref_quality_score = float(np.clip(1.0 - (mean_motion / motion_thr_low), 0.0, 1.0))
+    elif min_score <= 0:
         ref_quality_score = 1.0
     else:
-        # Score = 1.0 when variance=0, score = 0.5 when variance=threshold
         ref_quality_score = float(np.clip(1.0 - (min_score / (2 * variance_threshold)), 0.0, 1.0))
     
     # 5. Determine confidence level for user display
@@ -172,6 +176,7 @@ def find_stable_window(df: pd.DataFrame,
         "variance_threshold": variance_threshold,
         "all_window_scores_min": float(min(all_scores)) if all_scores else min_score,
         "all_window_scores_max": float(max(all_scores)) if all_scores else min_score,
+        "motion_thr_low": motion_thr_low,
     }
     
     logger.info(f"Found stable window: {metadata['start_time_sec']:.2f}-{metadata['end_time_sec']:.2f}s, "
