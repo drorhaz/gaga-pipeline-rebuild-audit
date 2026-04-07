@@ -41,8 +41,9 @@ except ImportError:
 # Constants
 # ---------------------------------------------------------------------------
 EXPECTED_OMEGA_COLS = 19
-EXPECTED_Q_COLS = 76   # 4 * 19
-EXPECTED_XYZ_COLS = 57  # 3 * 19
+EXPECTED_Q_COLS = 76        # 4 * 19  (legacy — kept for integrity checks on old data)
+EXPECTED_ROTVEC_COLS = 57   # 3 * 19  (rotation-vector Pose branch; §3.1 geometry note)
+EXPECTED_XYZ_COLS = 57      # 3 * 19
 HIP_TOL_MEAN = 1e-5   # Hips position columns should be ~0 (origin)
 HIP_TOL_STD = 0.01  # Hips should not move; flag if std > this
 GAP_MULTIPLIER = 2.0   # no gap > 2 * (1/fs)
@@ -117,7 +118,18 @@ def _omega_columns(df: pd.DataFrame) -> list[str]:
 
 
 def _q_columns(df: pd.DataFrame) -> list[str]:
+    """Quaternion columns (legacy — NOT used for Pose branch PCA; see §3.1)."""
     return [c for c in df.columns if re.match(r".+__zeroed_rel_q[wxyz]$", c)]
+
+
+def _rotvec_columns(df: pd.DataFrame) -> list[str]:
+    """
+    Rotation-vector columns for the Pose branch (§3.1 geometry note).
+    Selects {J}__zeroed_rel_rotvec_x/y/z (57 cols = 19 joints × 3 components).
+    These are Euclidean SO(3) representations valid for PCA at moderate rotation
+    magnitudes, unlike quaternion components which live on a 3-sphere.
+    """
+    return [c for c in df.columns if re.match(r".+__zeroed_rel_rotvec_[xyz]$", c)]
 
 
 def _xyz_columns(df: pd.DataFrame) -> list[str]:
@@ -370,6 +382,8 @@ def prepare_3branch_data(
     preloaded_dfs: list[pd.DataFrame] | None = None,
     include_joints: list[str] | None = None,
     exclude_joints: list[str] | None = None,
+    reference_timepoint: str = "combined",
+    preloaded_filtered_by_branch: dict[str, list[pd.DataFrame]] | None = None,
 ) -> dict[str, Any]:
     """
     Load parquets for representative sessions (one per T1/T2/T3 present), extract branch
@@ -447,30 +461,28 @@ def prepare_3branch_data(
             dfs.append(pd.read_parquet(m["parquet_path"]))
 
     # Column intersection across sessions so all have same feature set
+    # Pose branch: use rotation vectors (§3.1) NOT quaternions
     omega_sets = [set(_omega_columns(df)) for df in dfs]
-    q_sets = [set(_q_columns(df)) for df in dfs]
+    rotvec_sets = [set(_rotvec_columns(df)) for df in dfs]
     xyz_sets = [set(_xyz_columns(df)) for df in dfs]
     omega_cols = sorted(set.intersection(*omega_sets)) if omega_sets else []
-    q_cols = sorted(set.intersection(*q_sets)) if q_sets else []
+    rotvec_cols = sorted(set.intersection(*rotvec_sets)) if rotvec_sets else []
     xyz_cols = sorted(set.intersection(*xyz_sets)) if xyz_sets else []
 
     # Apply joint filter (include/exclude)
     omega_cols = _filter_columns_by_joints(omega_cols, include_joints, exclude_joints)
-    q_cols = _filter_columns_by_joints(q_cols, include_joints, exclude_joints)
+    rotvec_cols = _filter_columns_by_joints(rotvec_cols, include_joints, exclude_joints)
     xyz_cols = _filter_columns_by_joints(xyz_cols, include_joints, exclude_joints)
 
     # Structural exclusion: Hips are the body-center origin in the Reach branch;
     # their position is identically (0,0,0), causing a zero-variance singularity
-    # in StandardScaler (division by zero -> Inf/NaN).  The "Reach" branch should
-    # only measure limb displacement relative to the body center, not the center
-    # itself.  This exclusion is enforced here regardless of the caller's
-    # include_joints / exclude_joints configuration.
+    # in StandardScaler (division by zero -> Inf/NaN).
     xyz_cols = [c for c in xyz_cols if not c.startswith("Hips__")]
 
-    if not omega_cols or not q_cols or not xyz_cols:
+    if not omega_cols or not rotvec_cols or not xyz_cols:
         raise ValueError(
-            "Missing branch columns after joint filter: omega=%s, q=%s, xyz=%s."
-            % (len(omega_cols), len(q_cols), len(xyz_cols))
+            "Missing branch columns after joint filter: omega=%s, rotvec=%s, xyz=%s."
+            % (len(omega_cols), len(rotvec_cols), len(xyz_cols))
         )
 
     timepoints = [m["timepoint"] for m in representative]
@@ -481,11 +493,21 @@ def prepare_3branch_data(
         # Previously ffill/bfill propagated the last value ("statue" artifact),
         # artificially suppressing variance.  Now we DROP those frames entirely.
         blocks = [df[cols].values for df in dfs]
-        combined_raw = np.vstack(blocks)
-        valid_for_fit = ~np.any(
-            np.isnan(combined_raw) | np.isinf(combined_raw), axis=1
-        )
-        combined_clean = combined_raw[valid_for_fit]
+
+        # Determine which session(s) to use for fitting the scaler.
+        # reference_timepoint="T1" → fit on T1 data only (T1-anchor; §6.2).
+        # reference_timepoint="combined" (legacy) → fit on combined T1+T2+T3.
+        if reference_timepoint == "T1":
+            t1_session_idx = next(
+                (i for i, m in enumerate(representative) if m["timepoint"] == "T1"),
+                0,
+            )
+            fit_raw = blocks[t1_session_idx]
+        else:
+            fit_raw = np.vstack(blocks)
+
+        valid_for_fit = ~np.any(np.isnan(fit_raw) | np.isinf(fit_raw), axis=1)
+        combined_clean = fit_raw[valid_for_fit]
         if combined_clean.shape[0] == 0:
             raise ValueError(
                 f"Branch '{branch_name}': all frames contain NaN/Inf after gap "
@@ -525,12 +547,12 @@ def prepare_3branch_data(
         }
 
     # Collect the unique set of joints that survived the filter
-    all_filtered_cols = omega_cols + q_cols + xyz_cols
+    all_filtered_cols = omega_cols + rotvec_cols + xyz_cols
     joints_used = sorted({c.split("__")[0] for c in all_filtered_cols})
 
     prepared = {
         "dynamics": _scale_branch(omega_cols, "dynamics"),
-        "pose": _scale_branch(q_cols, "pose"),
+        "pose": _scale_branch(rotvec_cols, "pose"),   # §3.1: rotvec, not quaternions
         "reach": _scale_branch(xyz_cols, "reach"),
         "representative_sessions": representative,
         "joint_filter": {
@@ -579,22 +601,28 @@ def check_scaling_integrity(prepared: dict[str, Any]) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
-def run_3branch_pca(scaled_data_dict: dict[str, Any]) -> dict[str, Any]:
+def run_3branch_pca(
+    scaled_data_dict: dict[str, Any],
+    reference_timepoint: str = "combined",
+) -> dict[str, Any]:
     """
-    Fit PCA on combined (T1+T2+T3) scaled data per branch; project each session
-    into 3D (PC1, PC2, PC3). Full variance spectrum is retained for N90 in Phase 3.
-    PCA objects are stored for loadings in Phase 4.
+    Fit PCA per branch and project each session into PC space.
 
     Args:
-        scaled_data_dict: output of prepare_3branch_data() with keys "dynamics", "pose", "reach".
+        scaled_data_dict: output of prepare_3branch_data().
+        reference_timepoint: "T1" → fit PCA on T1 data only (T1-anchor; §6.2).
+                             "combined" (legacy) → fit on stacked T1+T2+T3.
 
     Returns:
         pca_results: for each branch:
-          - pca: fitted sklearn PCA (fitted on all components for full variance spectrum)
-          - projected_arrays: list of (n_frames, 3) arrays (PC1, PC2, PC3) per session
-          - explained_variance_ratio_: full spectrum (for N90)
-          - timepoints: list of session labels
-          - n_features: number of input features
+          - pca:                    fitted sklearn PCA
+          - projected_arrays:       list of (n_frames, 3) arrays (PC1–PC3) per session
+          - projected_full:         list of (n_frames, K) arrays (all K PCs) per session
+          - explained_variance_ratio_: full spectrum array from T1-fitted PCA
+          - timepoints:             list of session labels
+          - n_features:             number of input features
+          - columns:                feature column names
+          - pca_fit_reference:      which timepoint(s) PCA was fitted on
     """
     pca_results: dict[str, Any] = {}
     for branch_key in ("dynamics", "pose", "reach"):
@@ -604,28 +632,48 @@ def run_3branch_pca(scaled_data_dict: dict[str, Any]) -> dict[str, Any]:
         scaled_arrays = data["scaled_arrays"]
         columns = data["columns"]
         timepoints = data["timepoints"]
-        combined = np.vstack(scaled_arrays)
-        n_samples, n_features = combined.shape
 
-        # Fit PCA on all components to get full variance spectrum (for N90)
+        # Determine fit data
+        if reference_timepoint == "T1":
+            t1_idx = next(
+                (i for i, tp in enumerate(timepoints) if tp == "T1"), 0
+            )
+            fit_data = scaled_arrays[t1_idx]
+            pca_fit_ref = "T1"
+        else:
+            fit_data = np.vstack(scaled_arrays)
+            pca_fit_ref = "combined"
+
+        n_samples, n_features = fit_data.shape
         n_components_full = min(n_samples, n_features)
         pca = PCA(n_components=n_components_full)
-        pca.fit(combined)
+        pca.fit(fit_data)
 
-        # Project each session into 3D (first 3 components)
+        # §6.4 projection consistency: use pca.transform() everywhere
+        # Assertion: pca.transform(X) == (X - pca.mean_) @ pca.components_.T
+        _X_check = fit_data[:min(10, len(fit_data))]
+        _proj_check = pca.transform(_X_check)
+        _proj_manual = (_X_check - pca.mean_) @ pca.components_.T
+        assert np.allclose(_proj_check, _proj_manual, atol=1e-6), (
+            f"pca.transform() vs manual projection mismatch for branch {branch_key!r}"
+        )
+
         projected_arrays = []
+        projected_full = []
         for X in scaled_arrays:
-            # X @ components_[:3].T = (n_frames, 3)
-            proj_3d = X @ pca.components_[:3].T
-            projected_arrays.append(proj_3d)
+            Y_full = pca.transform(X)          # (n_frames, K)
+            projected_arrays.append(Y_full[:, :3])
+            projected_full.append(Y_full)
 
         pca_results[branch_key] = {
             "pca": pca,
             "projected_arrays": projected_arrays,
+            "projected_full": projected_full,
             "explained_variance_ratio_": pca.explained_variance_ratio_.copy(),
             "timepoints": timepoints,
             "n_features": n_features,
             "columns": columns,
+            "pca_fit_reference": pca_fit_ref,
         }
     return pca_results
 
@@ -638,21 +686,32 @@ def run_3branch_pca(scaled_data_dict: dict[str, Any]) -> dict[str, Any]:
 def calculate_n90(
     pca_results: dict[str, Any],
     prepared: dict[str, Any],
+    variance_threshold: float = 0.90,
 ) -> dict[str, Any]:
     """
-    For each branch and each timepoint, find the number of components required
-    to reach 90% cumulative explained variance (N90). Cumulative variance is
-    computed **per session**: we project that session's scaled data onto all
-    PCs and use that session's variance along each PC. So even if the global
-    PCA needs 40 components for 90% on combined data, T1 might need only 12;
-    a jump to a higher N90 in T2 is evidence of increased entropy/complexity.
+    Per-session N90 and Effective Dimensionality (D_eff / Participation Ratio).
+
+    N90 is computed on a per-session basis: project each session's scaled data
+    onto all PCs, compute that session's variance along each PC, sort descending,
+    find how many PCs are needed to reach variance_threshold cumulative variance.
+
+    D_eff (§2.2.2) is computed on the UNSORTED per-PC variance (order-invariant
+    Participation Ratio) — computed BEFORE sorting so the sort doesn't affect it.
+
+    Args:
+        pca_results:       output of run_3branch_pca().
+        prepared:          output of prepare_3branch_data().
+        variance_threshold: cumulative variance threshold for N90 (§Update 4).
+                           Default 0.90; expose to user for sensitivity analysis.
 
     Returns:
-        n90_results: dict branch_key -> {
-            "timepoints": ["T1", "T2", "T3"],
-            "n90_per_session": [n90_t1, n90_t2, n90_t3],
+        dict branch_key -> {
+            "timepoints":          list[str],
+            "n90_per_session":     list[int],
+            "d_eff_per_session":   list[float],
+            "d_eff_norm_per_session": list[float],
+            "variance_threshold":  float,
         }
-        So table: Branch | T1 N90 | T2 N90 | T3 N90.
     """
     n90_results: dict[str, Any] = {}
     for branch_key in ("dynamics", "pose", "reach"):
@@ -663,27 +722,48 @@ def calculate_n90(
         pca = res["pca"]
         timepoints = res["timepoints"]
         scaled_arrays = prep["scaled_arrays"]
-        n90_per_session = []
+        K = pca.components_.shape[0]
+
+        n90_per_session: list[int] = []
+        d_eff_per_session: list[float] = []
+        d_eff_norm_per_session: list[float] = []
+
         for X in scaled_arrays:
-            # Project this session onto all components; variance is per-session
-            Y = X @ pca.components_.T  # (n_frames, n_components)
+            # §6.4: use pca.transform() not raw matrix multiply
+            Y = pca.transform(X)          # (n_frames, K)
             var_per_pc = np.var(Y, axis=0)
-            total_var = np.sum(var_per_pc)
+            total_var = float(np.sum(var_per_pc))
+
             if total_var <= 0:
                 n90_per_session.append(0)
+                d_eff_per_session.append(float("nan"))
+                d_eff_norm_per_session.append(float("nan"))
                 continue
-            # Sort descending: session variance may reorder PCs relative to global fit
-            var_per_pc = np.sort(var_per_pc)[::-1]
-            # Cumulative explained variance for this session only
-            explained_ratio = var_per_pc / total_var
+
+            # ── D_eff on UNSORTED variance (Participation Ratio; §2.2.2) ──
+            # Computed before sorting — result is order-invariant but clarity matters
+            p_eig = var_per_pc / (total_var + 1e-12)
+            d_eff = float(1.0 / (np.sum(p_eig ** 2) + 1e-12))
+            d_eff_normalized = d_eff / K
+            d_eff_per_session.append(d_eff)
+            d_eff_norm_per_session.append(d_eff_normalized)
+
+            # ── N90 on SORTED variance (find minimum PCs for threshold) ──
+            var_sorted = np.sort(var_per_pc)[::-1]
+            explained_ratio = var_sorted / total_var
             cum = np.cumsum(explained_ratio)
-            # Smallest k (1-based count) such that cum[k-1] >= 0.9
-            idx = np.searchsorted(cum, 0.9)
-            n90 = int(idx) + 1
+            idx = np.searchsorted(cum, variance_threshold)
+            # Off-by-one guard: §2.2.3
+            n90 = min(int(idx) + 1, K)
+            assert 1 <= n90 <= K, f"N90={n90} outside valid range [1, {K}]"
             n90_per_session.append(n90)
+
         n90_results[branch_key] = {
             "timepoints": timepoints,
             "n90_per_session": n90_per_session,
+            "d_eff_per_session": d_eff_per_session,
+            "d_eff_norm_per_session": d_eff_norm_per_session,
+            "variance_threshold": variance_threshold,
         }
     return n90_results
 
@@ -958,6 +1038,67 @@ def calculate_state_space_entropy(
             "n_bins": n_bins,
             "bin_edges_pc1": pc1_edges,
             "bin_edges_pc2": pc2_edges,
+        }
+    return results
+
+
+def calculate_state_space_entropy_t1_edges(
+    pca_results: dict[str, Any],
+    n_bins: int = 25,
+) -> dict[str, Any]:
+    """
+    Sensitivity analysis variant of state-space entropy (§2.4.5).
+    Bin edges computed from T1 data ONLY (1st–99th percentile of T1's projected
+    point cloud) rather than the combined T1+T2+T3 cloud.
+
+    This tests whether the T1→T3 entropy delta is an artifact of grid expansion
+    (T3 widening the bin range) or a genuine exploration increase.
+
+    Inference rule (§2.4.5):
+      - Delta positive in BOTH global-edge and T1-edge entropy → genuine increase.
+      - Positive in global-edge only → artifact of grid expansion, not genuine.
+    """
+    results: dict[str, Any] = {}
+    for branch_key in ("dynamics", "pose", "reach"):
+        res = pca_results.get(branch_key)
+        if not res:
+            continue
+        projected_arrays = res["projected_arrays"]
+        timepoints = res["timepoints"]
+
+        # Bin edges from T1 data only (index 0 = T1 in canonical order)
+        t1_pts = projected_arrays[0]
+        pc1_lo, pc1_hi = np.percentile(t1_pts[:, 0], [1, 99])
+        pc2_lo, pc2_hi = np.percentile(t1_pts[:, 1], [1, 99])
+        pc1_edges = np.linspace(pc1_lo, pc1_hi, n_bins + 1)
+        pc2_edges = np.linspace(pc2_lo, pc2_hi, n_bins + 1)
+
+        entropy_per_session: list[float] = []
+        for pts in projected_arrays:
+            # Clip guard (§2.4.2) — prevents silent data loss at boundary
+            pc1_clipped = np.clip(pts[:, 0], pc1_edges[0], pc1_edges[-1])
+            pc2_clipped = np.clip(pts[:, 1], pc2_edges[0], pc2_edges[-1])
+            hist, _, _ = np.histogram2d(pc1_clipped, pc2_clipped,
+                                        bins=[pc1_edges, pc2_edges])
+            assert hist.sum() == len(pts), (
+                f"T1-edge entropy: frames dropped for branch {branch_key!r}"
+            )
+            total = hist.sum()
+            if total <= 0:
+                entropy_per_session.append(0.0)
+                continue
+            p = hist.flatten() / total
+            p = p[p > 0]
+            H_bits = float(-np.sum(p * np.log2(p)))
+            entropy_per_session.append(H_bits)
+
+        results[branch_key] = {
+            "timepoints": timepoints,
+            "entropy_per_session": entropy_per_session,
+            "n_bins": n_bins,
+            "bin_edges_pc1": pc1_edges,
+            "bin_edges_pc2": pc2_edges,
+            "edge_source": "T1_only",
         }
     return results
 
