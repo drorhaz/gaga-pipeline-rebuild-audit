@@ -34,7 +34,7 @@ class PipelineRunner:
         self.dry_run = dry_run
         
         # Pipeline sequence (notebook numbers)
-        self.pipeline_sequence = ['01', '02', '03', '04', '05', '06','08']
+        self.pipeline_sequence = ['01', '02', '03', '04', '05', '06','08'] #'01', '02', '03', '04', '05', '06',
         
         # Load subjects anthropometric registry once at startup
         self.subjects_registry = self._load_subjects_registry()

@@ -1,7 +1,7 @@
 crop_sec:
 - 10.0
 - 110.0
-current_csv: 671/T3/671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001.csv
+current_csv: 734/T1/734_T1_P1_R2_Take 2025-12-01 02.32.02 PM.csv
 data_dir: data
 deriv_method: savgol
 derivatives_dir: derivatives
@@ -14,7 +14,7 @@ filtering:
   apply_quaternion_median_filter: true
   cutoff_hz: 8.0
   dynamic_rms_windowing: true
-  energy_quantile: 0.80
+  energy_quantile: 0.8
   fmax: 12.0
   hampel_n_sigma: 3.0
   hampel_window: 5
@@ -32,9 +32,9 @@ filtering:
   winter_fmax: 20.0
   winter_fmin: 1.0
   zscore_threshold: 5.0
-gravity_axis: "y"
-head_to_floor_stature_ratio: 0.87
 fs_target: 120.0
+gravity_axis: y
+head_to_floor_stature_ratio: 0.87
 health_fallback_cap: 59
 health_weights:
   bone: 25.0
@@ -52,8 +52,8 @@ joints_viz:
 - LeftUpLeg
 - RightUpLeg
 max_gap_pos_sec: 1.0
-min_head_pelvis_vertical_m: 0.5
 max_gap_quat_sec: 0.25
+min_head_pelvis_vertical_m: 0.5
 min_run_seconds: 5.0
 missing_policy_pos: pchip_single_pass
 missing_policy_quat: interp_slerp
@@ -82,11 +82,11 @@ shortest_rotation: true
 static_search_step_sec: 0.1
 step_06:
   enforce_cleaning: false
-subject_height_cm: 179.0
-subject_height_source: measured
-subject_id: '671'
-subject_mass_kg: 72.0
-subject_weight_source: measured
+subject_height_cm: null
+subject_height_source: null
+subject_id: '734'
+subject_mass_kg: null
+subject_weight_source: null
 thresh:
   bone_cv_alert: 0.05
   bone_cv_warn: 0.02
