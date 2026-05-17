@@ -1,0 +1,9 @@
+[tool.black]
+line-length = 79
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    # TO REMOVE IN 2027
+    # TimeSeries
+    'ignore:The function sort_events is deprecated since 0.15 and is scheduled to be removed in 2027',
+]

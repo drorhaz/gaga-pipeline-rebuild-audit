@@ -1,0 +1,37 @@
+# Example configuration for the included sample dataset.
+# Run with: python run_pipeline.py --config example/example_config.yaml
+
+subject:
+  mass: 79.0  # kg
+
+paths:
+  c3d_folder: "data"
+  output_folder: "output"
+  generic_model: "../model/RajagopalLaiUhlrich2023.osim"
+  scaling_measurements_tsv: "../config_tables/scaling_measurements.tsv"
+  ik_marker_weights_tsv: "../config_tables/ik_marker_weights.tsv"
+  external_loads_tsv: "../config_tables/external_loads.tsv"
+
+steps:
+  c3d_export: true
+  scaling: true
+  inverse_kinematics: true
+  inverse_dynamics: true
+  center_of_mass: true
+
+trials:
+  static_pattern: "*static*"
+
+coordinate_transform:
+  - [ 0,  0, -1, 0]
+  - [-1,  0,  0, 0]
+  - [ 0,  1,  0, 0]
+  - [ 0,  0,  0, 1]
+
+inverse_dynamics:
+  low_pass_cutoff_frequency: 6.0
+
+#C3D export settings
+c3d_export:
+  fill_gaps_max_missing_samples: 0  # max gap size (frames) to interpolate; 0 to disable
+

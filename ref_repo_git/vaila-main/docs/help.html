@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vailá — Help &amp; documentation hub</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #f0f2f5;
+    }
+
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #1e3a5f;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.35em;
+    }
+
+    .tagline {
+      font-size: 1.05rem;
+      color: #444;
+      margin-top: 0;
+    }
+
+    .hero-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin: 22px 0;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #dde3ea;
+    }
+
+    .hero-card h2 {
+      margin-top: 0;
+      font-size: 1.15rem;
+      color: #1e3a5f;
+    }
+
+    .primary-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 20px;
+      background: #1e3a5f;
+      color: #fff !important;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .primary-link:hover {
+      background: #2c5282;
+    }
+
+    .secondary-links {
+      margin-top: 14px;
+      font-size: 0.95rem;
+    }
+
+    .secondary-links a {
+      color: #1e3a5f;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 12px 14px;
+      overflow: auto;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+    }
+
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .section {
+      margin-bottom: 36px;
+      background: #fff;
+      padding: 20px 22px;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
+    }
+
+    ul.tight li {
+      margin-bottom: 0.35em;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 36px 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>vailá</h1>
+    <p class="tagline">
+      <strong>Versatile Anarcho Integrated Liberation Ánalysis</strong> — open-source Python&nbsp;3.12 toolbox for
+      multimodal biomechanical and movement analysis (IMU, MoCap, markerless 2D/3D, EMG, force plates, GNSS/GPS, and
+      more), with a Tkinter-based desktop GUI.
+    </p>
+
+    <div class="hero-card" id="start-here">
+      <h2>Start here — in-app module &amp; tool help</h2>
+      <p>
+        Per-module HTML help (SAM, stroboscopic, DLT/reconstruction, video tools, etc.) lives under
+        <code>vaila/help/</code>. Open the index to browse every linked topic from one place.
+      </p>
+      <a class="primary-link" href="../vaila/help/index.html">Open vailá Help Index →</a>
+      <p class="secondary-links">
+        Same path on disk: <code>vaila/help/index.html</code>
+      </p>
+    </div>
+
+    <div class="section" id="english">
+      <h2>English — project overview</h2>
+
+      <h3>What you get</h3>
+      <ul class="tight">
+        <li><strong>Frame A — File manager:</strong> rename, import/export, copy/move, tree, find, SSH transfer.</li>
+        <li><strong>Frame B — Multimodal analysis:</strong> IMU, MoCap, markerless (MP/YOLO), EMG, force plates, GNSS, SAM 3 video segmentation, soccer-field calibration, sprint analysis, and TUG/turn.</li>
+        <li><strong>Frame C — Tools:</strong> CSV/C3D workflows, DLT 2D/3D reconstruction, video (compress, cut, resize, sync) and image utilities, stroboscopic generation, and sports field visualization.</li>
+      </ul>
+      <p>
+        Optional stacks (CUDA/GPU templates, extras) are documented in the repository README and in AGENTS.md; the
+        <a href="../vaila/help/index.html">Help Index</a> focuses on what each tool does and how to open it from the GUI.
+      </p>
+
+      <h3>GUI button reference (Markdown)</h3>
+      <p>
+        Long-form descriptions of individual GUI buttons live under <code>docs/vaila_buttons/</code>:
+        <a href="vaila_buttons/README.md">Button documentation index</a>.
+      </p>
+
+      <h3>Quick run (after install)</h3>
+      <pre><code>uv run vaila.py</code></pre>
+      <p>
+        One-line installers and platform notes: see
+        <a href="https://github.com/vaila-multimodaltoolbox/vaila">the project on GitHub</a> or the root
+        <code>README.md</code> in your clone.
+      </p>
+
+      <h3>Contributing</h3>
+      <p>
+        Pull requests and issues are welcome on GitHub. See <code>CONTRIBUTING.md</code> in the repository.
+      </p>
+
+      <h3>License</h3>
+      <p>
+        Licensed under the <strong>GNU Affero General Public License v3.0</strong> (AGPL-3.0). See the
+        <code>LICENSE</code> file in the repository.
+      </p>
+
+      <h3>How to cite</h3>
+      <pre><code>@misc{vaila2024,
+  title={vailá - Versatile Anarcho Integrated Liberation Ánalysis in Multimodal Toolbox},
+  author={Paulo R. P. Santiago and Abel G. Chinaglia and others},
+  year={2024},
+  url={https://github.com/vaila-multimodaltoolbox/vaila}
+}</code></pre>
+    </div>
+
+    <hr>
+
+    <div class="section" id="portuguese">
+      <h2>Português — visão geral do projeto</h2>
+
+      <div class="hero-card" style="margin-top:0;">
+        <h2 style="margin-top:0;">Índice de ajuda dos módulos</h2>
+        <p>
+          A documentação HTML por ferramenta (SAM, estroboscópio, DLT/reconstrução, vídeo, etc.) está em
+          <code>vaila/help/</code>. Use o índice para navegar a partir de um único lugar.
+        </p>
+        <a class="primary-link" href="../vaila/help/index.html">Abrir índice de ajuda do vailá →</a>
+      </div>
+
+      <h3>O que é o vailá</h3>
+      <p>
+        Caixa de ferramentas multimodal em Python&nbsp;3.12 para análise do movimento e biomecânica, com interface
+        desktop em Tkinter, integrando IMU, MoCap, rastreamento markerless 2D/3D, EMG, plataformas de força, GNSS/GPS e
+        outros fluxos de dados.
+      </p>
+      <ul class="tight">
+        <li><strong>Quadro A — Arquivos:</strong> renomear, importar/exportar, copiar/mover, árvore, busca, SSH.</li>
+        <li><strong>Quadro B — Análise multimodal:</strong> IMU, MoCap, markerless (MP/YOLO), EMG, força, GNSS, segmentação de vídeo SAM 3, calibração de campo de futebol, análise de sprint e TUG/turn.</li>
+        <li><strong>Quadro C — Ferramentas:</strong> CSV/C3D, DLT 2D/3D, utilitários de vídeo (compressão, corte, redimensionamento, sincronia), geração estroboscópica e visualização de quadras esportivas.</li>
+      </ul>
+      <p>
+        Detalhes de cada módulo: <a href="../vaila/help/index.html">índice em <code>vaila/help/index.html</code></a>.
+      </p>
+
+      <h3>Documentação dos botões da GUI</h3>
+      <p>
+        Textos por botão: <a href="vaila_buttons/README.md">índice em <code>docs/vaila_buttons/</code></a>.
+      </p>
+
+      <h3>Executar após instalação</h3>
+      <pre><code>uv run vaila.py</code></pre>
+      <p>
+        Instalação em uma linha e requisitos por sistema: veja o README no GitHub ou na raiz do repositório clonado.
+      </p>
+
+      <h3>Contribuição</h3>
+      <p>
+        Contribuições são bem-vindas via pull request ou issue no GitHub; veja <code>CONTRIBUTING.md</code>.
+      </p>
+
+      <h3>Licença</h3>
+      <p>
+        Licenciado sob <strong>GNU Affero General Public License v3.0</strong> (AGPL-3.0). Consulte o arquivo
+        <code>LICENSE</code>.
+      </p>
+
+      <h3>Como citar</h3>
+      <pre><code>@misc{vaila2024,
+  title={vailá - Versatile Anarcho Integrated Liberation Ánalysis in Multimodal Toolbox},
+  author={Paulo R. P. Santiago and Abel G. Chinaglia and outros},
+  year={2024},
+  url={https://github.com/vaila-multimodaltoolbox/vaila}
+}</code></pre>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 vailá — documentation entry: <code>docs/help.html</code></p>
+    </footer>
+  </main>
+</body>
+
+</html>

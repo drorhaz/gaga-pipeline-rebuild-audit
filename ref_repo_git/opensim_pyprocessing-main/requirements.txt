@@ -1,0 +1,6 @@
+numpy
+pyyaml
+matplotlib
+scipy
+# opensim -- Python bindings must be installed separately.
+# See: https://opensim-org.github.io/opensim-moco-site/docs/Guides/Install/

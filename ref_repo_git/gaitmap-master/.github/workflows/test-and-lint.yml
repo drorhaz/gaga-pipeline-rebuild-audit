@@ -1,0 +1,52 @@
+name: Test and Lint
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies (all extras)
+        if: ${{ matrix.python-version == '3.9' }}
+        run: uv sync --group dev --all-extras
+      - name: Install dependencies (stats extra)
+        if: ${{ matrix.python-version != '3.9' }}
+        run: uv sync --group dev --extra stats
+      - name: Testing
+        run: uv run poe test
+      - name: Upload coverage reports to Codecov
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+          python-version: "3.9"
+      - name: Install dependencies
+        run: uv sync --group dev --all-extras
+      - name: Linting
+        run: uv run poe ci_check

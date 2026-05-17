@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Pipeline outputs
+*_opensim/
+**/output/
+
+# User data (not distributed)
+data_c3d/
+
+# Debug/temp files
+_ik_marker_errors.sto
+id_tool_setup_debug.xml
+*_external_loads.xml
+opensim.log
+

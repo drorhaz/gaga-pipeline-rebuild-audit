@@ -1,0 +1,42 @@
+{
+  "room": "cork",
+  "default": {
+    "server_ip": "10.40.49.47",
+    "client_ip": "auto",
+    "use_multicast": true
+  },
+  "calibration": {
+    "transport": "ssh",
+    "host": "Admin@kyushu",
+    "mcal_path": "C:\\ProgramData\\OptiTrack\\Motive\\System Calibration.mcal",
+    "require_mcal_intrinsics": true,
+    "allow_legacy_defaults": false
+  },
+  "camera_stream": {
+    "server_ip": "10.40.49.47",
+    "control_port": 5554,
+    "streaming_port": 5555
+  },
+  "pose_defaults": {
+    "intrinsics_source": "mcal",
+    "require_mcal_intrinsics": true,
+    "allow_legacy_defaults": false,
+    "y_correction": 0.1,
+    "supported_camera_models": ["PrimeX 22", "PrimeX 13W"]
+  },
+  "cameras": [
+    {"serial": 103517, "model": "PrimeX 22", "role": "pose"},
+    {"serial": 103518, "model": "PrimeX 22", "role": "pose"},
+    {"serial": 103519, "model": "PrimeX 22", "role": "pose"},
+    {"serial": 103520, "model": "PrimeX 22", "role": "pose"},
+    {"serial": 103521, "model": "PrimeX 22", "role": "pose"},
+    {"serial": 103522, "model": "PrimeX 22", "role": "pose"},
+    {"serial": 108490, "model": "PrimeX 13W", "role": "pose"},
+    {"serial": 108496, "model": "PrimeX 13W", "role": "pose"},
+    {"serial": 109641, "model": "PrimeX 22", "role": "pose"},
+    {"serial": 109642, "model": "PrimeX 22", "role": "pose"},
+    {"serial": 11679, "model": "Prime Color-FS", "role": "ignored"},
+    {"serial": 11680, "model": "Prime Color-FS", "role": "ignored"},
+    {"serial": 11681, "model": "Prime Color-FS", "role": "ignored"}
+  ]
+}

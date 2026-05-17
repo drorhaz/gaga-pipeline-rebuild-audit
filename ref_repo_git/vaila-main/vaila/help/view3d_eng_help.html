@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C3D Viewer - Keyboard Shortcuts - vailá</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+        .module-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+        }
+        .code-block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .step {
+            background-color: #e8f5e8;
+            border: 1px solid #c3e6c3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .keyboard-shortcut {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-family: 'Courier New', monospace;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .file-format {
+            background-color: #f1f2f6;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .feature-highlight {
+            background-color: #e8f4fd;
+            border: 1px solid #b3d9ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>C3D Viewer - Keyboard Shortcuts</h1>
+        
+        <div class="info">
+            <strong>Overview:</strong> Advanced 3D viewer for C3D files with Blender-like features, marker trails (with ghosting), skeleton visualization, Z-up camera for biomechanics, dynamic grid, marker picking, and video export capabilities.
+        </div>
+
+        <h2>Architecture</h2>
+        <div class="feature-highlight">
+            <ul>
+                <li><strong>VailaModel</strong> (data layer): C3D acquisition with <code>GetPointFrame</code>, <code>GetFrameNumber</code>, <code>GetPointFrequency</code>, bounds and Z-up detection. Clean separation from visualization.</li>
+                <li><strong>VailaView</strong> (Open3D layer): Scene, trails, dynamic grid, Z-up camera, and marker picking. Enables future multi-C3D and extended viewer features.</li>
+            </ul>
+        </div>
+
+        <h2>Navigation Controls</h2>
+        
+        <div class="shortcut-grid">
+            <div class="module-section">
+                <h3>Frame Navigation</h3>
+                <div class="keyboard-shortcut"><strong>← →</strong> - Previous/Next frame</div>
+                <div class="keyboard-shortcut"><strong>F/B</strong> - Previous/Next frame (single step)</div>
+                <div class="keyboard-shortcut"><strong>↑ ↓</strong> - Forward/Backward 60 frames</div>
+                <div class="keyboard-shortcut"><strong>S/E</strong> - Jump to start/end</div>
+                <div class="keyboard-shortcut"><strong>Space or Enter</strong> - Play/Pause animation</div>
+            </div>
+
+            <div class="module-section">
+                <h3>Camera Views</h3>
+                <div class="keyboard-shortcut"><strong>1</strong> - Front view</div>
+                <div class="keyboard-shortcut"><strong>2</strong> - Right view</div>
+                <div class="keyboard-shortcut"><strong>3</strong> - Top view</div>
+                <div class="keyboard-shortcut"><strong>4</strong> - Isometric view</div>
+                <div class="keyboard-shortcut"><strong>R</strong> - Reset camera view</div>
+                <div class="keyboard-shortcut"><strong>L</strong> - Set custom view limits</div>
+            </div>
+        </div>
+
+        <h2>Marker Controls</h2>
+        
+        <div class="shortcut-grid">
+            <div class="module-section">
+                <h3>Marker Controls</h3>
+                <div class="keyboard-shortcut"><strong>+ /=</strong> - Increase marker size</div>
+                <div class="keyboard-shortcut"><strong>-</strong> - Decrease marker size</div>
+                <div class="keyboard-shortcut"><strong>C</strong> - Cycle marker colors</div>
+                <div class="keyboard-shortcut"><strong>X</strong> - Toggle marker labels</div>
+                <div class="keyboard-shortcut"><strong>`</strong> (backtick) - Cycle picked marker forward (highlight in yellow)</div>
+                <div class="keyboard-shortcut"><strong>~</strong> (tilde) - Cycle picked marker backward</div>
+            </div>
+
+            <div class="module-section">
+                <h3>Advanced Features</h3>
+                <div class="keyboard-shortcut"><strong>W</strong> - Toggle trails with velocity coloring and ghosting (older segments darker)</div>
+                <div class="keyboard-shortcut"><strong>J</strong> - Load skeleton connections from JSON</div>
+                <div class="keyboard-shortcut"><strong>D</strong> - Measure distance between two markers</div>
+            </div>
+        </div>
+
+        <h2>Visual Controls</h2>
+        
+        <div class="shortcut-grid">
+            <div class="module-section">
+                <h3>View Controls</h3>
+                <div class="keyboard-shortcut"><strong>T</strong> - Change background color</div>
+                <div class="keyboard-shortcut"><strong>Y</strong> - Change ground plane color</div>
+                <div class="keyboard-shortcut"><strong>G</strong> - Toggle field lines</div>
+                <div class="keyboard-shortcut"><strong>M</strong> - Toggle ground grid</div>
+                <div class="keyboard-shortcut"><strong>R</strong> - Reset camera view</div>
+                <div class="keyboard-shortcut"><strong>L</strong> - Set custom view limits</div>
+            </div>
+
+            <div class="module-section">
+                <h3>Information & Help</h3>
+                <div class="keyboard-shortcut"><strong>I</strong> - Show frame info</div>
+                <div class="keyboard-shortcut"><strong>A</strong> - Show marker quality statistics</div>
+                <div class="keyboard-shortcut"><strong>H</strong> - Show this help</div>
+                <div class="keyboard-shortcut"><strong>U</strong> - Override unit conversion</div>
+            </div>
+
+            <div class="module-section">
+                <h3>Editing</h3>
+                <div class="keyboard-shortcut"><strong>O</strong> - Create swap CSV file</div>
+            </div>
+        </div>
+
+        <h2>Capture & Export</h2>
+        
+        <div class="shortcut-grid">
+            <div class="module-section">
+                <h3>Screenshots & Images</h3>
+                <div class="keyboard-shortcut"><strong>K</strong> - Save screenshot (PNG)</div>
+                <div class="keyboard-shortcut"><strong>Z</strong> - Export PNG sequence</div>
+            </div>
+
+            <div class="module-section">
+                <h3>Video Export</h3>
+                <div class="keyboard-shortcut"><strong>V</strong> - Export MP4 (requires ffmpeg)</div>
+                <div class="keyboard-shortcut"><strong>8</strong> - Render turntable MP4 (requires ffmpeg)</div>
+            </div>
+
+            <div class="module-section">
+                <h3>File Operations</h3>
+                <div class="keyboard-shortcut"><strong>N</strong> - Apply marker label swaps from CSV/TOML</div>
+                <div class="keyboard-shortcut"><strong>Ctrl+S</strong> - Save edited C3D file</div>
+            </div>
+
+            <div class="module-section">
+                <h3>Templates</h3>
+                <div class="keyboard-shortcut"><strong>9</strong> - Save swap template CSV</div>
+                <div class="keyboard-shortcut"><strong>0</strong> - Save skeleton template JSON</div>
+            </div>
+        </div>
+
+        <h2>Playback Speed</h2>
+        
+        <div class="module-section">
+            <div class="keyboard-shortcut"><strong>[</strong> - Slower playback</div>
+            <div class="keyboard-shortcut"><strong>]</strong> - Faster playback</div>
+            <div class="keyboard-shortcut"><strong>Q</strong> - Toggle per-frame console info</div>
+            <div class="info">
+                <strong>Available speeds:</strong> 0.1×, 0.2×, 0.25×, 0.5×, 1×, 2×, 4×, 8×, 16×, 32×, 64×, 128×
+            </div>
+        </div>
+
+        <h2>Mouse Controls</h2>
+        
+        <div class="module-section">
+            <div class="keyboard-shortcut"><strong>Left Drag</strong> - Rotate view</div>
+            <div class="keyboard-shortcut"><strong>Middle/Right Drag</strong> - Pan view</div>
+            <div class="keyboard-shortcut"><strong>Mouse Wheel</strong> - Zoom in/out</div>
+        </div>
+
+        <h2>Advanced Features</h2>
+
+        <div class="feature-highlight">
+            <h3>📊 Marker Quality Statistics (A key)</h3>
+            <ul>
+                <li>Analyze marker data quality and detect gaps</li>
+                <li>Display statistics: valid data percentage, gap count, max gap size</li>
+                <li>Show residual statistics (if available in C3D file)</li>
+                <li>Display event information and analog channel details</li>
+                <li>Summary statistics for all selected markers</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>🎯 Marker Trails (W key)</h3>
+            <ul>
+                <li>Visualize historical marker positions (ghosting)</li>
+                <li>Older segments drawn darker for clear trail effect</li>
+                <li>Color-coded by velocity magnitude</li>
+                <li>Configurable trail length</li>
+                <li>Real-time updates during playback</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>🔍 Marker Picking (` and ~ keys)</h3>
+            <ul>
+                <li>Cycle through markers to highlight one in yellow (picked marker)</li>
+                <li><strong>`</strong> (backtick): next marker</li>
+                <li><strong>~</strong> (tilde): previous marker</li>
+                <li>Picked marker name and index shown in console</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>📐 Dynamic Grid & Z-up Camera</h3>
+            <ul>
+                <li>Grid and ground plane adapt to data bounding box (no fixed field)</li>
+                <li>If Z range &gt; Y range, camera up vector set to Z (biomechanics convention)</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>🦴 Skeleton Visualization (J key)</h3>
+            <ul>
+                <li>Load skeleton connections from JSON files</li>
+                <li>Support for MediaPipe pN naming convention</li>
+                <li>Dynamic line segments between markers</li>
+                <li>Automatic name mapping and validation</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>📏 Distance Measurement (D key)</h3>
+            <ul>
+                <li>Interactive distance measurement between markers</li>
+                <li>Real-time distance display</li>
+                <li>Visual line connecting selected markers</li>
+                <li>Distance updates during animation</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>🔄 Marker Label Swaps (N and O keys)</h3>
+            <ul>
+                <li><strong>N key:</strong> Apply marker label corrections from CSV or TOML files</li>
+                <li><strong>O key:</strong> Manual swap markers via dialog (visual editing)</li>
+                <li>Swap marker data (X, Y, Z, Residual) between markers</li>
+                <li>Support for single frame or frame range swaps</li>
+                <li>Automatic visualization update after applying swaps</li>
+                <li>Detailed log of applied corrections in terminal</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>💾 Save Edited C3D (Ctrl+S)</h3>
+            <ul>
+                <li>Save C3D files with any modifications made during the session</li>
+                <li>Includes all marker label swaps and edits</li>
+                <li>Suggests filename with "_fixed.c3d" suffix</li>
+                <li>Preserves all original C3D structure and metadata</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>🎬 Video Export</h3>
+            <ul>
+                <li><strong>V key:</strong> Export full animation as MP4</li>
+                <li><strong>8 key:</strong> Create turntable video (360° rotation)</li>
+                <li>Requires ffmpeg installation</li>
+                <li>High-quality video output</li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h3>📝 Template Generation (9 and 0 keys)</h3>
+            <ul>
+                <li><strong>9 key:</strong> Save marker swap template CSV with example entries</li>
+                <li><strong>0 key:</strong> Save skeleton template JSON with example connections</li>
+                <li>Templates include available markers from the current C3D file</li>
+                <li>Ready-to-use examples with proper formatting</li>
+            </ul>
+        </div>
+
+        <h2>JSON Skeleton Format</h2>
+        
+        <div class="info">
+            Example skeleton JSON for MediaPipe pose landmarks:
+        </div>
+        
+        <div class="file-format">
+{
+  "schema": "mediapipe_pose_33_pn",
+  "note": "pN is 1-based (p1=nose, p12=right_shoulder, p11=left_shoulder)",
+  "connections": [
+    ["p1","p2"], ["p1","p5"], ["p2","p3"], ["p3","p4"],
+    ["p11","p12"], ["p11","p23"], ["p12","p24"], ["p23","p24"],
+    ["p11","p13"], ["p12","p14"], ["p13","p15"], ["p14","p16"]
+  ]
+}
+        </div>
+
+        <h2>Performance Tips</h2>
+        
+        <div class="warning">
+            <strong>For large datasets:</strong>
+            <ul>
+                <li>Use 'Q' to disable per-frame console output</li>
+                <li>Reduce marker size with '-' key</li>
+                <li>Hide marker labels with 'X' key</li>
+                <li>Disable trails with 'W' key</li>
+            </ul>
+        </div>
+
+        <h2>Dependencies</h2>
+        
+        <div class="code-block">
+open3d>=0.17.0
+numpy>=1.21.0
+pandas>=1.3.0
+matplotlib>=3.5.0
+ezc3d>=1.0.0
+rich>=10.0.0
+ffmpeg (for video export)
+        </div>
+
+        <div class="info">
+            <strong>Note:</strong> If Open3D is not available, the script will use Matplotlib as an alternative.
+        </div>
+
+        <h2>Recent Updates</h2>
+        
+        <div class="step">
+            <h3>🏗️ Architecture Refactor</h3>
+            <ul>
+                <li><strong>VailaModel:</strong> Data layer with GetPointFrame, GetFrameNumber, GetPointFrequency, get_bounds(), is_z_up()</li>
+                <li><strong>VailaView:</strong> Open3D visualization layer; separation allows future multi-C3D and cleaner code</li>
+                <li><strong>Dynamic grid:</strong> Grid and ground from data bounding box</li>
+                <li><strong>Z-up camera:</strong> Automatic when Z range &gt; Y range (biomechanics)</li>
+                <li><strong>Trails ghosting:</strong> Older trail segments drawn darker</li>
+                <li><strong>Marker picking:</strong> ` and ~ keys to cycle and highlight one marker (yellow)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>✅ Fixed Issues</h3>
+            <ul>
+                <li><strong>Play/Pause:</strong> Space and Enter keys now work correctly</li>
+                <li><strong>Camera Reset:</strong> R key now resets to data center with adaptive zoom</li>
+                <li><strong>Frame Navigation:</strong> F/B keys now do single-step navigation</li>
+                <li><strong>Playback Speed:</strong> [ and ] keys now properly control speed</li>
+                <li><strong>Window Closing:</strong> ESC key and window click now close properly</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🆕 New Features</h3>
+            <ul>
+                <li><strong>Marker Picking:</strong> ` and ~ to cycle and highlight a marker (yellow)</li>
+                <li><strong>Marker Quality Statistics:</strong> Analyze marker data quality, gaps, and residuals (A key)</li>
+                <li><strong>Marker Trails:</strong> Movement history with velocity coloring and ghosting (older segments darker)</li>
+                <li><strong>Skeleton Loading:</strong> Load and visualize skeleton connections from JSON</li>
+                <li><strong>Distance Measurement:</strong> Interactive distance measurement between markers</li>
+                <li><strong>Marker Label Swaps:</strong> Apply corrections from CSV/TOML files (N key)</li>
+                <li><strong>Save Edited C3D:</strong> Save C3D files with modifications (Ctrl+S)</li>
+                <li><strong>Improved Labels:</strong> Enhanced label visibility with hash-based colors and terminal output</li>
+                <li><strong>Video Export:</strong> Export animations and turntable videos</li>
+                <li><strong>Blender-like Views:</strong> Front, Right, Top views with numpad-style keys</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html> 

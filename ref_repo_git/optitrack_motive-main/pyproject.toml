@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "optitrack_motive"
+version = "0.2"
+description = "This is a remake of NatNetSDK of optitrack.com"
+authors = ["Lunar Ring", "Vortex5Root"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

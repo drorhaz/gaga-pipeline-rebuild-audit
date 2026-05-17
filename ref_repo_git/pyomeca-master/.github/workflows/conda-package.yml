@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    # every sunday at 14:00 UTC
+    - cron: "0 14 * * SUN"
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-13, macos-latest]
+        python-version: [3.10, 3.11, 3.12, 3.13]
+    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup conda
+        uses: s-weigand/setup-conda@v1
+        with:
+          activate-conda: true
+          update-conda: true
+          python-version: ${{ matrix.python-version }}
+          conda-channels: conda-forge
+
+      - name: Add path DLL to windows path (windows only)
+        if: startsWith(matrix.os, 'windows')
+        run: echo "C:\Miniconda\Library\bin" >> $GITHUB_PATH
+
+      - name: Install Dependencies
+        run: |
+          conda env update -f environment.yml -n base
+          pip install -r requirements-dev.txt
+          conda info -a
+
+      - name: Lint (ubuntu only)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: black --check .
+
+      - name: Test
+        run: |
+          cp README.md docs/index.md
+          python -m pytest --cov-report term-missing --color=yes --cov=pyomeca tests
+
+      - name: Coverage (ubuntu only)
+        if: startsWith(matrix.os, 'ubuntu')
+        env:
+          COVERALLS_REPO_TOKEN: XiFSzZ4JyITqinzFkJhNKD201jE7Bilmh
+        run: |
+          pip install coveralls
+          coveralls

@@ -1,0 +1,180 @@
+#!/usr/bin/env python3
+import time
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from optitrack_motive.motive_receiver import MotiveReceiver
+import datetime
+import numpy as np
+
+# Global variables for tracking
+last_position = None
+identical_count_total = 0      # Total identical frames for the entire run
+identical_count_interval = 0   # Identical frames in the current reporting interval
+total_frames = 0
+
+def track_rigid_body_positions(motive, target_rb_name, verbose_mode):
+    """Track and detect identical positions in rigid body data"""
+    global last_position, identical_count_total, identical_count_interval, total_frames
+    
+    # Get latest data from motive receiver
+    latest_data = motive.get_last()
+    if not latest_data:
+        return
+    
+    # Check if we have rigid body data
+    if 'rigid_bodies_full' not in latest_data or not latest_data['rigid_bodies_full']:
+        return
+        
+    # Check if our target rigid body is in the data
+    if target_rb_name not in latest_data['rigid_bodies_full']:
+        return
+    
+    total_frames += 1
+    
+    # Get position data for our target rigid body
+    body_data = latest_data['rigid_bodies_full'][target_rb_name]
+    position = body_data.get('pos')
+    
+    # Only process if we have valid position data (not all zeros)
+    if position is not None and not all(p == 0 for p in position):
+        # Convert to numpy array for easier comparison
+        position = np.array(position)
+        
+        # Check if position matches the previous frame
+        if last_position is not None and np.allclose(position, last_position, atol=1e-6):
+            identical_count_total += 1
+            identical_count_interval += 1
+            if verbose_mode:
+                print(f"!!! IDENTICAL POSITION in frame {total_frames} !!!")
+                print(f"Position: ({position[0]:.6f}, {position[1]:.6f}, {position[2]:.6f})")
+            
+        # Store current position for next comparison
+        last_position = position.copy()
+        
+        # Print details in verbose mode
+        if verbose_mode and total_frames % 100 == 0:  # Only print every 100th frame
+            print(f"Frame {total_frames} Position: ({position[0]:.4f}, {position[1]:.4f}, {position[2]:.4f})")
+            
+    elif verbose_mode and total_frames % 100 == 0:
+        print(f"Frame {total_frames}: No valid position data for '{target_rb_name}'")
+
+if __name__ == "__main__":
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description="Track rigid body positions and detect identical frames")
+    parser.add_argument(
+        "-n", "--name", default="A", 
+        help="Name of the rigid body to track (default: 'A')"
+    )
+    parser.add_argument(
+        "-s", "--server", default="10.40.49.47",
+        help="IP address of the NatNet server"
+    )
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", 
+        help="Enable verbose output"
+    )
+    args = parser.parse_args()
+    
+    # Set variables
+    target_rb_name = args.name
+    verbose_mode = args.verbose
+    
+    # Create MotiveReceiver
+    print(f"Connecting to OptiTrack server at {args.server}...")
+    motive = MotiveReceiver(server_ip=args.server)
+    
+    print(f"Tracking rigid body: '{target_rb_name}'")
+    print("Client running. Press Ctrl+C to exit.")
+    
+    # Wait for initial connection
+    print("Waiting for data connection...")
+    for i in range(50):  # Try for 5 seconds
+        latest_data = motive.get_last()
+        if latest_data:
+            print(f"✓ Connection established! Frame ID: {latest_data['frame_id']}")
+            break
+        time.sleep(0.1)
+    else:
+        print("✗ No data received. Check OptiTrack connection.")
+        motive.stop()
+        sys.exit(1)
+    
+    # Check if the specified rigid body exists
+    print("Checking for rigid body availability...")
+    found_rb = False
+    for check_attempt in range(20):  # Try for 2 seconds
+        latest_data = motive.get_last()
+        if latest_data and 'rigid_bodies_full' in latest_data and latest_data['rigid_bodies_full']:
+            available_bodies = list(latest_data['rigid_bodies_full'].keys())
+            if target_rb_name in available_bodies:
+                found_rb = True
+                print(f"✓ Found rigid body '{target_rb_name}'")
+                break
+            elif check_attempt == 0:  # Print available bodies on first attempt
+                print(f"Available rigid bodies: {available_bodies}")
+        time.sleep(0.1)
+    
+    if not found_rb:
+        print(f"✗ Rigid body '{target_rb_name}' not found. Check the name and ensure it's being tracked.")
+        motive.stop()
+        sys.exit(1)
+    
+    start_time = time.time()
+    last_update = 0
+    frames_previous = 0  # Track frames from previous interval
+    
+    try:
+        print(f"\nStarting position tracking for '{target_rb_name}'...")
+        print("=" * 60)
+        
+        while True:
+            time.sleep(0.01)  # Short sleep to prevent CPU hogging
+            
+            # Track rigid body positions
+            track_rigid_body_positions(motive, target_rb_name, verbose_mode)
+            
+            # Update status every second
+            current_time = time.time()
+            if current_time - last_update >= 1.0:
+                run_time = current_time - start_time
+                hours = int(run_time // 3600)
+                minutes = int((run_time % 3600) // 60)
+                seconds = int(run_time % 60)
+                
+                # Calculate frames in this interval
+                frames_interval = total_frames - frames_previous
+                frames_previous = total_frames
+                
+                # Print status
+                status_line = f"Status: Frames={total_frames} (+{frames_interval}/s), "
+                status_line += f"Identical: {identical_count_interval} (interval) / {identical_count_total} (total), "
+                status_line += f"Runtime={hours:02d}:{minutes:02d}:{seconds:02d}"
+                print(status_line)
+                
+                # Reset interval counters
+                identical_count_interval = 0
+                last_update = current_time
+                
+    except KeyboardInterrupt:
+        print("\nShutting down...")
+    finally:
+        motive.stop()
+        
+        # Print summary
+        print("\n" + "=" * 40)
+        print("TRACKING SUMMARY")
+        print("=" * 40)
+        print(f"Rigid body tracked: '{target_rb_name}'")
+        print(f"Total frames processed: {total_frames}")
+        print(f"Total identical positions: {identical_count_total}")
+        if total_frames > 0:
+            print(f"Percentage identical: {(identical_count_total/total_frames)*100:.2f}%")
+        else:
+            print("No frames were processed")
+        print("=" * 40)
+
+    print("Exiting script.") 

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vailá - vaila_datdistort</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; background-color: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 28px; }
+        .module-info { background: #ecf0f1; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .usage { background: #e8f5e9; padding: 15px; border-left: 4px solid #4caf50; margin: 15px 0; }
+        .docstring { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 15px 0; }
+        .functions { background: #f8f9fa; padding: 15px; border-left: 4px solid #28a745; margin: 15px 0; }
+        code { background: #e9ecef; padding: 2px 6px; border-radius: 3px; }
+        pre { background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.9em; }
+        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+        th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid #dee2e6; }
+        th { background: #e9ecef; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6; color: #6c757d; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>vailá - vaila_datdistort</h1>
+
+        <div class="module-info">
+            <h3>📋 Module Information</h3>
+            <p><strong>Category:</strong> Tools</p>
+            <p><strong>File:</strong> vaila/vaila_datdistort.py</p>
+            <p><strong>Version:</strong> 0.0.5</p>
+            <p><strong>Author:</strong> Prof. Dr. Paulo R. P. Santiago</p>
+            <p><strong>GUI:</strong> ✅ Yes &nbsp; <strong>CLI:</strong> ✅ Yes</p>
+        </div>
+
+        <div class="docstring">
+            <h3>📖 Description</h3>
+            <p>Applies lens distortion correction to 2D coordinates from DAT/CSV files using the same camera calibration parameters as vaila_lensdistortvideo.py. The parameters file (TOML) is never processed; the output CSV <code>frame</code> column is written as integer.</p>
+        </div>
+
+        <h2>How to run</h2>
+
+        <h3>GUI mode (default)</h3>
+        <p>Run without arguments; dialogs ask for the parameters file and input directory.</p>
+        <pre># From project root (recommended)
+uv run vaila/vaila_datdistort.py
+python vaila/vaila_datdistort.py</pre>
+
+        <h3>CLI mode</h3>
+        <p><strong>From project root:</strong></p>
+        <pre># Using uv (recommended)
+uv run vaila/vaila_datdistort.py --params_file /path/to/distortionparameters.toml --input /path/to/file_or_dir
+
+# Optional: output directory (otherwise creates input_dir/distorted_TIMESTAMP)
+uv run vaila/vaila_datdistort.py --params_file /path/to/params.toml --input /path/to/data --output_dir /path/to/output</pre>
+        <p><strong>As Python module:</strong></p>
+        <pre>uv run python -m vaila.vaila_datdistort --params_file /path/to/params.toml --input /path/to/file_or_dir [--output_dir /path/to/output]
+python -m vaila.vaila_datdistort --params_file /path/to/params.toml --input /path/to/file_or_dir [--output_dir /path/to/output]</pre>
+        <p><strong>CLI help:</strong></p>
+        <pre>uv run vaila/vaila_datdistort.py --help
+python -m vaila.vaila_datdistort --help</pre>
+
+        <h3>Arguments</h3>
+        <table>
+            <tr><th>Argument</th><th>Description</th></tr>
+            <tr><td><code>--params_file</code></td><td>Path to the camera calibration parameters TOML (required in CLI).</td></tr>
+            <tr><td><code>--input</code></td><td>Single CSV/DAT file or directory containing CSV/DAT files to process.</td></tr>
+            <tr><td><code>--output_dir</code></td><td>(Optional) Output directory. If omitted, a new subdirectory <code>distorted_TIMESTAMP</code> is created under the input path; if given, files are written directly there.</td></tr>
+        </table>
+        <p>The parameters file is <strong>excluded from the batch</strong>. Output CSV <strong>frame</strong> column is <strong>integer</strong>.</p>
+
+        <div class="functions">
+            <h3>🔧 Main functions</h3>
+            <ul>
+                <li><code>load_distortion_parameters</code> – Load calibration from TOML</li>
+                <li><code>undistort_points</code> – Apply OpenCV undistort to 2D points</li>
+                <li><code>process_dat_file</code> – Process one DAT/CSV file</li>
+                <li><code>run_datdistort</code> – Main entry (GUI or CLI)</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>🔗 Part of vailá - Multimodal Toolbox</p>
+            <p>🌐 <a href="https://github.com/paulopreto/vaila-multimodaltoolbox">GitHub</a></p>
+        </div>
+    </div>
+</body>
+</html>

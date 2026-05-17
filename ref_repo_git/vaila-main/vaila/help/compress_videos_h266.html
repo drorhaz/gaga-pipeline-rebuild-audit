@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vailá - compress_videos_h266</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #2c3e50; }
+        .module-info { background: #ecf0f1; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .functions { background: #f8f9fa; padding: 15px; border-left: 4px solid #28a745; margin: 15px 0; }
+        .docstring { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 15px 0; }
+        .cli-section { background: #e8f4f8; padding: 15px; border-left: 4px solid #17a2b8; margin: 15px 0; }
+        .warning { background: #f8d7da; padding: 15px; border-left: 4px solid #dc3545; margin: 15px 0; }
+        code { background: #e9ecef; padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+        th, td { border: 1px solid #dee2e6; padding: 8px 12px; text-align: left; }
+        th { background: #f8f9fa; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6; color: #6c757d; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>vailá - compress_videos_h266</h1>
+
+        <div class="module-info">
+            <h3>📋 Module Information</h3>
+            <p><strong>Category:</strong> Tools</p>
+            <p><strong>File:</strong> vaila/compress_videos_h266.py</p>
+            <p><strong>Version:</strong> 0.1.2</p>
+            <p><strong>GUI Interface:</strong> ✅ Yes</p>
+            <p><strong>CLI Interface:</strong> ✅ Yes</p>
+        </div>
+
+        <div class="warning">
+            <h3>⚠️ Important Notes</h3>
+            <ul>
+                <li>H.266/VVC encoding is <strong>EXTREMELY SLOW</strong> and CPU-intensive</li>
+                <li><strong>No GPU acceleration</strong> available for VVC</li>
+                <li>Requires FFmpeg compiled with <code>libvvenc</code> support</li>
+                <li>Standard system FFmpeg usually does <strong>NOT</strong> include libvvenc</li>
+            </ul>
+        </div>
+
+        <div class="docstring">
+            <h3>📖 Description</h3>
+            <p>Compresses videos to <strong>H.266 (VVC)</strong> format using FFmpeg with <code>libvvenc</code>.</p>
+            <ul>
+                <li><strong>Parallel processing</strong>: speed up batch compression with multiple workers</li>
+                <li><strong>Adaptive compression</strong>: automatically discard output files larger than input</li>
+                <li><strong>Encoder check</strong> before starting (graceful error if libvvenc missing)</li>
+                <li><strong>QP-based quality</strong> (Quantization Parameter 0-63)</li>
+                <li><strong>Resolution control</strong>: keep original or downscale</li>
+                <li><strong>Recursive search</strong>: process subdirectories (CLI <code>--recursive</code>, GUI subdir depth)</li>
+                <li><strong>Subdir depth</strong>: limit recursion depth (0 = only folder, -1 = unlimited)</li>
+                <li><strong>Cross-platform</strong>: Windows, Linux, macOS</li>
+            </ul>
+            <h4>Getting FFmpeg with libvvenc</h4>
+            <ul>
+                <li><strong>Windows</strong>: <a href="https://www.gyan.dev/ffmpeg/builds/">gyan.dev full build</a></li>
+                <li><strong>Linux/macOS</strong>: <a href="https://johnvansickle.com/ffmpeg/">johnvansickle.com static build</a></li>
+            </ul>
+            <p>Verify: <code>ffmpeg -encoders | grep vvenc</code></p>
+        </div>
+
+        <div class="cli-section">
+            <h3>🚀 CLI Usage</h3>
+            <pre>
+# Basic usage
+python -m vaila.compress_videos_h266 --dir /path/to/videos
+
+# Recursive (all subdirs)
+python -m vaila.compress_videos_h266 --dir /path/to/videos --recursive
+
+# Recursive with max depth 2
+python -m vaila.compress_videos_h266 --dir /path/to/videos -r --depth 2
+
+# Custom quality and resolution
+python -m vaila.compress_videos_h266 --dir /path/to/videos --preset slow --qp 28 --resolution 1920x1080</pre>
+            <table>
+                <tr><th>Option</th><th>Default</th><th>Description</th></tr>
+                <tr><td><code>--dir</code></td><td>(required)</td><td>Directory containing videos</td></tr>
+                <tr><td><code>--recursive</code> / <code>-r</code></td><td>off</td><td>Recurse into subdirectories</td></tr>
+                <tr><td><code>--depth</code> / <code>-d</code></td><td>-1</td><td>Max subdir depth when recursive (0=root, 1/2/3=levels, -1=unlimited)</td></tr>
+                <tr><td><code>--preset</code></td><td>medium</td><td>ultrafast → veryslow</td></tr>
+                <tr><td><code>--qp</code></td><td>32</td><td>Quality (0-63). Lower = better</td></tr>
+                <tr><td><code>--resolution</code></td><td>original</td><td>e.g. 1920x1080</td></tr>
+                <tr><td><code>--workers/-w</code></td><td>1</td><td>Number of parallel workers</td></tr>
+            </table>
+        </div>
+
+        <div class="functions">
+            <h3>🔧 Main Functions</h3>
+            <ul>
+                <li><code>check_libvvenc_available</code> — Check libvvenc support</li>
+                <li><code>find_videos</code> — Find video files (non-recursive)</li>
+                <li><code>find_videos_recursive</code> — Find videos in dir and subdirs (optional max_depth)</li>
+                <li><code>run_compress_videos_h266</code> — Core VVC compression</li>
+                <li><code>get_compression_parameters</code> — GUI dialog</li>
+                <li><code>compress_videos_h266_gui</code> — GUI entry point</li>
+                <li><code>build_parser</code> — CLI parser</li>
+                <li><code>main</code> — CLI/GUI entry point</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>📅 Updated: 06/03/2026</p>
+            <p>🔗 Part of vailá - Multimodal Toolbox</p>
+            <p>🌐 <a href="https://github.com/vaila-multimodaltoolbox/vaila">GitHub Repository</a></p>
+        </div>
+    </div>
+</body>
+</html>

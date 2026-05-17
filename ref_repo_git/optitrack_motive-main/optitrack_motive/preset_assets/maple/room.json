@@ -1,0 +1,37 @@
+{
+  "room": "maple",
+  "default": {
+    "server_ip": "fogo",
+    "client_ip": "auto",
+    "use_multicast": true
+  },
+  "calibration": {
+    "transport": "ssh",
+    "host": "ias@fogo",
+    "mcal_path": "C:\\ProgramData\\OptiTrack\\Motive\\System Calibration.mcal",
+    "require_mcal_intrinsics": true,
+    "allow_legacy_defaults": false
+  },
+  "camera_stream": {
+    "server_ip": "fogo",
+    "control_port": 5554,
+    "streaming_port": 5555
+  },
+  "pose_defaults": {
+    "intrinsics_source": "mcal",
+    "require_mcal_intrinsics": true,
+    "allow_legacy_defaults": false,
+    "y_correction": 0.1,
+    "supported_camera_models": ["PrimeX 22", "PrimeX 13W"]
+  },
+  "cameras": [
+    {"serial": 125213, "role": "pose"},
+    {"serial": 125214, "role": "pose"},
+    {"serial": 125215, "role": "pose"},
+    {"serial": 125216, "role": "pose"},
+    {"serial": 125217, "role": "pose"},
+    {"serial": 125218, "role": "pose"},
+    {"serial": 125219, "role": "pose"},
+    {"serial": 125220, "role": "pose"}
+  ]
+}

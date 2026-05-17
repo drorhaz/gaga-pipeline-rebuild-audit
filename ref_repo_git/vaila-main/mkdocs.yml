@@ -1,0 +1,138 @@
+site_name: vailá
+repo_url: https://github.com/vaila-multimodaltoolbox/vaila
+repo_name: vaila
+edit_uri: tree/main/docs/
+
+theme:
+  name: material
+  logo: images/vaila_logo.png
+  favicon: images/vaila_ico.png
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+  palette:
+    - scheme: default
+      primary: black
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - scheme: slate
+      primary: darkslategray
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+            show_root_heading: true
+          selection:
+            docstring_style: "google"
+          setup_commands:
+            - "import sys"
+            - "sys.path.append('..')"
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.tasklist
+  - pymdownx.emoji
+  - pymdownx.tilde
+  - pymdownx.highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+
+nav:
+  - Home: index.md
+  - Overview: overview.md
+  - "vailá Manifest": vaila-manifest.md
+  - Installation:
+    - "Environment Setup": installation/environment-setup.md
+    - "Requirements": installation/requirements.md
+    - "Troubleshooting": installation/troubleshooting.md
+  - "Multimodal Analysis":
+    - "Markerless Analysis":
+      - "2D Video Analysis": modules/markerless-analysis/markerless-2d-video.md
+      - "3D Video Analysis": modules/markerless-analysis/markerless-3d-video.md
+      - "Live Analysis": modules/markerless-analysis/markerless-live.md
+      - "Markerless 2D Video": markerless-2d-video.md
+    - "Motion Capture":
+      - "Full Body Analysis": modules/motion-capture/mocap-full-body.md
+      - "Cluster Analysis": modules/motion-capture/kinematic-cluster.md
+    - "Sensor Analysis":
+      - "IMU Analysis": modules/sensors/imu-analysis.md
+      - "Force Plate": modules/sensors/force-plate.md
+      - "EMG Analysis": modules/sensors/emg-analysis.md
+      - "GNSS/GPS": modules/sensors/gnss-gps.md
+  - "Available Tools":
+    - "Data Processing":
+      - "Edit CSV": modules/tools/edit-csv.md
+      - "Convert C3D/CSV": modules/tools/convert-c3d-csv.md
+      - "Metadata Info": modules/tools/metadata-info.md
+    - "Video Processing":
+      - "Cut Videos": modules/tools/cut-videos.md
+      - "Draw Black Box": modules/tools/draw-black-box.md
+      - "Compress H.264": modules/tools/compress-h264.md
+      - "Compress H.265": modules/tools/compress-hevc.md
+      - "Get Pixel Coordinates": modules/tools/get-pixel-coordinates.md
+      - "DLT3D Reconstruction": modules/tools/dlt3d-reconstruction.md
+    - "Visualization":
+      - "Plot 2D": modules/tools/plot-2d.md
+      - "View 3D": modules/visualization/view3d.md
+  - "Tutorials":
+    - "Quick Start": tutorials/quick-start.md
+    - "Markerless Tutorial": tutorials/markerless-tutorial.md
+    - "Advanced Features": tutorials/advanced-features.md
+  - "API Reference":
+    - "Modules": api/modules.md
+    - "Functions": api/functions.md
+    - "Markerless Analysis":
+      - "2D Analysis": modules/markerless-analysis/markerless-2d-analysis.md
+      - "3D Analysis": modules/markerless-analysis/markerless-3d-analysis.md
+      - "Live Analysis": modules/markerless-analysis/markerless-live.md
+    - "Motion Capture":
+      - "Full Body Analysis": modules/motion-capture/mocap-full-body.md
+      - "Cluster Analysis": modules/motion-capture/cluster-analysis.md
+    - "Sensor Analysis":
+      - "IMU Analysis": modules/sensors/imu-analysis.md
+      - "Force Plate": modules/sensors/force-plate.md
+      - "EMG Analysis": modules/sensors/emg-analysis.md
+      - "GNSS/GPS": modules/sensors/gnss-gps.md
+    - "Data Processing":
+      - "C3D/CSV Conversion": modules/tools/c3d-csv-conversion.md
+      - "Data Filtering": modules/tools/data-filtering.md
+    - "Video Processing":
+      - "Video Tools": modules/tools/video-tools.md
+      - "Compression": modules/tools/video-compression.md
+    - "Visualization":
+      - "2D Plotting": modules/visualization/plot-2d.md
+      - "View 3D": modules/visualization/view3d.md
+    - "Machine Learning":
+      - "ML Walkway": modules/ml-walkway/ml-walkway.md
+      - "Model Training": modules/ml-walkway/model-training.md
+      - "Model Validation": modules/ml-walkway/model-validation.md
+      - "Walkway Prediction": modules/ml-walkway/walkway-prediction.md
+      - "YOLO Training": modules/ml-walkway/yolo-training.md
+      - "YOLOv11 Tracking": modules/ml-walkway/yolov11track.md
+      - "YOLOv12 Tracking": modules/ml-walkway/yolov12track.md
+      - "YOLO Tracking": modules/ml-walkway/yolo-tracking.md
+    - "Specialized Tools":
+      - "Vector Coding": modules/tools/vector-coding.md
+      - "Open Field Analysis": modules/tools/open-field.md
+      - "Vertical Jump": modules/tools/vertical-jump.md
+      - "Scout Analysis": help/scout_vaila.md
+  - "Additional Commands": additional-commands.md

@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vailá - markerless2d_analysis_v2 - Professional Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #222;
+            background: #ffffff;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #ffffff;
+            color: #222;
+            padding: 32px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        .header .subtitle {
+            font-size: 0.95em;
+            color: #555;
+        }
+        
+        .content {
+            padding: 24px;
+        }
+        
+        h1 { 
+            color: #222; 
+            border-bottom: 1px solid #dddddd; 
+            padding-bottom: 8px; 
+            margin-top: 32px;
+            margin-bottom: 16px;
+            font-size: 1.6em;
+            font-weight: 600;
+        }
+        
+        h2 { 
+            color: #222; 
+            margin-top: 28px; 
+            padding-left: 0; 
+            border-left: none; 
+            font-size: 1.35em;
+            font-weight: 600;
+        }
+        
+        h3 { 
+            color: #222; 
+            margin-top: 20px; 
+            font-size: 1.1em;
+        }
+        
+        h4 {
+            color: #666;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        
+        .module-info { 
+            background: #ffffff;
+            color: #222;
+            padding: 16px 18px; 
+            border-radius: 4px; 
+            margin: 20px 0; 
+            border: 1px solid #e0e0e0;
+        }
+        
+        .module-info h3 {
+            color: #222;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .module-info p {
+            margin: 8px 0;
+        }
+        
+        .module-info strong {
+            font-weight: 600;
+        }
+        
+        .feature-box { 
+            background: #ffffff; 
+            padding: 14px 16px; 
+            border-radius: 4px; 
+            margin: 14px 0; 
+            border: 1px solid #e0e0e0;
+        }
+        
+        .functions { 
+            background: #ffffff; 
+            padding: 14px 16px; 
+            border-radius: 4px; 
+            margin: 20px 0; 
+            border: 1px solid #e0e0e0;
+        }
+        
+        .docstring { 
+            background: #ffffff; 
+            padding: 14px 16px; 
+            border-radius: 4px; 
+            margin: 20px 0; 
+            border: 1px solid #e0e0e0;
+        }
+        
+        code { 
+            background: #f4f4f4; 
+            padding: 3px 8px; 
+            border-radius: 4px; 
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #333;
+        }
+        
+        pre { 
+            background: #f5f5f5; 
+            color: #222;
+            padding: 20px; 
+            border-radius: 8px; 
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        
+        ul, ol { 
+            margin-top: 10px; 
+            margin-left: 25px;
+        }
+        
+        li { 
+            margin-bottom: 10px; 
+        }
+        
+        .footer { 
+            margin-top: 50px; 
+            padding: 30px; 
+            border-top: 2px solid #e0e0e0; 
+            background: #f8f9fa;
+            text-align: center; 
+            color: #666; 
+            font-size: 0.95em; 
+        }
+        
+        .btn { 
+            display: inline-block; 
+            padding: 6px 12px; 
+            border: 1px solid #667eea; 
+            background: #667eea;
+            color: white;
+            border-radius: 5px; 
+            font-size: 0.9em;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 2px;
+        }
+        
+        .btn:hover {
+            background: #5568d3;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .pipeline-diagram {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+        
+        .warning-box {
+            background: #ffffff;
+            border-left: none;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .info-box {
+            background: #ffffff;
+            border-left: none;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .success-box {
+            background: #ffffff;
+            border-left: none;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .toc {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+        }
+        
+        .toc a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 2px;
+            border: 1px solid #cccccc;
+        }
+        
+        .badge-success {
+            background: #f5f5f5;
+            color: #222;
+        }
+        
+        .badge-info {
+            background: #f5f5f5;
+            color: #222;
+        }
+        
+        .badge-warning {
+            background: #f5f5f5;
+            color: #222;
+        }
+        
+        .version-tag {
+            display: inline-block;
+            background: #f5f5f5;
+            color: #222;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-left: 10px;
+            border: 1px solid #cccccc;
+        }
+        
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .code-block {
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f5f5f5;
+            color: #222;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+        
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            table {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i>vailá</i> - markerless2d_analysis_v2</h1>
+            <div class="subtitle">Professional Documentation <span class="version-tag">v0.3.16</span></div>
+        </div>
+
+        <div class="content">
+            <div class="module-info">
+                <h3>📋 Module Information</h3>
+                <p><strong>Category:</strong> Machine Learning / Computer Vision / Biomechanics Analysis</p>
+                <p><strong>File:</strong> <code>vaila/markerless2d_analysis_v2.py</code></p>
+                <p><strong>Lines of Code:</strong> 2,442</p>
+                <p><strong>Version:</strong> 0.3.16</p>
+                <p><strong>Author:</strong> Paulo Roberto Pereira Santiago</p>
+                <p><strong>Email:</strong> paulosantiago@usp.br</p>
+                <p><strong>GUI Interface:</strong> <span class="badge badge-success">Yes</span></p>
+                <p><strong>License:</strong> AGPL-3.0-or-later</p>
+            </div>
+
+            <div class="toc">
+                <h3>📑 Table of Contents</h3>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#features">Key Features</a></li>
+                    <li><a href="#architecture">Technical Architecture</a></li>
+                    <li><a href="#output">Output Files</a></li>
+                    <li><a href="#usage">Usage Guide</a></li>
+                    <li><a href="#requirements">System Requirements</a></li>
+                    <li><a href="#performance">Performance Characteristics</a></li>
+                    <li><a href="#best-practices">Best Practices</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting</a></li>
+                    <li><a href="#references">Technical References</a></li>
+                    <li><a href="#integration">Integration with VAILA</a></li>
+                </ul>
+            </div>
+
+            <h1 id="overview">📖 Overview</h1>
+            
+            <p><code>markerless2d_analysis_v2.py</code> is an advanced 2D pose estimation tool that combines Ultralytics YOLO (detection + optional pose) with MediaPipe to extract human pose landmarks from video. Person boxes come from a dedicated <strong>detection</strong> model (default <code>yolo26x.pt</code>) with multi-object tracking (default BoT-SORT). Pose runs on an <strong>upscaled crop</strong> inside that box; coordinates are remapped to the full frame. This improves small or distant subjects compared to full-frame MediaPipe when upscale was previously skipped.</p>
+
+            <div class="info-box">
+                <strong>What Makes This Version Special?</strong><br>
+                Dual processing modes, YOLO detection + tracking for stable boxes, automatic minimum crop resolution (<code>min_pose_crop_short_side_px</code>), advanced temporal filtering, ROI support, MediaPipe Tasks API, and GPU acceleration for YOLO.
+            </div>
+
+            <h1 id="features">🎯 Key Features</h1>
+
+            <h2>1. Dual Processing Modes</h2>
+
+            <div class="feature-box">
+                <h3>YOLO-Only Mode (<code>yolo_only</code>)</h3>
+                <ul>
+                    <li>YOLO <strong>detector</strong> + tracker for the person box, then YOLO <strong>pose</strong> on an upscaled crop</li>
+                    <li>17 keypoints (COCO-style) mapped into the 33-landmark export layout where applicable</li>
+                    <li><strong>Ideal for:</strong> When you want a pure YOLO pose stack with consistent crop-based resolution</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>YOLO+MediaPipe Mode (<code>yolo_mediapipe</code>)</h3>
+                <ul>
+                    <li>YOLO detector + tracker for the person box; MediaPipe pose on the same upscaled crop</li>
+                    <li>33 landmarks (full MediaPipe format) with better detail on small subjects</li>
+                    <li>Tracker options include <code>botsort</code> and <code>bytetrack</code> (Ultralytics YAML)</li>
+                    <li><strong>Ideal for:</strong> Research and detailed biomechanical analysis with ROI filtering</li>
+                </ul>
+            </div>
+
+            <h2>2. Detector, tracker, and crop settings</h2>
+            <ul>
+                <li><strong>Detector weights</strong> (e.g. <code>yolo26x.pt</code>): person class only; not the pose head.</li>
+                <li><strong>Pose weights</strong> (e.g. <code>yolo11x-pose.pt</code>): used only in <code>yolo_only</code>.</li>
+                <li><strong><code>min_pose_crop_short_side_px</code></strong>: ensures the crop is upscaled so the shorter side reaches at least this many pixels (effective upscale = max(user factor, auto)).</li>
+            </ul>
+
+            <h2>3. YOLO pose model selection (<code>yolo_only</code>)</h2>
+
+            <p>Five model sizes available, balancing speed and accuracy:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Size</th>
+                        <th>Speed (CPU)</th>
+                        <th>Speed (GPU)</th>
+                        <th>Accuracy</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>yolo11n-pose.pt</code></td>
+                        <td>~6 MB</td>
+                        <td>Fastest</td>
+                        <td>Fastest</td>
+                        <td>Good</td>
+                        <td>Real-time, mobile</td>
+                    </tr>
+                    <tr>
+                        <td><code>yolo11s-pose.pt</code></td>
+                        <td>~19 MB</td>
+                        <td>Fast</td>
+                        <td>Fast</td>
+                        <td>Better</td>
+                        <td>Balanced performance</td>
+                    </tr>
+                    <tr>
+                        <td><code>yolo11m-pose.pt</code></td>
+                        <td>~52 MB</td>
+                        <td>Medium</td>
+                        <td>Medium</td>
+                        <td>Good</td>
+                        <td>Standard analysis</td>
+                    </tr>
+                    <tr>
+                        <td><code>yolo11l-pose.pt</code></td>
+                        <td>~104 MB</td>
+                        <td>Slow</td>
+                        <td>Fast</td>
+                        <td>Very Good</td>
+                        <td>High-quality analysis</td>
+                    </tr>
+                    <tr>
+                        <td><code>yolo11x-pose.pt</code></td>
+                        <td>~209 MB</td>
+                        <td>Slowest</td>
+                        <td>Fast</td>
+                        <td>Best</td>
+                        <td>Research, publications</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>4. Advanced Temporal Filtering</h2>
+
+            <div class="feature-box">
+                <h3>Kalman Filter (<code>kalman</code>)</h3>
+                <ul>
+                    <li><strong>Purpose:</strong> Predictive smoothing for continuous tracking</li>
+                    <li><strong>Algorithm:</strong> Weighted exponential moving average (α=0.95)</li>
+                    <li><strong>Best For:</strong> Smooth, continuous motion tracking</li>
+                    <li><strong>Trade-off:</strong> Slight latency, very smooth output</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Savitzky-Golay Filter (<code>savgol</code>)</h3>
+                <ul>
+                    <li><strong>Purpose:</strong> Polynomial smoothing preserving signal characteristics</li>
+                    <li><strong>Algorithm:</strong> Local polynomial regression (window=3)</li>
+                    <li><strong>Best For:</strong> Preserving motion dynamics while reducing noise</li>
+                    <li><strong>Trade-off:</strong> Requires minimum 3 frames of history</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h3>Moving Median Filter (<code>median</code>)</h3>
+                <ul>
+                    <li><strong>Purpose:</strong> Outlier removal and spike reduction</li>
+                    <li><strong>Algorithm:</strong> Median of last N frames (window=5)</li>
+                    <li><strong>Best For:</strong> Removing detection errors and artifacts</li>
+                    <li><strong>Trade-off:</strong> Can introduce slight lag, excellent for noisy data</li>
+                </ul>
+            </div>
+
+            <h2>5. Region of Interest (ROI) Support</h2>
+
+            <div class="info-box">
+                <strong>Polygon ROI Selection:</strong>
+                <ul>
+                    <li><strong>Interactive Selection:</strong> Click to add points, right-click to undo, Enter to confirm</li>
+                    <li><strong>Flexible Shapes:</strong> Define irregular regions (minimum 3 points)</li>
+                    <li><strong>Automatic Filtering:</strong> Only processes detections within ROI</li>
+                    <li><strong>Use Cases:</strong> Focus on specific body regions, exclude background, multi-person isolation</li>
+                </ul>
+            </div>
+
+            <h1 id="architecture">🔧 Technical Architecture</h1>
+
+            <h2>Processing Pipeline</h2>
+
+            <div class="pipeline-diagram">
+<pre>┌─────────────────┐
+│  Input Video    │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Frame Reader   │
+└────────┬────────┘
+         │
+         ▼
+    ┌─────────┐
+    │ Use YOLO?│
+    └────┬────┘
+         │
+    ┌────┴────┐
+    │  YES   │  NO
+    │         │
+    ▼         ▼
+┌─────────┐ ┌──────────────┐
+│ YOLO    │ │ MediaPipe    │
+│ Detect  │ │ Direct       │
+└────┬────┘ │ Inference    │
+     │      └──────┬───────┘
+     │             │
+     ▼             │
+┌─────────┐        │
+│ Filter  │        │
+│ by ROI  │        │
+└────┬────┘        │
+     │             │
+     ▼             │
+┌─────────┐        │
+│ Upscale │        │
+│ Crop    │        │
+└────┬────┘        │
+     │             │
+     └─────┬───────┘
+           │
+           ▼
+    ┌──────────────┐
+    │  Mode Check  │
+    └──────┬───────┘
+           │
+    ┌──────┴──────┐
+    │             │
+    ▼             ▼
+┌─────────┐  ┌──────────────┐
+│ YOLO    │  │ YOLO+        │
+│ Only    │  │ MediaPipe    │
+│ (17 KP) │  │ (33 LM)      │
+└────┬────┘  └──────┬───────┘
+     │              │
+     └──────┬───────┘
+            │
+            ▼
+    ┌──────────────┐
+    │ Temporal     │
+    │ Filter       │
+    └──────┬───────┘
+           │
+           ▼
+    ┌──────────────┐
+    │ Coordinate   │
+    │ Conversion   │
+    └──────┬───────┘
+           │
+           ▼
+    ┌──────────────┐
+    │ Export CSV   │
+    │ & Video      │
+    └──────────────┘</pre>
+            </div>
+
+            <h1 id="output">📊 Output Files</h1>
+
+            <h2>1. Annotated Video (<code>*_mp.mp4</code>)</h2>
+            <ul>
+                <li><strong>Content:</strong> Original video with pose landmarks overlaid</li>
+                <li><strong>Visualization:</strong> Green circles (landmarks), Red lines (skeleton), Blue boxes (YOLO detections)</li>
+                <li><strong>Codec:</strong> H.264 (MP4)</li>
+                <li><strong>Resolution:</strong> Same as input video</li>
+            </ul>
+
+            <h2>2. Normalized Coordinates CSV (<code>*_mp_norm.csv</code>)</h2>
+            <ul>
+                <li><strong>Format:</strong> Standard MediaPipe format</li>
+                <li><strong>Columns:</strong> <code>frame_index, nose_x, nose_y, nose_z, nose_conf, ...</code></li>
+                <li><strong>Total:</strong> 133 columns (1 frame + 33 landmarks × 4)</li>
+                <li><strong>Use Case:</strong> Machine learning, statistical analysis</li>
+            </ul>
+
+            <h2>3. Pixel Coordinates CSV (<code>*_mp_pixel.csv</code>)</h2>
+            <ul>
+                <li><strong>Format:</strong> Same structure as normalized, but in pixel coordinates</li>
+                <li><strong>Use Case:</strong> Direct visualization, pixel-level measurements</li>
+            </ul>
+
+            <h2>4. VAILA Format CSV (<code>*_mp_vaila.csv</code>)</h2>
+            <ul>
+                <li><strong>Format:</strong> <code>frame, p1_x, p1_y, p2_x, p2_y, ..., p33_x, p33_y</code></li>
+                <li><strong>Total:</strong> 67 columns (1 frame + 33 points × 2)</li>
+                <li><strong>Use Case:</strong> Compatibility with VAILA plotting modules</li>
+            </ul>
+
+            <h2>5. Configuration File (<code>config.toml</code>)</h2>
+            <ul>
+                <li><strong>Content:</strong> Complete parameter set used for processing</li>
+                <li><strong>Use Case:</strong> Reproducibility, batch processing</li>
+            </ul>
+
+            <h2>6. Processing Report (<code>report.txt</code>)</h2>
+            <ul>
+                <li><strong>Content:</strong> Hardware info, video metadata, detection statistics, performance metrics</li>
+                <li><strong>Use Case:</strong> Quality control, performance analysis</li>
+            </ul>
+
+            <h1 id="usage">🚀 Usage Guide</h1>
+
+            <h2>GUI Mode (Recommended)</h2>
+
+            <h3>Step 1: Launch the Application</h3>
+            <div class="code-block">
+                <pre><code># Activate vaila environment
+conda activate vaila
+
+# Run the script
+python markerless2d_analysis_v2.py</code></pre>
+            </div>
+
+            <h3>Step 2-5: Configuration</h3>
+            <ol>
+                <li><strong>Select Input Directory:</strong> Choose folder with video files</li>
+                <li><strong>Select Output Directory:</strong> Choose folder for results</li>
+                <li><strong>Configure Parameters:</strong> Adjust MediaPipe, YOLO, and filter settings</li>
+                <li><strong>Optional ROI:</strong> Define polygon region of interest</li>
+                <li><strong>Start Processing:</strong> Click OK to begin</li>
+            </ol>
+
+            <h2>Programmatic Usage</h2>
+
+            <div class="code-block">
+                <pre><code>from pathlib import Path
+
+from vaila.markerless2d_analysis_v2 import (
+    load_yolo_detector,
+    load_yolo_pose_model,
+    process_video,
+)
+
+yolo_detector = load_yolo_detector("yolo26x.pt")
+yolo_pose = None  # set with load_yolo_pose_model(...) for yolo_only
+
+config = {
+    'min_detection_confidence': 0.5,
+    'min_tracking_confidence': 0.5,
+    'model_complexity': 2,
+    'use_yolo': True,
+    'yolo_mode': 'yolo_mediapipe',
+    'yolo_detector_model': 'yolo26x.pt',
+    'yolo_model': 'yolo11x-pose.pt',
+    'yolo_tracker': 'botsort',
+    'min_pose_crop_short_side_px': 384,
+    'yolo_conf': 0.5,
+    'filter_type': 'kalman',
+    'bbox_upscale_factor': 4,
+}
+
+process_video(
+    Path('input_video.mp4'),
+    Path('output_directory'),
+    config,
+    yolo_detector,
+    yolo_pose,
+)</code></pre>
+            </div>
+
+            <h1 id="requirements">💻 System Requirements</h1>
+
+            <h2>Minimum Requirements</h2>
+            <ul>
+                <li><strong>OS:</strong> Windows 10+, macOS 10.15+, Linux (Ubuntu 20.04+)</li>
+                <li><strong>Python:</strong> 3.12.13</li>
+                <li><strong>RAM:</strong> 4 GB (8 GB recommended)</li>
+                <li><strong>Storage:</strong> 500 MB for models + video storage</li>
+                <li><strong>CPU:</strong> Multi-core processor (4+ cores recommended)</li>
+            </ul>
+
+            <h2>Recommended Requirements</h2>
+            <ul>
+                <li><strong>GPU:</strong> NVIDIA GPU with CUDA support (6 GB+ VRAM)</li>
+                <li><strong>RAM:</strong> 16 GB or more</li>
+                <li><strong>Storage:</strong> SSD with 10+ GB free space</li>
+            </ul>
+
+            <h2>Python Dependencies</h2>
+            <div class="code-block">
+                <pre><code>opencv-python>=4.8.0
+mediapipe
+numpy>=1.24.0
+pandas>=2.0.0
+ultralytics>=8.0.0
+torch>=2.0.0
+scipy>=1.10.0
+toml>=0.10.2</code></pre>
+            </div>
+
+            <h1 id="performance">🔍 Performance Characteristics</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hardware</th>
+                        <th>YOLO Model</th>
+                        <th>Mode</th>
+                        <th>Speed (FPS)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CPU (Intel i7)</td>
+                        <td>yolo11n</td>
+                        <td>yolo_only</td>
+                        <td>15-25</td>
+                    </tr>
+                    <tr>
+                        <td>CPU (Intel i7)</td>
+                        <td>yolo11x</td>
+                        <td>yolo_mediapipe</td>
+                        <td>3-8</td>
+                    </tr>
+                    <tr>
+                        <td>GPU (RTX 3060)</td>
+                        <td>yolo11n</td>
+                        <td>yolo_mediapipe</td>
+                        <td>40-60</td>
+                    </tr>
+                    <tr>
+                        <td>GPU (RTX 4090)</td>
+                        <td>yolo11x</td>
+                        <td>yolo_mediapipe</td>
+                        <td>60-120</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>Note:</strong> Speed varies significantly based on video resolution, number of persons, and system configuration.
+            </div>
+
+            <h1 id="best-practices">🎓 Best Practices</h1>
+
+            <h2>Model Selection</h2>
+            <ul>
+                <li><strong>Real-Time:</strong> Use <code>yolo11n-pose.pt</code> with <code>yolo_only</code> mode</li>
+                <li><strong>Research:</strong> Use <code>yolo11x-pose.pt</code> with <code>yolo_mediapipe</code> mode</li>
+                <li><strong>Multi-Person:</strong> Always use <code>yolo_mediapipe</code> mode</li>
+            </ul>
+
+            <h2>Filter Selection</h2>
+            <ul>
+                <li><strong>Smooth Motion:</strong> Use <code>kalman</code> filter</li>
+                <li><strong>Noisy Data:</strong> Use <code>median</code> filter</li>
+                <li><strong>Preserve Dynamics:</strong> Use <code>savgol</code> filter</li>
+                <li><strong>Maximum Resolution:</strong> Use <code>none</code> filter</li>
+            </ul>
+
+            <h1 id="troubleshooting">🐛 Troubleshooting</h1>
+
+            <h2>Common Issues and Solutions</h2>
+
+            <div class="warning-box">
+                <strong>1. YOLO Model Not Loading</strong><br>
+                <strong>Solutions:</strong> Check internet connection, verify disk space, manually download model, update Ultralytics
+            </div>
+
+            <div class="warning-box">
+                <strong>2. GPU Not Detected</strong><br>
+                <strong>Solutions:</strong> Install CUDA-enabled PyTorch, verify CUDA installation, check GPU drivers
+            </div>
+
+            <div class="warning-box">
+                <strong>3. Memory Errors</strong><br>
+                <strong>Solutions:</strong> Use smaller YOLO model, reduce video resolution, process videos individually
+            </div>
+
+            <div class="warning-box">
+                <strong>4. Poor Detection Quality</strong><br>
+                <strong>Solutions:</strong> Lower detection confidence, use larger YOLO model, increase upscale factor, use <code>yolo_mediapipe</code> mode
+            </div>
+
+            <h1 id="references">📚 Technical References</h1>
+
+            <h2>MediaPipe Pose Landmarks (33 points)</h2>
+            <ul>
+                <li><strong>Face (0-10):</strong> Nose, eyes, ears, mouth</li>
+                <li><strong>Upper Body (11-22):</strong> Shoulders, elbows, wrists, hands</li>
+                <li><strong>Lower Body (23-32):</strong> Hips, knees, ankles, feet</li>
+            </ul>
+
+            <h2>YOLO11-Pose Keypoints (17 points)</h2>
+            <p>Maps to MediaPipe landmarks: nose→0, left_eye→2, right_eye→5, shoulders→11-12, etc.</p>
+
+            <h1 id="integration">🔗 Integration with VAILA Ecosystem</h1>
+
+            <ul>
+                <li><strong>3D Reconstruction:</strong> Use pixel coordinates with DLT calibration</li>
+                <li><strong>Visualization:</strong> Direct import to vailá plotting modules</li>
+                <li><strong>Biomechanical Analysis:</strong> Joint angles, segment lengths, velocities</li>
+                <li><strong>Data Processing:</strong> Filtering, interpolation, statistics</li>
+            </ul>
+
+            <h1>📝 Version History</h1>
+
+            <h2>v0.3.17 (March 2026)</h2>
+            <ul>
+                <li>Separate YOLO <strong>detection</strong> weights (e.g. <code>yolo26x.pt</code>) with <code>model.track(..., persist=True)</code> and BoT-SORT / ByteTrack</li>
+                <li>MediaPipe and YOLO-pose always run on an upscaled person crop when a box exists; <code>min_pose_crop_short_side_px</code> enforces minimum resolution</li>
+                <li><code>yolo_only</code> uses detector + pose on crop with full-frame coordinate remap</li>
+            </ul>
+
+            <h2>v0.3.16 (January 2026)</h2>
+            <ul>
+                <li>Migrated to MediaPipe Tasks API (0.10.32+)</li>
+                <li>Manual OpenCV drawing (compatible with new MediaPipe)</li>
+                <li>Automatic model download for MediaPipe and YOLO</li>
+                <li>Polygon ROI definition</li>
+                <li>Bounding box upscale factor</li>
+            </ul>
+
+            <div class="footer">
+                <p>📅 <strong>Last Updated:</strong> January 27, 2026</p>
+                <p>🔗 <strong>Part of vailá - Multimodal Toolbox for Biomechanics and Motion Analysis</strong></p>
+                <p>🌐 <a href="https://github.com/vaila-multimodaltoolbox/vaila">GitHub Repository</a></p>
+                <p>📧 <strong>Contact:</strong> paulosantiago@usp.br</p>
+                <p>📄 <strong>License:</strong> AGPL-3.0-or-later</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

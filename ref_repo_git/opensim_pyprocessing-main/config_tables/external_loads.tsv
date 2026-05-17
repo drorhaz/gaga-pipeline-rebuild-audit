@@ -1,0 +1,3 @@
+name	body	force_identifier	point_identifier	torque_identifier
+left_foot	calcn_l	ground_force_1_v	ground_force_1_p	ground_torque_1_
+right_foot	calcn_r	ground_force_2_v	ground_force_2_p	ground_torque_2_

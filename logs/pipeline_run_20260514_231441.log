@@ -1,0 +1,153 @@
+2026-05-14 23:14:41,117 - INFO - Pipeline Runner initialized. Log: logs/pipeline_run_20260514_231441.log
+2026-05-14 23:14:41,118 - INFO - Starting batch processing of 3 files
+2026-05-14 23:14:41,118 - INFO - 
+[1/3] Processing 651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002.csv
+2026-05-14 23:14:41,118 - INFO - ======================================================================
+2026-05-14 23:14:41,118 - INFO - Processing: 651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002.csv
+2026-05-14 23:14:41,118 - INFO - ======================================================================
+2026-05-14 23:14:41,125 - INFO - Config updated: current_csv = 651/T1/651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002.csv
+2026-05-14 23:14:41,125 - INFO -   Subject 651: height=184.0cm (measured), weight=78.0kg (measured)
+2026-05-14 23:14:41,125 - INFO - Running: 01_Load_Inspect.ipynb
+2026-05-14 23:14:42,279 - INFO - Input Notebook:  notebooks/01_Load_Inspect.ipynb
+2026-05-14 23:14:42,279 - INFO - Output Notebook: notebooks/01_Load_Inspect_output.ipynb
+2026-05-14 23:14:42,279 - INFO - Working directory: .
+2026-05-14 23:14:43,406 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:14:51,233 - INFO - Completed in 10.1s
+2026-05-14 23:14:51,233 - INFO - Running: 02_preprocess.ipynb
+2026-05-14 23:14:51,233 - INFO - Input Notebook:  notebooks/02_preprocess.ipynb
+2026-05-14 23:14:51,233 - INFO - Output Notebook: notebooks/02_preprocess_output.ipynb
+2026-05-14 23:14:51,233 - INFO - Working directory: .
+2026-05-14 23:14:51,982 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:14:54,168 - INFO - Completed in 2.9s
+2026-05-14 23:14:54,169 - INFO - Running: 03_resample.ipynb
+2026-05-14 23:14:54,169 - INFO - Input Notebook:  notebooks/03_resample.ipynb
+2026-05-14 23:14:54,169 - INFO - Output Notebook: notebooks/03_resample_output.ipynb
+2026-05-14 23:14:54,169 - INFO - Working directory: .
+2026-05-14 23:14:54,817 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:14:57,335 - INFO - Completed in 3.2s
+2026-05-14 23:14:57,336 - INFO - Running: 04_filtering.ipynb
+2026-05-14 23:14:57,336 - INFO - Input Notebook:  notebooks/04_filtering.ipynb
+2026-05-14 23:14:57,336 - INFO - Output Notebook: notebooks/04_filtering_output.ipynb
+2026-05-14 23:14:57,336 - INFO - Working directory: .
+2026-05-14 23:14:58,061 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:15:28,417 - INFO - Completed in 31.1s
+2026-05-14 23:15:28,418 - INFO - Running: 05_reference_detection.ipynb
+2026-05-14 23:15:28,418 - INFO - Input Notebook:  notebooks/05_reference_detection.ipynb
+2026-05-14 23:15:28,418 - INFO - Output Notebook: notebooks/05_reference_detection_output.ipynb
+2026-05-14 23:15:28,418 - INFO - Working directory: .
+2026-05-14 23:15:29,066 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:15:30,835 - INFO - Completed in 2.4s
+2026-05-14 23:15:30,835 - INFO - Running: 06_ultimate_kinematics.ipynb
+2026-05-14 23:15:30,836 - INFO - Input Notebook:  notebooks/06_ultimate_kinematics.ipynb
+2026-05-14 23:15:30,836 - INFO - Output Notebook: notebooks/06_ultimate_kinematics_output.ipynb
+2026-05-14 23:15:30,836 - INFO - Working directory: .
+2026-05-14 23:15:31,621 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:15:49,347 - INFO - Completed in 18.5s
+2026-05-14 23:15:49,348 - INFO - Running: 08_engineering_physical_audit.ipynb
+2026-05-14 23:15:49,348 - INFO - Input Notebook:  notebooks/08_engineering_physical_audit.ipynb
+2026-05-14 23:15:49,348 - INFO - Output Notebook: notebooks/08_engineering_physical_audit_output.ipynb
+2026-05-14 23:15:49,348 - INFO - Working directory: .
+2026-05-14 23:15:50,221 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:15:53,553 - INFO - Completed in 4.2s
+2026-05-14 23:15:53,554 - INFO - Successfully processed 651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002.csv
+2026-05-14 23:15:53,554 - INFO - 
+[2/3] Processing 651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000.csv
+2026-05-14 23:15:53,554 - INFO - ======================================================================
+2026-05-14 23:15:53,554 - INFO - Processing: 651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000.csv
+2026-05-14 23:15:53,554 - INFO - ======================================================================
+2026-05-14 23:15:53,561 - INFO - Config updated: current_csv = 651/T2/651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000.csv
+2026-05-14 23:15:53,561 - INFO -   Subject 651: height=184.0cm (measured), weight=78.0kg (measured)
+2026-05-14 23:15:53,561 - INFO - Running: 01_Load_Inspect.ipynb
+2026-05-14 23:15:53,561 - INFO - Input Notebook:  notebooks/01_Load_Inspect.ipynb
+2026-05-14 23:15:53,561 - INFO - Output Notebook: notebooks/01_Load_Inspect_output.ipynb
+2026-05-14 23:15:53,561 - INFO - Working directory: .
+2026-05-14 23:15:54,359 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:16:02,365 - INFO - Completed in 8.8s
+2026-05-14 23:16:02,366 - INFO - Running: 02_preprocess.ipynb
+2026-05-14 23:16:02,366 - INFO - Input Notebook:  notebooks/02_preprocess.ipynb
+2026-05-14 23:16:02,366 - INFO - Output Notebook: notebooks/02_preprocess_output.ipynb
+2026-05-14 23:16:02,366 - INFO - Working directory: .
+2026-05-14 23:16:02,893 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:16:04,821 - INFO - Completed in 2.5s
+2026-05-14 23:16:04,821 - INFO - Running: 03_resample.ipynb
+2026-05-14 23:16:04,821 - INFO - Input Notebook:  notebooks/03_resample.ipynb
+2026-05-14 23:16:04,822 - INFO - Output Notebook: notebooks/03_resample_output.ipynb
+2026-05-14 23:16:04,822 - INFO - Working directory: .
+2026-05-14 23:16:05,355 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:16:07,895 - INFO - Completed in 3.1s
+2026-05-14 23:16:07,895 - INFO - Running: 04_filtering.ipynb
+2026-05-14 23:16:07,896 - INFO - Input Notebook:  notebooks/04_filtering.ipynb
+2026-05-14 23:16:07,896 - INFO - Output Notebook: notebooks/04_filtering_output.ipynb
+2026-05-14 23:16:07,896 - INFO - Working directory: .
+2026-05-14 23:16:08,416 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:16:43,253 - INFO - Completed in 35.4s
+2026-05-14 23:16:43,254 - INFO - Running: 05_reference_detection.ipynb
+2026-05-14 23:16:43,254 - INFO - Input Notebook:  notebooks/05_reference_detection.ipynb
+2026-05-14 23:16:43,254 - INFO - Output Notebook: notebooks/05_reference_detection_output.ipynb
+2026-05-14 23:16:43,254 - INFO - Working directory: .
+2026-05-14 23:16:44,221 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:16:46,375 - INFO - Completed in 3.1s
+2026-05-14 23:16:46,376 - INFO - Running: 06_ultimate_kinematics.ipynb
+2026-05-14 23:16:46,376 - INFO - Input Notebook:  notebooks/06_ultimate_kinematics.ipynb
+2026-05-14 23:16:46,376 - INFO - Output Notebook: notebooks/06_ultimate_kinematics_output.ipynb
+2026-05-14 23:16:46,376 - INFO - Working directory: .
+2026-05-14 23:16:46,962 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:17:07,198 - INFO - Completed in 20.8s
+2026-05-14 23:17:07,199 - INFO - Running: 08_engineering_physical_audit.ipynb
+2026-05-14 23:17:07,199 - INFO - Input Notebook:  notebooks/08_engineering_physical_audit.ipynb
+2026-05-14 23:17:07,199 - INFO - Output Notebook: notebooks/08_engineering_physical_audit_output.ipynb
+2026-05-14 23:17:07,199 - INFO - Working directory: .
+2026-05-14 23:17:08,073 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:17:11,323 - INFO - Completed in 4.1s
+2026-05-14 23:17:11,323 - INFO - Successfully processed 651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000.csv
+2026-05-14 23:17:11,323 - INFO - 
+[3/3] Processing 651_T3_P2_R1_2026-02-11 05.50.42 PM_2027.csv
+2026-05-14 23:17:11,323 - INFO - ======================================================================
+2026-05-14 23:17:11,323 - INFO - Processing: 651_T3_P2_R1_2026-02-11 05.50.42 PM_2027.csv
+2026-05-14 23:17:11,323 - INFO - ======================================================================
+2026-05-14 23:17:11,330 - INFO - Config updated: current_csv = 651/T3/651_T3_P2_R1_2026-02-11 05.50.42 PM_2027.csv
+2026-05-14 23:17:11,330 - INFO -   Subject 651: height=184.0cm (measured), weight=78.0kg (measured)
+2026-05-14 23:17:11,330 - INFO - Running: 01_Load_Inspect.ipynb
+2026-05-14 23:17:11,330 - INFO - Input Notebook:  notebooks/01_Load_Inspect.ipynb
+2026-05-14 23:17:11,330 - INFO - Output Notebook: notebooks/01_Load_Inspect_output.ipynb
+2026-05-14 23:17:11,330 - INFO - Working directory: .
+2026-05-14 23:17:12,075 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:17:20,626 - INFO - Completed in 9.3s
+2026-05-14 23:17:20,626 - INFO - Running: 02_preprocess.ipynb
+2026-05-14 23:17:20,627 - INFO - Input Notebook:  notebooks/02_preprocess.ipynb
+2026-05-14 23:17:20,627 - INFO - Output Notebook: notebooks/02_preprocess_output.ipynb
+2026-05-14 23:17:20,627 - INFO - Working directory: .
+2026-05-14 23:17:21,190 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:17:23,113 - INFO - Completed in 2.5s
+2026-05-14 23:17:23,114 - INFO - Running: 03_resample.ipynb
+2026-05-14 23:17:23,114 - INFO - Input Notebook:  notebooks/03_resample.ipynb
+2026-05-14 23:17:23,114 - INFO - Output Notebook: notebooks/03_resample_output.ipynb
+2026-05-14 23:17:23,114 - INFO - Working directory: .
+2026-05-14 23:17:23,695 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:17:26,292 - INFO - Completed in 3.2s
+2026-05-14 23:17:26,293 - INFO - Running: 04_filtering.ipynb
+2026-05-14 23:17:26,293 - INFO - Input Notebook:  notebooks/04_filtering.ipynb
+2026-05-14 23:17:26,293 - INFO - Output Notebook: notebooks/04_filtering_output.ipynb
+2026-05-14 23:17:26,293 - INFO - Working directory: .
+2026-05-14 23:17:27,078 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:18:03,420 - INFO - Completed in 37.1s
+2026-05-14 23:18:03,421 - INFO - Running: 05_reference_detection.ipynb
+2026-05-14 23:18:03,421 - INFO - Input Notebook:  notebooks/05_reference_detection.ipynb
+2026-05-14 23:18:03,421 - INFO - Output Notebook: notebooks/05_reference_detection_output.ipynb
+2026-05-14 23:18:03,421 - INFO - Working directory: .
+2026-05-14 23:18:04,100 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:18:05,944 - INFO - Completed in 2.5s
+2026-05-14 23:18:05,944 - INFO - Running: 06_ultimate_kinematics.ipynb
+2026-05-14 23:18:05,944 - INFO - Input Notebook:  notebooks/06_ultimate_kinematics.ipynb
+2026-05-14 23:18:05,944 - INFO - Output Notebook: notebooks/06_ultimate_kinematics_output.ipynb
+2026-05-14 23:18:05,944 - INFO - Working directory: .
+2026-05-14 23:18:06,523 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:18:26,299 - INFO - Completed in 20.4s
+2026-05-14 23:18:26,300 - INFO - Running: 08_engineering_physical_audit.ipynb
+2026-05-14 23:18:26,300 - INFO - Input Notebook:  notebooks/08_engineering_physical_audit.ipynb
+2026-05-14 23:18:26,300 - INFO - Output Notebook: notebooks/08_engineering_physical_audit_output.ipynb
+2026-05-14 23:18:26,300 - INFO - Working directory: .
+2026-05-14 23:18:27,165 - INFO - Executing notebook with kernel: python3
+2026-05-14 23:18:30,366 - INFO - Completed in 4.1s
+2026-05-14 23:18:30,367 - INFO - Successfully processed 651_T3_P2_R1_2026-02-11 05.50.42 PM_2027.csv
+2026-05-14 23:18:30,367 - INFO - Batch summary saved: reports/batch_summary_20260514_231830.json

@@ -1,0 +1,406 @@
+# 📚 vailá - Help Documentation
+
+Automatically generated documentation for all Python modules in vailá Multimodal Toolbox
+
+[📂 Open Project Documentation (./docs)](../../docs/index.md)
+
+**Total documented modules:** 122 | **Categories:** 7 | **Generated on:** 12/05/2026
+
+---
+
+## Analysis (14 modules)
+
+- **animal_open_field**
+  - [📄 HTML](animal_open_field.html)
+  - [📝 Markdown](animal_open_field.md)
+- **cluster_analysis**
+  - [📄 HTML](cluster_analysis.html)
+  - [📝 Markdown](cluster_analysis.md)
+- **cube2d_kinematics**
+  - [📄 HTML](cube2d_kinematics.html)
+  - [📝 Markdown](cube2d_kinematics.md)
+- **emg_labiocom**
+  - [📄 HTML](emg_labiocom.html)
+  - [📝 Markdown](emg_labiocom.md)
+- **forceplate_analysis**
+  - [📄 HTML](forceplate_analysis.html)
+  - [📝 Markdown](forceplate_analysis.md)
+- **gnss_analysis**
+  - [📄 HTML](gnss_analysis.html)
+  - [📝 Markdown](gnss_analysis.md)
+- **imu_analysis**
+  - [📄 HTML](imu_analysis.html)
+  - [📝 Markdown](imu_analysis.md)
+- **markerless_2d_analysis**
+  - [📄 HTML](markerless_2d_analysis.html)
+  - [📝 Markdown](markerless_2d_analysis.md)
+- **markerless_3d_analysis**
+  - [📄 HTML](markerless_3d_analysis.html)
+  - [📝 Markdown](markerless_3d_analysis.md)
+- **markerless_live**
+  - [📄 HTML](markerless_live.html)
+  - [📝 Markdown](markerless_live.md)
+- **mocap_analysis**
+  - [📄 HTML](mocap_analysis.html)
+  - [📝 Markdown](mocap_analysis.md)
+- **run_vector_coding**
+  - [📄 HTML](run_vector_coding.html)
+  - [📝 Markdown](run_vector_coding.md)
+- **vaila_and_jump**
+  - [📄 HTML](vaila_and_jump.html)
+  - [📝 Markdown](vaila_and_jump.md)
+- **pynalty**
+  - [📄 HTML](pynalty_help.html)
+  - [📝 Markdown](pynalty_help.md)
+- **mp_facemesh (Face Mesh Analysis)**
+  - [📄 HTML](mp_facemesh_help.html)
+  - [📝 Markdown](mp_facemesh_help.md)
+- **tugturn (TUG Analysis)**
+  - [📄 HTML](tugturn.html)
+  - [📝 Markdown](tugturn.md)
+- **vailasprint (Sprint Analysis)**
+  - [📄 HTML](vailasprint_help.html)
+  - [📝 Markdown](vailasprint_help.md)
+- **soccerfield_keypoints_ai (Field KPs AI)**
+  - [📄 HTML](soccerfield_keypoints_ai.html)
+  - [📝 Markdown](soccerfield_keypoints_ai.md)
+- **soccerfield_calib (Soccer-Field Calib)**
+  - [📄 HTML](soccerfield_calib.html)
+  - [📝 Markdown](soccerfield_calib.md)
+- **startblock (Start Block Analysis)**
+  - [📄 HTML](startblock.html)
+  - [📝 Markdown](startblock.md)
+
+## Utils (19 modules)
+
+- **backup_markerless**
+  - [📄 HTML](backup_markerless.html)
+  - [📝 Markdown](backup_markerless.md)
+- **common_utils**
+  - [📄 HTML](common_utils.html)
+  - [📝 Markdown](common_utils.md)
+- **compressvideo**
+  - [📄 HTML](compressvideo.html)
+  - [📝 Markdown](compressvideo.md)
+- **dialogsuser**
+  - [📄 HTML](dialogsuser.html)
+  - [📝 Markdown](dialogsuser.md)
+- **dialogsuser_cluster**
+  - [📄 HTML](dialogsuser_cluster.html)
+  - [📝 Markdown](dialogsuser_cluster.md)
+- **dlc2vaila**
+  - [📄 HTML](dlc2vaila.html)
+  - [📝 Markdown](dlc2vaila.md)
+- **example_batch_usage**
+  - [📄 HTML](example_batch_usage.html)
+  - [📝 Markdown](example_batch_usage.md)
+- **listjointsnames**
+  - [📄 HTML](listjointsnames.html)
+  - [📝 Markdown](listjointsnames.md)
+- **markerless_2d_analysis_nvidia**
+  - [📄 HTML](markerless_2d_analysis_nvidia.html)
+  - [📝 Markdown](markerless_2d_analysis_nvidia.md)
+- **modifylabref_cli**
+  - [📄 HTML](modifylabref_cli.html)
+  - [📝 Markdown](modifylabref_cli.md)
+- **mpangles**
+  - [📄 HTML](mpangles.html)
+  - [📝 Markdown](mpangles.md)
+- **mphands**
+  - [📄 HTML](mphands.html)
+  - [📝 Markdown](mphands.md)
+- **native_file_dialog**
+  - [📄 HTML](native_file_dialog.html)
+  - [📝 Markdown](native_file_dialog.md)
+- **reid_yolotrack**
+  - [📄 HTML](reid_yolotrack.html)
+  - [📝 Markdown](reid_yolotrack.md)
+- **reidmplrswap**
+  - [📄 HTML](reidmplrswap.html)
+  - [📝 Markdown](reidmplrswap.md)
+- **reidvideogui**
+  - [📄 HTML](reidvideogui.html)
+  - [📝 Markdown](reidvideogui.md)
+- **utils**
+  - [📄 HTML](utils.html)
+  - [📝 Markdown](utils.md)
+- **vaila_manifest**
+  - [📄 HTML](vaila_manifest.html)
+  - [📝 Markdown](vaila_manifest.md)
+- **vpython_c3d**
+  - [📄 HTML](vpython_c3d.html)
+  - [📝 Markdown](vpython_c3d.md)
+
+## Tools (46 modules)
+
+- **batchcut**
+  - [📄 HTML](batchcut.html)
+  - [📝 Markdown](batchcut.md)
+- **brainstorm**
+  - [📄 HTML](brainstorm.html)
+  - [📝 Markdown](brainstorm.md)
+- **compress_videos_h264**
+  - [📄 HTML](compress_videos_h264.html)
+  - [📝 Markdown](compress_videos_h264.md)
+- **compress_videos_h265**
+  - [📄 HTML](compress_videos_h265.html)
+  - [📝 Markdown](compress_videos_h265.md)
+- **compress_videos_h266**
+  - [📄 HTML](compress_videos_h266.html)
+  - [📝 Markdown](compress_videos_h266.md)
+- **convert_videos_ts_to_mp4**
+  - [📄 HTML](convert_videos_ts_to_mp4.html)
+  - [📝 Markdown](convert_videos_ts_to_mp4.md)
+- **cop_analysis**
+  - [📄 HTML](cop_analysis.html)
+  - [📝 Markdown](cop_analysis.md)
+- **cop_calculate**
+  - [📄 HTML](cop_calculate.html)
+  - [📝 Markdown](cop_calculate.md)
+- **cutvideo**
+  - [📄 HTML](cutvideo.html)
+  - [📝 Markdown](cutvideo.md)
+- **drawboxe**
+  - [📄 HTML](drawboxe.html)
+  - [📝 Markdown](drawboxe.md)
+- **ellipse**
+  - [📄 HTML](ellipse.html)
+  - [📝 Markdown](ellipse.md)
+- **extractpng**
+  - [📄 HTML](extractpng.html)
+  - [📝 Markdown](extractpng.md)
+- **filemanager**
+  - [📄 HTML](filemanager.html)
+  - [📝 Markdown](filemanager.md)
+- **fixnoise**
+  - [📄 HTML](fixnoise.html)
+  - [📝 Markdown](fixnoise.md)
+- **force_cmj**
+  - [📄 HTML](force_cmj.html)
+  - [📝 Markdown](force_cmj.md)
+- **force_cube_fig**
+  - [📄 HTML](force_cube_fig.html)
+  - [📝 Markdown](force_cube_fig.md)
+- **getcampardistortlens**
+  - [📄 HTML](getcampardistortlens.html)
+  - [📝 Markdown](getcampardistortlens.md)
+- **getpixelvideo**
+  - [📄 HTML](getpixelvideo.html)
+  - [📝 Markdown](getpixelvideo.md)
+- **grf_gait**
+  - [📄 HTML](grf_gait.html)
+  - [📝 Markdown](grf_gait.md)
+- **join2dataset**
+  - [📄 HTML](join2dataset.html)
+  - [📝 Markdown](join2dataset.md)
+- **linear_interpolation_split**
+  - [📄 HTML](linear_interpolation_split.html)
+  - [📝 Markdown](linear_interpolation_split.md)
+- **load_vicon_csv_split_batch**
+  - [📄 HTML](load_vicon_csv_split_batch.html)
+  - [📝 Markdown](load_vicon_csv_split_batch.md)
+- **merge_multivideos**
+  - [📄 HTML](merge_multivideos.html)
+  - [📝 Markdown](merge_multivideos.md)
+- **mergestack**
+  - [📄 HTML](mergestack.html)
+  - [📝 Markdown](mergestack.md)
+- **numberframes**
+  - [📄 HTML](numberframes.html)
+  - [📝 Markdown](numberframes.md)
+- **numstepsmp**
+  - [📄 HTML](numstepsmp.html)
+  - [📝 Markdown](numstepsmp.md)
+- **process_gait_features**
+  - [📄 HTML](process_gait_features.html)
+  - [📝 Markdown](process_gait_features.md)
+- **resize_video**
+  - [📄 HTML](resize_video.html)
+  - [📝 Markdown](resize_video.md)
+- **rm_duplicateframes**
+  - [📄 HTML](rm_duplicateframes.html)
+  - [📝 Markdown](rm_duplicateframes.md)
+- **rotation**
+  - [📄 HTML](rotation.html)
+  - [📝 Markdown](rotation.md)
+- **scout_vaila**
+  - [📄 HTML](scout_vaila.html)
+  - [📝 Markdown](scout_vaila.md)
+- **skout_bundle**
+  - [📄 HTML](skout_bundle.html)
+  - [📝 Markdown](skout_bundle.md)
+- **spectral_features**
+  - [📄 HTML](spectral_features.html)
+  - [📝 Markdown](spectral_features.md)
+- **stabilogram_analysis**
+  - [📄 HTML](stabilogram_analysis.html)
+  - [📝 Markdown](stabilogram_analysis.md)
+- **standardize_header**
+  - [📄 HTML](standardize_header.html)
+  - [📝 Markdown](standardize_header.md)
+- **sync_flash**
+  - [📄 HTML](sync_flash.html)
+  - [📝 Markdown](sync_flash.md)
+- **syncvid**
+  - [📄 HTML](syncvid.html)
+  - [📝 Markdown](syncvid.md)
+- **usound_biomec1**
+  - [📄 HTML](usound_biomec1.html)
+  - [📝 Markdown](usound_biomec1.md)
+- **usvideoia**
+  - [📄 HTML](usvideoia.html)
+  - [📝 Markdown](usvideoia.md)
+- **vaila_datdistort**
+  - [📄 HTML](vaila_datdistort.html)
+  - [📝 Markdown](vaila_datdistort.md)
+- **vaila_distortvideo_gui**
+  - [📄 HTML](vaila_distortvideo_gui.html)
+  - [📝 Markdown](vaila_distortvideo_gui.md)
+- **vaila_iaudiovid**
+  - [📄 HTML](vaila_iaudiovid.html)
+  - [📝 Markdown](vaila_iaudiovid.md)
+- **vaila_lensdistortvideo**
+  - [📄 HTML](vaila_lensdistortvideo.html)
+  - [📝 Markdown](vaila_lensdistortvideo.md)
+- **vaila_upscaler**
+  - [📄 HTML](vaila_upscaler.html)
+  - [📝 Markdown](vaila_upscaler.md)
+- **vaila_ytdown**
+  - [📄 HTML](vaila_ytdown.html)
+  - [📝 Markdown](vaila_ytdown.md)
+- **videoprocessor**
+  - [📄 HTML](videoprocessor.html)
+  - [📝 Markdown](videoprocessor.md)
+- **vaila_sam (SAM 3 Video Segmentation)**
+  - [📄 HTML](vaila_sam.html)
+  - [📝 Markdown](vaila_sam.md)
+- **vaila_stroboscopic (Stroboscopic Generator)**
+  - [📄 HTML](vaila_stroboscopic.html)
+  - [📝 Markdown](vaila_stroboscopic.md)
+- **fifa_to_dlt (FIFA cams to DLT)**
+  - [📄 HTML](vaila_sam.html)
+- **fifa_dataset_builder (FIFA Dataset Builder)**
+  - [📄 HTML](fifa_dataset_builder.html)
+
+## Processing (16 modules)
+
+- **data_processing**
+  - [📄 HTML](data_processing.html)
+  - [📝 Markdown](data_processing.md)
+- **dlt2d**
+  - [📄 HTML](dlt2d.html)
+  - [📝 Markdown](dlt2d.md)
+- **dlt3d**
+  - [📄 HTML](dlt3d.html)
+  - [📝 Markdown](dlt3d.md)
+- **filter_utils**
+  - [📄 HTML](filter_utils.html)
+  - [📝 Markdown](filter_utils.md)
+- **filtering**
+  - [📄 HTML](filtering.html)
+  - [📝 Markdown](filtering.md)
+- **interp_smooth_split**
+  - [📄 HTML](interp_smooth_split.html)
+  - [📝 Markdown](interp_smooth_split.md)
+- **modifylabref**
+  - [📄 HTML](modifylabref.html)
+  - [📝 Markdown](modifylabref.md)
+- **readc3d_export**
+  - [📄 HTML](readc3d_export.html)
+  - [📝 Markdown](readc3d_export.md)
+- **readcsv**
+  - [📄 HTML](readcsv.html)
+  - [📝 Markdown](readcsv.md)
+- **readcsv_export**
+  - [📄 HTML](readcsv_export.html)
+  - [📝 Markdown](readcsv_export.md)
+- **rearrange_data**
+  - [📄 HTML](rearrange_data.html)
+  - [📝 Markdown](rearrange_data.md)
+- **rec2d**
+  - [📄 HTML](rec2d.html)
+  - [📝 Markdown](rec2d.md)
+- **rec2d_one_dlt2d**
+  - [📄 HTML](rec2d_one_dlt2d.html)
+  - [📝 Markdown](rec2d_one_dlt2d.md)
+- **rec3d**
+  - [📄 HTML](rec3d.html)
+  - [📝 Markdown](rec3d.md)
+- **rec3d_one_dlt3d**
+  - [📄 HTML](rec3d_one_dlt3d.html)
+  - [📝 Markdown](rec3d_one_dlt3d.md)
+- **reid_markers**
+  - [📄 HTML](reid_markers.html)
+  - [📝 Markdown](reid_markers.md)
+
+## Ml (10 modules)
+
+- **markerless2d_analysis_v2**
+  - [📄 HTML](markerless2d_analysis_v2.html)
+  - [📝 Markdown](markerless2d_analysis_v2.md)
+- **markerless2d_mpyolo**
+  - [📄 HTML](markerless2d_mpyolo.html)
+  - [📝 Markdown](markerless2d_mpyolo.md)
+- **markerless3d_analysis_v2**
+  - [📄 HTML](markerless3d_analysis_v2.html)
+  - [📝 Markdown](markerless3d_analysis_v2.md)
+- **ml_models_training**
+  - [📄 HTML](ml_models_training.html)
+  - [📝 Markdown](ml_models_training.md)
+- **ml_valid_models**
+  - [📄 HTML](ml_valid_models.html)
+  - [📝 Markdown](ml_valid_models.md)
+- **vaila_mlwalkway**
+  - [📄 HTML](vaila_mlwalkway.html)
+  - [📝 Markdown](vaila_mlwalkway.md)
+- **walkway_ml_prediction**
+  - [📄 HTML](walkway_ml_prediction.html)
+  - [📝 Markdown](walkway_ml_prediction.md)
+- **yolotrain**
+  - [📄 HTML](yolotrain.html)
+  - [📝 Markdown](yolotrain.md)
+- **yolov11track**
+  - [📄 HTML](yolov11track.html)
+  - [📝 Markdown](yolov11track.md)
+- **yolov12track**
+  - [📄 HTML](yolov12track.html)
+  - [📝 Markdown](yolov12track.md)
+
+## Visualization (6 modules)
+
+- **plotting**
+  - [📄 HTML](plotting.html)
+  - [📝 Markdown](plotting.md)
+- **showc3d**
+  - [📄 HTML](showc3d.html)
+  - [📝 Markdown](showc3d.md)
+- **drawsportsfields**
+  - [📄 HTML](sports_fields_courts.html)
+- **vailaplot2d**
+  - [📄 HTML](vailaplot2d.html)
+  - [📝 Markdown](vailaplot2d.md)
+- **vailaplot3d**
+  - [📄 HTML](vailaplot3d.html)
+  - [📝 Markdown](vailaplot3d.md)
+- **viewc3d**
+  - [📄 HTML](viewc3d.html)
+  - [📝 Markdown](viewc3d.md)
+
+## Uncategorized (2 modules)
+
+- ****init****
+  - [📄 HTML](__init__.html)
+  - [📝 Markdown](__init__.md)
+- **sit2stand**
+  - [📄 HTML](sit2stand.html)
+  - [📝 Markdown](sit2stand.md)
+
+---
+
+🔗 [vailá - Multimodal Toolbox](https://github.com/vaila-multimodaltoolbox/vaila)
+
+📧 For questions or suggestions, contact the development team
+
+---
+
+© 2024 vailá - Multimodal Toolbox. All rights reserved.

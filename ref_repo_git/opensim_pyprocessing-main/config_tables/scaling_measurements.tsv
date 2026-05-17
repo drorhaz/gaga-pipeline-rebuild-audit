@@ -1,0 +1,14 @@
+measurement	marker1	marker2	bodies	axes
+Torso/Pelvis	RASI	LASI	pelvis,torso	X Y Z
+Torso/Pelvis	RPSI	LPSI
+Torso/Pelvis	RAcromion	LAcromion
+Femur	RASI	RCondyleLat	femur_r,patella_r,femur_l,patella_l	X Y Z
+Femur	LASI	LCondyleLat
+Tibia	RCondyleLat	RMalleoleFib	tibia_r,tibia_l	X Y Z
+Tibia	LCondyleLat	LMalleoleFib
+Foot	RCalcaneus	RMT1	talus_r,calcn_r,toes_r,talus_l,calcn_l,toes_l	X Y Z
+Foot	LCalcaneus	LMT1
+Arm	RAcromion	REpicondyleLat	humerus_r,humerus_l	X Y Z
+Arm	LAcromion	LEpicondyleLat
+Forearm	REpicondyleLat	RStyloidUlna	ulna_r,radius_r,hand_r,ulna_l,radius_l,hand_l	X Y Z
+Forearm	LEpicondyleLat	LStyloidUlna

@@ -1,0 +1,285 @@
+{
+  "total_files": 6,
+  "start_time": "2026-05-14T19:11:00.122132",
+  "runs": [
+    {
+      "csv_file": "data/671/T1/671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002.csv",
+      "run_id": "671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002",
+      "start_time": "2026-05-14T19:11:00.122268",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.102703
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.557436
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.972612
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 27.722961
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.12729
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 15.815922
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.568115
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-14T19:12:01.999379",
+      "total_execution_time": 61.867039000000005
+    },
+    {
+      "csv_file": "data/671/T1/671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004.csv",
+      "run_id": "671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004",
+      "start_time": "2026-05-14T19:12:01.999522",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.337691
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.264698
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.983013
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 28.482707
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.245302
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 16.593263
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.630939
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-14T19:13:03.546602",
+      "total_execution_time": 61.537613
+    },
+    {
+      "csv_file": "data/671/T2/671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006.csv",
+      "run_id": "671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006",
+      "start_time": "2026-05-14T19:13:03.546716",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.026338
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.345918
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 3.106653
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 33.034185
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.316333
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 18.265264
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.675796
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-14T19:14:12.327144",
+      "total_execution_time": 68.770487
+    },
+    {
+      "csv_file": "data/671/T2/671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010.csv",
+      "run_id": "671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010",
+      "start_time": "2026-05-14T19:14:12.327309",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.653693
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.447037
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 3.143383
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 33.057936
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.033327
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 18.512298
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.764303
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-14T19:15:21.949103",
+      "total_execution_time": 69.611977
+    },
+    {
+      "csv_file": "data/671/T3/671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001.csv",
+      "run_id": "671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001",
+      "start_time": "2026-05-14T19:15:21.949221",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.067709
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.495597
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 3.204613
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 34.677209
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.219797
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 19.427969
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.875282
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-14T19:16:34.926914",
+      "total_execution_time": 72.968176
+    },
+    {
+      "csv_file": "data/671/T3/671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006.csv",
+      "run_id": "671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006",
+      "start_time": "2026-05-14T19:16:34.927022",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.309993
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.403121
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 3.275994
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 35.23141
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 2.220774
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 19.699572
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 3.109836
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-14T19:17:49.187181",
+      "total_execution_time": 74.2507
+    }
+  ],
+  "success_count": 6,
+  "failed_count": 0,
+  "end_time": "2026-05-14T19:17:49.187195"
+}

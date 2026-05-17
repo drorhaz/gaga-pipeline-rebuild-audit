@@ -1,120 +1,24 @@
+# Data
+data/
+raw_data/
+derivatives/
+outputs/
+*.parquet
+*.c3d
+*.csv
+
 # Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
+*.pyc
+.venv/
 venv/
-ENV/
-.venv
-env.bak/
-venv.bak/
-
-# Distribution / packaging
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py.cover
-.hypothesis/
-.pytest_cache/
-cover/
-
-# Translations
-*.mo
-*.pot
-
-# Jupyter Notebook
-.ipynb_checkpoints
-*_output.ipynb
-
-# IPython
-profile_default/
-ipython_config.py
-
-# Logs
-logs/
-*.log
 
 # OS
 .DS_Store
-Thumbs.db
-*.swp
-*.swo
-*~
 
-# IDE
-.vscode/
-.idea/
-*.sublime-*
+# Notebooks checkpoints
+.ipynb_checkpoints/
 
-# Environments
-.env
-.envrc
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Ruff
-.ruff_cache/
-
-# Cursor
-.cursorignore
-.cursorindexingignore
-
-# ============================================
-# Data / outputs — do NOT commit to git
-# ============================================
-data/
-derivatives/
-qc/
-reports/
-results/
-
-# Large binary / data files
-*.c3d
-*.csv
-*.parquet
-*.avi
-*.bvh
-*.xlsx
-
-# Temporary files
-tmp/
-temp/
-*.tmp
+# Large/generated artifacts
+*.zip
+*.tar.gz

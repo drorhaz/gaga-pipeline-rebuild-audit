@@ -1,0 +1,43 @@
+# OpenSim Processing Pipeline Configuration
+# Copy this file and edit paths/parameters for your dataset.
+
+subject:
+  mass: 79.0  # kg
+
+# File paths (relative to this config file, or absolute)
+paths:
+  c3d_folder: "data_c3d"
+  output_folder: "output"
+  generic_model: "model/RajagopalLaiUhlrich2023.osim"
+  scaling_measurements_tsv: "config_tables/scaling_measurements.tsv"
+  ik_marker_weights_tsv: "config_tables/ik_marker_weights.tsv"
+  external_loads_tsv: "config_tables/external_loads.tsv"
+
+# Pipeline steps to run
+steps:
+  c3d_export: true
+  scaling: true
+  inverse_kinematics: true
+  inverse_dynamics: true
+  center_of_mass: true
+
+# Glob pattern to identify static trial(s) among the C3D files
+trials:
+  static_pattern: "*static*"
+
+# C3D export settings
+c3d_export:
+  fill_gaps_max_missing_samples: 10  # max gap size (frames) to interpolate; 0 to disable
+
+# 4x4 lab-to-OpenSim coordinate transformation matrix (row-major)
+# Adjust this to match your motion capture lab orientation.
+# Default: x -> -z, y -> -x, z -> y (Y-up OpenSim convention)
+coordinate_transform:
+  - [ 0,  0, -1, 0]
+  - [-1,  0,  0, 0]
+  - [ 0,  1,  0, 0]
+  - [ 0,  0,  0, 1]
+
+# Inverse dynamics settings
+inverse_dynamics:
+  low_pass_cutoff_frequency: 6.0  # Hz

@@ -1,0 +1,73 @@
+# vailaplot2d
+
+## 📋 Module Information
+
+- **Category:** Visualization
+- **File:** `vaila\vailaplot2d.py`
+- **Lines:** 1450
+- **Size:** 52560 characters
+- **Version:** 0.0.2
+- **Author:** Prof. Paulo Santiago
+- **GUI Interface:** ✅ Yes
+
+## 📖 Description
+
+
+================================================================================
+vailaplot2d.py
+================================================================================
+Author: Prof. Paulo Santiago
+Created: 23 September 2024
+Updated: 03 June 2025
+Version: 0.0.2
+
+Description:
+------------
+This script provides functionality for generating 2D plots within vailá:Versatile
+Anarcho Integrated Liberation Ánalysis in Multimodal Toolbox. It includes
+a graphical user interface (GUI) for selecting and plotting various graph types,
+such as scatter plots, angle-angle plots, and confidence intervals. Additionally,
+the script offers buttons to clear all plots from memory, clear cached data,
+and create new figure windows for refreshed plotting.
+
+Plot Types Supported:
+---------------------
+1. Time Scatter Plot: Plots time-series data across multiple headers from selected
+   files.
+2. Angle-Angle Plot: Displays relationships between two angles based on header pairs
+   from the selected files.
+3...
+
+## 🔧 Main Functions
+
+**Total functions found:** 20
+
+- `clear_plots`
+- `clear_data`
+- `new_figure`
+- `save_figure`
+- `select_plot_type`
+- `plot_time_scatter`
+- `plot_angle_angle`
+- `plot_confidence_interval`
+- `plot_boxplot`
+- `plot_spm`
+- `select_file`
+- `read_excel_with_sheet_selection`
+- `get_file_headers`
+- `detect_c3d_units`
+- `read_c3d_file`
+- `read_csv_with_encoding`
+- `get_csv_headers`
+- `select_headers_gui`
+- `run_plot_2d`
+- `create_window`
+
+
+
+
+---
+
+📅 **Generated automatically on:** 15/10/2025 08:04:44
+🔗 **Part of vailá - Multimodal Toolbox**
+🌐 [GitHub Repository](https://github.com/vaila-multimodaltoolbox/vaila)

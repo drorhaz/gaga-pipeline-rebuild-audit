@@ -1,0 +1,232 @@
+# Project specific
+datasets/
+bin/ffmpeg/
+
+# vaila/models: track small reference files (e.g. *.csv, *.json <20MB). Ignore weight-like
+# binaries (Git cannot ignore by size; pre-commit rejects staged files ≥20MB — hooks/pre-commit).
+vaila/models/**/*.pt
+vaila/models/**/*.ckpt
+vaila/models/**/*.onnx
+vaila/models/**/*.engine
+vaila/models/**/*.task
+vaila/models/**/*.pth
+vaila/models/**/*.bin
+# Small sklearn/joblib *.pkl (e.g. walkway_ml_prediction defaults) stay tracked if <20 MiB; hook blocks larger.
+vaila/models/**/*.safetensors
+# Hugging Face hub cache under models (e.g. facebook/sam3 downloads)
+vaila/models/**/.cache/
+
+# Local Hugging Face datasets/models (offline training assets)
+vaila/models/hf_datasets/
+
+# Ultralytics training runs (local artifacts)
+runs/
+vaila/models/runs/
+
+# Stray weight files at repository root (use vaila/models/ instead)
+/*.pt
+/*.ckpt
+/*.onnx
+/*.pkl
+/*.safetensors
+
+# Legacy SAM3 download folder at repo root (use vaila/models/sam3/; see vaila_sam.py)
+sam3_weights/
+
+# Keep the model directories in GitHub, but track only *.txt instructions inside them.
+# (Weights and other large artifacts must remain local; see instruction_to_download_models.txt)
+vaila/models/sam3/*
+!vaila/models/sam3/*.txt
+
+vaila/models/sam-3d-dinov3/*
+!vaila/models/sam-3d-dinov3/*.txt
+
+vaila/models/trackers/*
+!vaila/models/trackers/*.txt
+
+# SAM GPU smoke sample (often >20 MiB; see tests/SAM/README.md)
+tests/SAM/*.mp4
+tests/sport_fields/*.mp4
+
+# General temporary files
+.DS_Store
+.AppleDouble
+.LSOverride
+*.bak
+*.backup
+*.tmp
+*.temp
+
+# Ignore .app directories (macOS application bundles)
+*.app
+
+# Video files
+*.MOV
+*.mov
+*.AVI
+*.avi
+# Ignore all mp4 files in tests/sport_fields/
+tests/sport_fields/*.mp4
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.exe
+*.dmg
+
+# PyInstaller
+# Usually these files are written by a python script from a template
+# before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+coverage/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.env.local
+.env.*.local
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.mocap_env/
+site/
+
+# uv (Python package manager)
+.uv/
+# uv.lock → NÃO ignorar, deve ser commitado (builds reproduzíveis)
+# .python-version → NÃO ignorar, gerado por `uv python pin`
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# Mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ruff (Python linter/formatter)
+.ruff_cache/
+
+# Pyre type checker
+.pyre/
+
+# IDEs and Editors
+# Cursor (ignore IDE config, but track rules)
+.cursor/
+!.cursor/rules/
+!.cursor/rules/*.mdc
+
+# Claude
+CLAUDE.local.md
+.claude/*
+!.claude/agents/
+!.claude/skills/
+!.claude/commands/
+# get_anthropic_skills.sh (Keep tracked)
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Windsurf
+.windsurf/
+
+# JetBrains IDEs (PyCharm, IntelliJ, WebStorm, etc.)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# Antigravity
+.antigravity/
+
+# AI Agents (generic workflow/skill folders)
+.agents/
+.agent/
+_agents/
+_agent/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Atom
+.atom/
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Logs
+*.log
+
+# Ignore the hooks directory, except for specific scripts
+hooks/*
+!hooks/pre-commit
+!install-hooks.sh
+
+tests/markerless_2d_analysis/temp/

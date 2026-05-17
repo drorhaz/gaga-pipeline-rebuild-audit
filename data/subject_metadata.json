@@ -1,18 +1,12 @@
 {
     "subject_info": {
-        "weight_kg": null,
-        "height_cm": 167.5945405351894,
-        "body_type": "average",
+        "mocap_height_raw_cm": 157.01643045975572,
+        "mocap_height_cm": 180.47865570086864,
+        "stature_ratio_used": 0.87,
         "height_estimated": true,
         "height_estimation_method": "direct_vertical_ratio_corrected",
-        "mocap_height_cm": 167.5945405351894,
-        "registry_height_cm": 179.0,
+        "registry_height_cm": 184.0,
         "height_cross_validation": "PASS",
-        "mocap_height_raw_cm": 145.80725026561478,
-        "stature_ratio_used": 0.87
-    },
-    "pipeline_switches": {
-        "force_unit_normalization": false,
-        "isb_alignment": true
+        "height_cm": 184.0
     }
 }

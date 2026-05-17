@@ -1,0 +1,3579 @@
+{
+  "cameras": [
+    {
+      "name": "PrimeX 22 #103517",
+      "orientation": [
+        -0.2652095755412237,
+        0.6265572075913457,
+        0.26124419788143594,
+        0.6847199542366676
+      ],
+      "position": [
+        4.297820568084717,
+        4.396180629730225,
+        0.257201075553894
+      ],
+      "serial": 103517
+    },
+    {
+      "name": "PrimeX 22 #103518",
+      "orientation": [
+        -0.24676807812918902,
+        -0.34954332027763313,
+        -0.13895527510587194,
+        0.8930937321389989
+      ],
+      "position": [
+        -5.55932092666626,
+        3.42219066619873,
+        5.262549877166748
+      ],
+      "serial": 103518
+    },
+    {
+      "name": "PrimeX 22 #103519",
+      "orientation": [
+        -0.33919420563021907,
+        0.08754987943631172,
+        0.005686745001408313,
+        0.93661623432912
+      ],
+      "position": [
+        0.785476386547089,
+        4.027365207672119,
+        5.871127605438232
+      ],
+      "serial": 103519
+    },
+    {
+      "name": "PrimeX 22 #103520",
+      "orientation": [
+        0.08448264162186721,
+        0.8925380684086401,
+        0.25780562759361597,
+        -0.3602426100380501
+      ],
+      "position": [
+        -5.127626419067383,
+        3.57800030708313,
+        -5.371140480041504
+      ],
+      "serial": 103520
+    },
+    {
+      "name": "PrimeX 22 #103521",
+      "orientation": [
+        -0.1720691687996196,
+        -0.704857732907426,
+        -0.2016881458829947,
+        0.6579435152955698
+      ],
+      "position": [
+        -5.431175231933594,
+        3.566457748413086,
+        -0.255175232887268
+      ],
+      "serial": 103521
+    },
+    {
+      "name": "PrimeX 22 #103522",
+      "orientation": [
+        -0.03522077084576735,
+        0.9358336611389513,
+        0.33384915065751947,
+        0.10732940224164841
+      ],
+      "position": [
+        1.105315923690796,
+        4.134634494781494,
+        -5.522118091583252
+      ],
+      "serial": 103522
+    },
+    {
+      "name": "PrimeX 13W #108490",
+      "orientation": [
+        -0.3403760001519312,
+        -0.6415254671140899,
+        -0.36702380713972527,
+        0.5812768519021579
+      ],
+      "position": [
+        -1.033334732055664,
+        3.132892847061157,
+        -0.152496919035912
+      ],
+      "serial": 108490
+    },
+    {
+      "name": "PrimeX 13W #108496",
+      "orientation": [
+        -0.4663962500964792,
+        0.5309183942197121,
+        0.4396617204367308,
+        0.5543444490185852
+      ],
+      "position": [
+        -0.895943999290466,
+        3.156495094299316,
+        0.07027942687273
+      ],
+      "serial": 108496
+    },
+    {
+      "name": "PrimeX 22 #109641",
+      "orientation": [
+        -0.12086979005788648,
+        0.8524065931848516,
+        0.26276082781034077,
+        0.43560330705216405
+      ],
+      "position": [
+        4.424825668334961,
+        3.373725891113281,
+        -5.287736415863037
+      ],
+      "serial": 109641
+    },
+    {
+      "name": "PrimeX 22 #109642",
+      "orientation": [
+        -0.2195416813637452,
+        0.2281151382856485,
+        0.036700722658287686,
+        0.9478491392543744
+      ],
+      "position": [
+        4.390398979187012,
+        3.281267166137695,
+        5.676516056060791
+      ],
+      "serial": 109642
+    },
+    {
+      "name": "Prime Color-FS #11679",
+      "orientation": [
+        -0.1473362278725527,
+        0.9267057321446639,
+        0.11910271038811449,
+        0.32453515425099094
+      ],
+      "position": [
+        5.200365543365479,
+        2.925713777542114,
+        -5.682075977325439
+      ],
+      "serial": 11679
+    },
+    {
+      "name": "Prime Color-FS #11680",
+      "orientation": [
+        -0.23029437613822107,
+        0.28174227418193387,
+        0.024561505714223966,
+        0.9311189632345319
+      ],
+      "position": [
+        4.925122261047363,
+        4.902492046356201,
+        5.084997177124023
+      ],
+      "serial": 11680
+    },
+    {
+      "name": "Prime Color-FS #11681",
+      "orientation": [
+        -0.42500014104804584,
+        0.18421028984313711,
+        0.8861949650620092,
+        -0.009996655630399696
+      ],
+      "position": [
+        -5.05964183807373,
+        4.10735034942627,
+        4.793142795562744
+      ],
+      "serial": 11681
+    }
+  ],
+  "client_ip": "auto",
+  "format_version": 1,
+  "generated_at_utc": "2026-04-07T14:05:21Z",
+  "mcal": {
+    "calibration_attributes": {
+      "Date": {
+        "attributes": {
+          "Day": "7",
+          "Hour": "15",
+          "Minute": "3",
+          "Month": "4",
+          "Second": "30",
+          "Year": "2026"
+        }
+      },
+      "Reprojection": {},
+      "TriangulationMeanResidual": {
+        "attributes": {
+          "Error": "0.003133516379768",
+          "Error50Percentile": "0.001951000000000",
+          "Error95Percentile": "0.012815000000000",
+          "Error99Percentile": "0.033460000000000"
+        }
+      },
+      "Wand": {
+        "attributes": {
+          "CenterOffset": "0.175000000000000",
+          "Length": "0.012384000000000",
+          "MeanError": "0.000652525602658",
+          "MeanError50Percentile": "0.000562000000000",
+          "MeanError95Percentile": "0.004417000000000",
+          "MeanError99Percentile": "0.012384000000000",
+          "MicronSeries": "0"
+        }
+      }
+    },
+    "camera_count": 13,
+    "cameras": [
+      {
+        "attributes": {
+          "FilterSwitchType": "0",
+          "Group": "0",
+          "ImagerPixelHeight": "1088",
+          "ImagerPixelWidth": "2048",
+          "Model": "0",
+          "Revision": "50",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "0.078355069377240",
+          "OrientMatrix1": "-0.690096172591134",
+          "OrientMatrix2": "0.719463519351715",
+          "OrientMatrix3": "0.025420288280753",
+          "OrientMatrix4": "0.722830700229059",
+          "OrientMatrix5": "0.690557447103492",
+          "OrientMatrix6": "-0.996601370682687",
+          "OrientMatrix7": "-0.035819706607359",
+          "OrientMatrix8": "0.074179893313158",
+          "X": "4.297820568084717",
+          "Y": "4.396180629730225",
+          "Z": "0.257201075553894"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "1258.279907226562500",
+          "LensCenterX": "1012.648315429687500",
+          "LensCenterY": "555.545715332031250",
+          "TangentialX": "0.001205612206832",
+          "TangentialY": "-0.000004667883786",
+          "VerticalFocalLength": "1259.411499023437500",
+          "k1": "0.449572920799255",
+          "k2": "-1.695473074913025",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "1258.279907226562500",
+          "LensCenterX": "1012.648315429687500",
+          "LensCenterY": "555.545715332031250",
+          "TangentialX": "0.000740729983459",
+          "TangentialY": "-0.000002876155889",
+          "VerticalFocalLength": "1259.411499023437500",
+          "k1": "0.169710418430497",
+          "k2": "-0.241610259685357",
+          "k3": "0.000016089046645"
+        },
+        "name": "M103517",
+        "orientation": [
+          -0.2652095755412237,
+          0.6265572075913457,
+          0.26124419788143594,
+          0.6847199542366676
+        ],
+        "orientation_matrix": [
+          0.07835506937724,
+          -0.690096172591134,
+          0.719463519351715,
+          0.025420288280753,
+          0.722830700229059,
+          0.690557447103492,
+          -0.996601370682687,
+          -0.035819706607359,
+          0.074179893313158
+        ],
+        "position": [
+          4.297820568084717,
+          4.396180629730225,
+          0.257201075553894
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "6",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 103517,
+        "serial_label": "M103517"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "0",
+          "Group": "0",
+          "ImagerPixelHeight": "1088",
+          "ImagerPixelWidth": "2048",
+          "Model": "0",
+          "Revision": "50",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "0.717021797539079",
+          "OrientMatrix1": "0.420712437225023",
+          "OrientMatrix2": "-0.555770444534440",
+          "OrientMatrix3": "-0.075687903753795",
+          "OrientMatrix4": "0.839593894273356",
+          "OrientMatrix5": "0.537915824199528",
+          "OrientMatrix6": "0.692929349269595",
+          "OrientMatrix7": "-0.343632271277134",
+          "OrientMatrix8": "0.633849965731429",
+          "X": "-5.559320926666260",
+          "Y": "3.422190666198730",
+          "Z": "5.262549877166748"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "1252.265014648437500",
+          "LensCenterX": "1028.671752929687500",
+          "LensCenterY": "562.414489746093750",
+          "TangentialX": "0.002735789399594",
+          "TangentialY": "-0.001948600751348",
+          "VerticalFocalLength": "1250.894409179687500",
+          "k1": "0.372127741575241",
+          "k2": "-1.289162516593933",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "1252.265014648437500",
+          "LensCenterX": "1028.671752929687500",
+          "LensCenterY": "562.414489746093750",
+          "TangentialX": "0.001672828664453",
+          "TangentialY": "-0.001191484019279",
+          "VerticalFocalLength": "1250.894409179687500",
+          "k1": "0.139135694954724",
+          "k2": "-0.180223417713934",
+          "k3": "0.000012846884775"
+        },
+        "name": "M103518",
+        "orientation": [
+          -0.24676807812918902,
+          -0.34954332027763313,
+          -0.13895527510587194,
+          0.8930937321389989
+        ],
+        "orientation_matrix": [
+          0.717021797539079,
+          0.420712437225023,
+          -0.55577044453444,
+          -0.075687903753795,
+          0.839593894273356,
+          0.537915824199528,
+          0.692929349269595,
+          -0.343632271277134,
+          0.633849965731429
+        ],
+        "position": [
+          -5.55932092666626,
+          3.42219066619873,
+          5.262549877166748
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "9",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 103518,
+        "serial_label": "M103518"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "0",
+          "Group": "0",
+          "ImagerPixelHeight": "1088",
+          "ImagerPixelWidth": "2048",
+          "Model": "0",
+          "Revision": "50",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "0.984605359083953",
+          "OrientMatrix1": "-0.070045418994460",
+          "OrientMatrix2": "0.160143454880465",
+          "OrientMatrix3": "-0.048740228239224",
+          "OrientMatrix4": "0.769829903596347",
+          "OrientMatrix5": "0.636385346845783",
+          "OrientMatrix6": "-0.167859098693962",
+          "OrientMatrix7": "-0.634393851488749",
+          "OrientMatrix8": "0.754564618955144",
+          "X": "0.785476386547089",
+          "Y": "4.027365207672119",
+          "Z": "5.871127605438232"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "1252.628784179687500",
+          "LensCenterX": "1023.316589355468750",
+          "LensCenterY": "557.779846191406250",
+          "TangentialX": "0.000028455377105",
+          "TangentialY": "0.000947791908402",
+          "VerticalFocalLength": "1252.186645507812500",
+          "k1": "0.340029031038284",
+          "k2": "-1.080147147178650",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "1252.628784179687500",
+          "LensCenterX": "1023.316589355468750",
+          "LensCenterY": "557.779846191406250",
+          "TangentialX": "0.000017410359921",
+          "TangentialY": "0.000579702177680",
+          "VerticalFocalLength": "1252.186645507812500",
+          "k1": "0.127207981576113",
+          "k2": "-0.151179776655886",
+          "k3": "0.000011608545994"
+        },
+        "name": "M103519",
+        "orientation": [
+          -0.33919420563021907,
+          0.08754987943631172,
+          0.005686745001408313,
+          0.93661623432912
+        ],
+        "orientation_matrix": [
+          0.984605359083953,
+          -0.07004541899446,
+          0.160143454880465,
+          -0.048740228239224,
+          0.769829903596347,
+          0.636385346845783,
+          -0.167859098693962,
+          -0.634393851488749,
+          0.754564618955144
+        ],
+        "position": [
+          0.785476386547089,
+          4.027365207672119,
+          5.871127605438232
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "8",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 103519,
+        "serial_label": "M103519"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "0",
+          "Group": "0",
+          "ImagerPixelHeight": "1088",
+          "ImagerPixelWidth": "2048",
+          "Model": "0",
+          "Revision": "50",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "-0.726175890355129",
+          "OrientMatrix1": "0.336553091868125",
+          "OrientMatrix2": "-0.599500285755512",
+          "OrientMatrix3": "-0.034937196799162",
+          "OrientMatrix4": "0.852797883291306",
+          "OrientMatrix5": "0.521071168396108",
+          "OrientMatrix6": "0.686620687531881",
+          "OrientMatrix7": "0.399334179113025",
+          "OrientMatrix8": "-0.607523040588070",
+          "X": "-5.127626419067383",
+          "Y": "3.578000307083130",
+          "Z": "-5.371140480041504"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "1233.463623046875000",
+          "LensCenterX": "1003.658508300781250",
+          "LensCenterY": "570.087341308593750",
+          "TangentialX": "-0.011993312276900",
+          "TangentialY": "0.000992888119072",
+          "VerticalFocalLength": "1239.744018554687500",
+          "k1": "0.261356383562088",
+          "k2": "-0.740328729152679",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "1233.463623046875000",
+          "LensCenterX": "1003.658508300781250",
+          "LensCenterY": "570.087341308593750",
+          "TangentialX": "-0.007223299296810",
+          "TangentialY": "0.000597985213659",
+          "VerticalFocalLength": "1239.744018554687500",
+          "k1": "0.094808480742788",
+          "k2": "-0.097427609335286",
+          "k3": "0.000012526889778"
+        },
+        "name": "M103520",
+        "orientation": [
+          0.08448264162186721,
+          0.8925380684086401,
+          0.25780562759361597,
+          -0.3602426100380501
+        ],
+        "orientation_matrix": [
+          -0.726175890355129,
+          0.336553091868125,
+          -0.599500285755512,
+          -0.034937196799162,
+          0.852797883291306,
+          0.521071168396108,
+          0.686620687531881,
+          0.399334179113025,
+          -0.60752304058807
+        ],
+        "position": [
+          -5.127626419067383,
+          3.57800030708313,
+          -5.371140480041504
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "3",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 103520,
+        "serial_label": "M103520"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "0",
+          "Group": "0",
+          "ImagerPixelHeight": "1088",
+          "ImagerPixelWidth": "2048",
+          "Model": "0",
+          "Revision": "50",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "-0.075005063658233",
+          "OrientMatrix1": "0.507967383838136",
+          "OrientMatrix2": "-0.858104525907109",
+          "OrientMatrix3": "-0.022830246944677",
+          "OrientMatrix4": "0.859428185917776",
+          "OrientMatrix5": "0.510746486110797",
+          "OrientMatrix6": "0.996921772382402",
+          "OrientMatrix7": "0.057899310934763",
+          "OrientMatrix8": "-0.052864444981576",
+          "X": "-5.431175231933594",
+          "Y": "3.566457748413086",
+          "Z": "-0.255175232887268"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "1257.391479492187500",
+          "LensCenterX": "1018.160217285156250",
+          "LensCenterY": "554.672668457031250",
+          "TangentialX": "0.004206927027553",
+          "TangentialY": "0.000457523769001",
+          "VerticalFocalLength": "1256.142211914062500",
+          "k1": "0.421553462743759",
+          "k2": "-1.356252193450928",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "1257.391479492187500",
+          "LensCenterX": "1018.160217285156250",
+          "LensCenterY": "554.672668457031250",
+          "TangentialX": "0.002582893965003",
+          "TangentialY": "0.000280897411263",
+          "VerticalFocalLength": "1256.142211914062500",
+          "k1": "0.158908396644107",
+          "k2": "-0.192726640698709",
+          "k3": "0.000014175595795"
+        },
+        "name": "M103521",
+        "orientation": [
+          -0.1720691687996196,
+          -0.704857732907426,
+          -0.2016881458829947,
+          0.6579435152955698
+        ],
+        "orientation_matrix": [
+          -0.075005063658233,
+          0.507967383838136,
+          -0.858104525907109,
+          -0.022830246944677,
+          0.859428185917776,
+          0.510746486110797,
+          0.996921772382402,
+          0.057899310934763,
+          -0.052864444981576
+        ],
+        "position": [
+          -5.431175231933594,
+          3.566457748413086,
+          -0.255175232887268
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "1",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 103521,
+        "serial_label": "M103521"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "0",
+          "Group": "0",
+          "ImagerPixelHeight": "1088",
+          "ImagerPixelWidth": "2048",
+          "Model": "0",
+          "Revision": "50",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "-0.974479793430961",
+          "OrientMatrix1": "-0.137585225415368",
+          "OrientMatrix2": "0.177368086030589",
+          "OrientMatrix3": "0.005742093700446",
+          "OrientMatrix4": "0.774608483812566",
+          "OrientMatrix5": "0.632414994418644",
+          "OrientMatrix6": "-0.224401783760039",
+          "OrientMatrix7": "0.617294097293179",
+          "OrientMatrix8": "-0.754050288039407",
+          "X": "1.105315923690796",
+          "Y": "4.134634494781494",
+          "Z": "-5.522118091583252"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "1250.745971679687500",
+          "LensCenterX": "1018.709838867187500",
+          "LensCenterY": "572.042541503906250",
+          "TangentialX": "0.000437438517110",
+          "TangentialY": "-0.001010100706480",
+          "VerticalFocalLength": "1250.397949218750000",
+          "k1": "0.409653365612030",
+          "k2": "-1.092215895652771",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "1250.745971679687500",
+          "LensCenterX": "1018.709838867187500",
+          "LensCenterY": "572.042541503906250",
+          "TangentialX": "0.000267174019433",
+          "TangentialY": "-0.000616890148980",
+          "VerticalFocalLength": "1250.397949218750000",
+          "k1": "0.152798353226729",
+          "k2": "-0.151967157805356",
+          "k3": "0.000023644220120"
+        },
+        "name": "M103522",
+        "orientation": [
+          -0.03522077084576735,
+          0.9358336611389513,
+          0.33384915065751947,
+          0.10732940224164841
+        ],
+        "orientation_matrix": [
+          -0.974479793430961,
+          -0.137585225415368,
+          0.177368086030589,
+          0.005742093700446,
+          0.774608483812566,
+          0.632414994418644,
+          -0.224401783760039,
+          0.617294097293179,
+          -0.754050288039407
+        ],
+        "position": [
+          1.105315923690796,
+          4.134634494781494,
+          -5.522118091583252
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "4",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 103522,
+        "serial_label": "M103522"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "1",
+          "Group": "0",
+          "ImagerPixelHeight": "1024",
+          "ImagerPixelWidth": "1280",
+          "Model": "0",
+          "Revision": "52",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "-0.092522799926578",
+          "OrientMatrix1": "0.863404631358435",
+          "OrientMatrix2": "-0.495955617008772",
+          "OrientMatrix3": "0.010034858609138",
+          "OrientMatrix4": "0.498875407026469",
+          "OrientMatrix5": "0.866615618297333",
+          "OrientMatrix6": "0.995659998747786",
+          "OrientMatrix7": "0.075204858971881",
+          "OrientMatrix8": "-0.054821492870758",
+          "X": "-1.033334732055664",
+          "Y": "3.132892847061157",
+          "Z": "-0.152496919035912"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "770.795776367187500",
+          "LensCenterX": "656.032653808593750",
+          "LensCenterY": "514.698242187500000",
+          "TangentialX": "0.001230854424648",
+          "TangentialY": "-0.002517544664443",
+          "VerticalFocalLength": "772.866577148437500",
+          "k1": "0.213359549641609",
+          "k2": "-0.372828334569931",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "770.795776367187500",
+          "LensCenterX": "656.032653808593750",
+          "LensCenterY": "514.698242187500000",
+          "TangentialX": "0.000741203748184",
+          "TangentialY": "-0.001516023874252",
+          "VerticalFocalLength": "772.866577148437500",
+          "k1": "0.077375118684603",
+          "k2": "-0.049040793083218",
+          "k3": "0.000009022574001"
+        },
+        "name": "M108490",
+        "orientation": [
+          -0.3403760001519312,
+          -0.6415254671140899,
+          -0.36702380713972527,
+          0.5812768519021579
+        ],
+        "orientation_matrix": [
+          -0.092522799926578,
+          0.863404631358435,
+          -0.495955617008772,
+          0.010034858609138,
+          0.498875407026469,
+          0.866615618297333,
+          0.995659998747786,
+          0.075204858971881,
+          -0.054821492870758
+        ],
+        "position": [
+          -1.033334732055664,
+          3.132892847061157,
+          -0.152496919035912
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "2",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "7",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 108490,
+        "serial_label": "M108490"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "1",
+          "Group": "0",
+          "ImagerPixelHeight": "1024",
+          "ImagerPixelWidth": "1280",
+          "Model": "0",
+          "Revision": "52",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "0.049646460523553",
+          "OrientMatrix1": "-0.982684764682762",
+          "OrientMatrix2": "0.178510173989801",
+          "OrientMatrix3": "-0.007788628002511",
+          "OrientMatrix4": "0.178344218957113",
+          "OrientMatrix5": "0.983937333796424",
+          "OrientMatrix6": "-0.998736484880432",
+          "OrientMatrix7": "-0.050239355339844",
+          "OrientMatrix8": "0.001200393150209",
+          "X": "-0.895943999290466",
+          "Y": "3.156495094299316",
+          "Z": "0.070279426872730"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "771.277832031250000",
+          "LensCenterX": "634.602844238281250",
+          "LensCenterY": "508.499786376953125",
+          "TangentialX": "-0.001390125020407",
+          "TangentialY": "-0.000443607830675",
+          "VerticalFocalLength": "773.834838867187500",
+          "k1": "0.311331152915955",
+          "k2": "-0.754011332988739",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "771.277832031250000",
+          "LensCenterX": "634.602844238281250",
+          "LensCenterY": "508.499786376953125",
+          "TangentialX": "-0.000837637417665",
+          "TangentialY": "-0.000267303478064",
+          "VerticalFocalLength": "773.834838867187500",
+          "k1": "0.113041750751630",
+          "k2": "-0.099409003725362",
+          "k3": "0.000006171256782"
+        },
+        "name": "M108496",
+        "orientation": [
+          -0.4663962500964792,
+          0.5309183942197121,
+          0.4396617204367308,
+          0.5543444490185852
+        ],
+        "orientation_matrix": [
+          0.049646460523553,
+          -0.982684764682762,
+          0.178510173989801,
+          -0.007788628002511,
+          0.178344218957113,
+          0.983937333796424,
+          -0.998736484880432,
+          -0.050239355339844,
+          0.001200393150209
+        ],
+        "position": [
+          -0.895943999290466,
+          3.156495094299316,
+          0.07027942687273
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "10",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "25",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 108496,
+        "serial_label": "M108496"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "0",
+          "Group": "0",
+          "ImagerPixelHeight": "1088",
+          "ImagerPixelWidth": "2048",
+          "Model": "0",
+          "Revision": "50",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "-0.591280505473161",
+          "OrientMatrix1": "-0.434979383040320",
+          "OrientMatrix2": "0.679102569703035",
+          "OrientMatrix3": "0.022858559191475",
+          "OrientMatrix4": "0.832694482439574",
+          "OrientMatrix5": "0.553260684656320",
+          "OrientMatrix6": "-0.806141954074525",
+          "OrientMatrix7": "0.342655563568656",
+          "OrientMatrix8": "-0.482413012507285",
+          "X": "4.424825668334961",
+          "Y": "3.373725891113281",
+          "Z": "-5.287736415863037"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "1242.010620117187500",
+          "LensCenterX": "1006.709289550781250",
+          "LensCenterY": "555.192077636718750",
+          "TangentialX": "-0.009539041668177",
+          "TangentialY": "0.007339322008193",
+          "VerticalFocalLength": "1247.340209960937500",
+          "k1": "0.242334902286530",
+          "k2": "-0.582247197628021",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "1242.010620117187500",
+          "LensCenterX": "1006.709289550781250",
+          "LensCenterY": "555.192077636718750",
+          "TangentialX": "-0.005784950241464",
+          "TangentialY": "0.004450920438347",
+          "VerticalFocalLength": "1247.340209960937500",
+          "k1": "0.089131839605213",
+          "k2": "-0.078776295038000",
+          "k3": "0.000015591126218"
+        },
+        "name": "M109641",
+        "orientation": [
+          -0.12086979005788648,
+          0.8524065931848516,
+          0.26276082781034077,
+          0.43560330705216405
+        ],
+        "orientation_matrix": [
+          -0.591280505473161,
+          -0.43497938304032,
+          0.679102569703035,
+          0.022858559191475,
+          0.832694482439574,
+          0.55326068465632,
+          -0.806141954074525,
+          0.342655563568656,
+          -0.482413012507285
+        ],
+        "position": [
+          4.424825668334961,
+          3.373725891113281,
+          -5.287736415863037
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "5",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 109641,
+        "serial_label": "M109641"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "0",
+          "Group": "0",
+          "ImagerPixelHeight": "1088",
+          "ImagerPixelWidth": "2048",
+          "Model": "0",
+          "Revision": "50",
+          "RinglightType": "2",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": null,
+        "extrinsic": {
+          "OrientMatrix0": "0.893233081282558",
+          "OrientMatrix1": "-0.169735058770852",
+          "OrientMatrix2": "0.416322798230559",
+          "OrientMatrix3": "-0.030588065244166",
+          "OrientMatrix4": "0.900909014200678",
+          "OrientMatrix5": "0.432928768270925",
+          "OrientMatrix6": "-0.448552151669219",
+          "OrientMatrix7": "-0.399440806573411",
+          "OrientMatrix8": "0.799529867657798",
+          "X": "4.390398979187012",
+          "Y": "3.281267166137695",
+          "Z": "5.676516056060791"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "1250.507934570312500",
+          "LensCenterX": "1009.493774414062500",
+          "LensCenterY": "571.703857421875000",
+          "TangentialX": "-0.000176366651431",
+          "TangentialY": "0.000292606273433",
+          "VerticalFocalLength": "1244.837524414062500",
+          "k1": "0.329222440719604",
+          "k2": "-1.039351820945740",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "1250.507934570312500",
+          "LensCenterX": "1009.493774414062500",
+          "LensCenterY": "571.703857421875000",
+          "TangentialX": "-0.000107674308564",
+          "TangentialY": "0.000178657276899",
+          "VerticalFocalLength": "1244.837524414062500",
+          "k1": "0.122749597791997",
+          "k2": "-0.144491320943543",
+          "k3": "0.000014110983565"
+        },
+        "name": "M109642",
+        "orientation": [
+          -0.2195416813637452,
+          0.2281151382856485,
+          0.036700722658287686,
+          0.9478491392543744
+        ],
+        "orientation_matrix": [
+          0.893233081282558,
+          -0.169735058770852,
+          0.416322798230559,
+          -0.030588065244166,
+          0.900909014200678,
+          0.432928768270925,
+          -0.448552151669219,
+          -0.399440806573411,
+          0.799529867657798
+        ],
+        "position": [
+          4.390398979187012,
+          3.281267166137695,
+          5.676516056060791
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "7",
+          "ContinuousIR": "0",
+          "Enabled": "1",
+          "EnabledForRecording": "1",
+          "Exposure": "300",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "00",
+          "Intensity": "15",
+          "JPEGQua": "75",
+          "Orientation": "0.000000000000000",
+          "Threshold": "200",
+          "VideoType": "2"
+        },
+        "serial": 109642,
+        "serial_label": "M109642"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "1",
+          "Group": "0",
+          "ImagerPixelHeight": "1080",
+          "ImagerPixelWidth": "1920",
+          "Model": "0",
+          "Revision": "37",
+          "RinglightType": "0",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": {
+          "CameraResolution": "0",
+          "ColorBitRate": "0.300000011920929",
+          "ColorCompression": "0.200000002980232",
+          "ColorCompressionMode": "1",
+          "ColorGamma": "0.560000002384186",
+          "SubModel": "2"
+        },
+        "extrinsic": {
+          "OrientMatrix0": "-0.745937939223145",
+          "OrientMatrix1": "-0.350380686819170",
+          "OrientMatrix2": "0.566400887297728",
+          "OrientMatrix3": "-0.195768620869098",
+          "OrientMatrix4": "0.928213160668984",
+          "OrientMatrix5": "0.316377899740019",
+          "OrientMatrix6": "-0.636593463609656",
+          "OrientMatrix7": "0.125114757982507",
+          "OrientMatrix8": "-0.760982956066981",
+          "X": "5.200365543365479",
+          "Y": "2.925713777542114",
+          "Z": "-5.682075977325439"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "2170.353515625000000",
+          "LensCenterX": "964.096679687500000",
+          "LensCenterY": "539.687194824218750",
+          "TangentialX": "-0.000390283181332",
+          "TangentialY": "-0.000611869210843",
+          "VerticalFocalLength": "2171.308593750000000",
+          "k1": "0.068800874054432",
+          "k2": "-0.102018907666206",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "2170.353515625000000",
+          "LensCenterX": "964.096679687500000",
+          "LensCenterY": "539.687194824218750",
+          "TangentialX": "-0.000441173957097",
+          "TangentialY": "-0.000691653496633",
+          "VerticalFocalLength": "2171.308593750000000",
+          "k1": "0.087907214421673",
+          "k2": "-0.166513558962900",
+          "k3": "-0.000136597155098"
+        },
+        "name": "C11679",
+        "orientation": [
+          -0.1473362278725527,
+          0.9267057321446639,
+          0.11910271038811449,
+          0.32453515425099094
+        ],
+        "orientation_matrix": [
+          -0.745937939223145,
+          -0.35038068681917,
+          0.566400887297728,
+          -0.195768620869098,
+          0.928213160668984,
+          0.316377899740019,
+          -0.636593463609656,
+          0.125114757982507,
+          -0.760982956066981
+        ],
+        "position": [
+          5.200365543365479,
+          2.925713777542114,
+          -5.682075977325439
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "11",
+          "ContinuousIR": "0",
+          "Enabled": "0",
+          "EnabledForRecording": "1",
+          "Exposure": "250",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "30",
+          "Intensity": "0",
+          "JPEGQua": "25",
+          "Orientation": "0.000000000000000",
+          "Threshold": "255",
+          "VideoType": "2"
+        },
+        "serial": 11679,
+        "serial_label": "C11679"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "1",
+          "Group": "0",
+          "ImagerPixelHeight": "1080",
+          "ImagerPixelWidth": "1920",
+          "Model": "0",
+          "Revision": "37",
+          "RinglightType": "0",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": {
+          "CameraResolution": "0",
+          "ColorBitRate": "0.300000011920929",
+          "ColorCompression": "0.200000002980232",
+          "ColorCompressionMode": "1",
+          "ColorGamma": "0.560000002384186",
+          "SubModel": "2"
+        },
+        "extrinsic": {
+          "OrientMatrix0": "0.840036046751684",
+          "OrientMatrix1": "-0.175506690001199",
+          "OrientMatrix2": "0.513358395200298",
+          "OrientMatrix3": "-0.084027955056770",
+          "OrientMatrix4": "0.892722465512315",
+          "OrientMatrix5": "0.442702950451644",
+          "OrientMatrix6": "-0.535983901742188",
+          "OrientMatrix7": "-0.415022892542611",
+          "OrientMatrix8": "0.735171582515799",
+          "X": "4.925122261047363",
+          "Y": "4.902492046356201",
+          "Z": "5.084997177124023"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "2164.118896484375000",
+          "LensCenterX": "946.762329101562500",
+          "LensCenterY": "525.022521972656250",
+          "TangentialX": "0.000007903840014",
+          "TangentialY": "0.000526618794538",
+          "VerticalFocalLength": "2163.869873046875000",
+          "k1": "0.072575062513351",
+          "k2": "-0.096292823553085",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "2164.118896484375000",
+          "LensCenterX": "946.762329101562500",
+          "LensCenterY": "525.022521972656250",
+          "TangentialX": "0.000008913763522",
+          "TangentialY": "0.000593574789151",
+          "VerticalFocalLength": "2163.869873046875000",
+          "k1": "0.092196685885714",
+          "k2": "-0.155355034648961",
+          "k3": "-0.000160123437692"
+        },
+        "name": "C11680",
+        "orientation": [
+          -0.23029437613822107,
+          0.28174227418193387,
+          0.024561505714223966,
+          0.9311189632345319
+        ],
+        "orientation_matrix": [
+          0.840036046751684,
+          -0.175506690001199,
+          0.513358395200298,
+          -0.08402795505677,
+          0.892722465512315,
+          0.442702950451644,
+          -0.535983901742188,
+          -0.415022892542611,
+          0.735171582515799
+        ],
+        "position": [
+          4.925122261047363,
+          4.902492046356201,
+          5.084997177124023
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "12",
+          "ContinuousIR": "0",
+          "Enabled": "0",
+          "EnabledForRecording": "1",
+          "Exposure": "250",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "30",
+          "Intensity": "0",
+          "JPEGQua": "25",
+          "Orientation": "0.000000000000000",
+          "Threshold": "255",
+          "VideoType": "2"
+        },
+        "serial": 11680,
+        "serial_label": "C11680"
+      },
+      {
+        "attributes": {
+          "FilterSwitchType": "1",
+          "Group": "0",
+          "ImagerPixelHeight": "1080",
+          "ImagerPixelWidth": "1920",
+          "Model": "0",
+          "Revision": "37",
+          "RinglightType": "0",
+          "RinglightWavelength": "-1"
+        },
+        "calibration": {
+          "PartitionID": "1"
+        },
+        "camera_hardware_filters": {
+          "AspectBase": "1",
+          "AspectStep": "1",
+          "AspectTolerance": "64",
+          "GrayscaleFloor": "48",
+          "ObjectMargin": "2",
+          "ObjectSkew": "64",
+          "ROIGuardBand": "0.500000000000000",
+          "ROIIntrusion": "1"
+        },
+        "camera_software_filters": {
+          "FilterLevel": "2",
+          "MarkerMaxSize": "3000",
+          "MarkerMinRoundness": "0.600000023841858",
+          "MarkerMinSize": "4"
+        },
+        "color_camera": {
+          "CameraResolution": "0",
+          "ColorBitRate": "0.300000011920929",
+          "ColorCompression": "0.200000002980232",
+          "ColorCompressionMode": "1",
+          "ColorGamma": "0.560000002384186",
+          "SubModel": "2"
+        },
+        "extrinsic": {
+          "OrientMatrix0": "-0.638549893970697",
+          "OrientMatrix1": "-0.138860826557431",
+          "OrientMatrix2": "-0.756948943957120",
+          "OrientMatrix3": "-0.174296770105907",
+          "OrientMatrix4": "-0.931933271984229",
+          "OrientMatrix5": "0.317995302637346",
+          "OrientMatrix6": "-0.749582996632568",
+          "OrientMatrix7": "0.334989622849060",
+          "OrientMatrix8": "0.570882898450097",
+          "X": "-5.059641838073730",
+          "Y": "4.107350349426270",
+          "Z": "4.793142795562744"
+        },
+        "intrinsic": {
+          "CameraModelSelect": "2",
+          "HorizontalFocalLength": "2165.895019531250000",
+          "LensCenterX": "968.755126953125000",
+          "LensCenterY": "528.713867187500000",
+          "TangentialX": "0.000041466631956",
+          "TangentialY": "-0.000148348597577",
+          "VerticalFocalLength": "2166.451660156250000",
+          "k1": "0.070474818348885",
+          "k2": "-0.095136620104313",
+          "k3": "0.000000000000000"
+        },
+        "intrinsic_standard_camera_model": {
+          "HorizontalFocalLength": "2165.895019531250000",
+          "LensCenterX": "968.755126953125000",
+          "LensCenterY": "528.713867187500000",
+          "TangentialX": "0.000046780787221",
+          "TangentialY": "-0.000167348066533",
+          "VerticalFocalLength": "2166.451660156250000",
+          "k1": "0.089675742732334",
+          "k2": "-0.153996073890582",
+          "k3": "-0.000155455226504"
+        },
+        "name": "C11681",
+        "orientation": [
+          -0.42500014104804584,
+          0.18421028984313711,
+          0.8861949650620092,
+          -0.009996655630399696
+        ],
+        "orientation_matrix": [
+          -0.638549893970697,
+          -0.138860826557431,
+          -0.75694894395712,
+          -0.174296770105907,
+          -0.931933271984229,
+          0.317995302637346,
+          -0.749582996632568,
+          0.33498962284906,
+          0.570882898450097
+        ],
+        "position": [
+          -5.05964183807373,
+          4.10735034942627,
+          4.793142795562744
+        ],
+        "properties": {
+          "AutoExposureControl": "0",
+          "AutoGainControl": "0",
+          "CameraID": "13",
+          "ContinuousIR": "0",
+          "Enabled": "0",
+          "EnabledForRecording": "1",
+          "Exposure": "250",
+          "FrameDecimation": "0",
+          "FrameRate": "120",
+          "GrayscaleDecimation": "0",
+          "HighPower": "0",
+          "IRFilter": "1",
+          "ImagerGain": "3",
+          "ImagerIndex": "30",
+          "Intensity": "0",
+          "JPEGQua": "25",
+          "Orientation": "0.000000000000000",
+          "Threshold": "255",
+          "VideoType": "2"
+        },
+        "serial": 11681,
+        "serial_label": "C11681"
+      }
+    ],
+    "mask_data": {
+      "Mask": [
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M103517"
+          },
+          "text": "02010002000010010000040000000400000047000000010002000010010000040000000044000000AF060000E001003E000000E001003E000000E00100C10200000E003F0000000E003F0000000E003F0000000E004D390000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M103518"
+          },
+          "text": "020100020000100100000400000004000000500000000100020000100100000400000000440000008E07000070003F000000F8003F000000F8003F000000F8003F0000007000F50A0000F0003F000000F0003F000000F0003F000000F000BB2F0000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M103519"
+          },
+          "text": "020100020000100100000400000004000000BD01000001000200001001000004000000004400000003000000801F003E000000801F003E0000008007007E020000F0030007000000070002000000070033000000FE030006000000C007000100000080070033000000FF01000000030006000000C007000100000080070033000000FF01000000010006000000C0030001000000800300330000003F00010200000F003C000000F000020000003F003C000000FC0002000000FF01000000003C000000FC0002000000FE003C000000FC0002000000F8003C0000001C0002000000E000400000008003003E0000008003003E0000008003003E0000008003003E010000C03F003E000000FC3F003E000000FC3F003E000000FC03003E0000007C00410000000F003E000000800F003E000000800F003E000000800700B7000000C001003E000000C00F003E000000C03F003E000000C03F003F0000003F008000000078003F00000078003F00000078003F000000380042000000C007003E000000E007003E000000E007003E000000E007003E000000E0030079010000F8003F000000F83F003E000000F8FF01000000003E000000F0FF0100000003003E000000FC03003E000000E003007D310000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M103520"
+          },
+          "text": "0201000200001001000004000000040000002C000000010002000010010000040000000044000000BC15000070003F00000070003F0000007000C32D0000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M103521"
+          },
+          "text": "02010002000010010000040000000400000047000000010002000010010000040000000044000000F91C000007003F00000007003F00000007003E0000008007003E0000008007003E0000008007003F000000070086250000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M103522"
+          },
+          "text": "02010002000010010000040000000400000047020000010002000010010000040000000044000000ED000000F801003E000000F8070005000000380038000000F80F0005000000380038000000F00F00050000003800090000003E002E000000F00F0008000000F000060000007E002E000000C00F0008000000F00300050000007E0038000000F0070005000000780038000000C0070037000000C001000500000080070037000000C001003E000000C001003E000000C0010005000000E003003E000000E003003E000000E003003E000000E00100C4010000F0003F000000F803003E000000F803003E000000F803003E000000F803003E000000E00100FE000000E001003E000000FC01003E000000FC01003D000000E0FD001A000000F8030022000000F83D001A000000F8030022000000F801001A000000F803001B000000C0010005000000F8001B000000F870001B000000C0070021000000FC77001B000000C00F0021000000FC77001B000000C07F0021000000FC7F001C0000007F0021000000FC0F001C0000007C0021000000F80F003E000000780026000000F8003F000000FC003F000000FE003F000000FE003F0000003E003D000000C00F003E000000C00F003B0000001C0002000000F80F003B0000003C0001000000FF0200000007003B0000003C0001000000FF010000007F003C0000003C0001000000FF020000000F003D000000F0FF010000003F003E000000F03F003B000000F00002000000E03F003B000000F8003F000000F80F003E000000F83F003E000000783F003F0000003F003F0000003F003F0000001E0044330000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M108490"
+          },
+          "text": "0201800200000002000002000000020000001A0000000180020000000200000200000000A000000000A00000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M108496"
+          },
+          "text": "0201800200000002000002000000020000001A0000000180020000000200000200000000A000000000A00000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M109641"
+          },
+          "text": "0201000200001001000004000000040000009B010000010002000010010000040000000044000000F00200008003003E00000080031C003D00000080031F003F0000001F003F0000001F007D0300001C003F0000001C003F0000001CC003003E000000C003003E000000C00300080000001C0035000000800300080000001C003F0000001C003F0000001C0045070000C001003E000000C001003E000000C001003E000000C001003702000038003F0000003C003F0000003C003F0000003C00400100000F003F0000000F003F0000000F003F0000000700FC0400008003003D000000C08703003D000000C08703003D000000C00700B900000070003F00000070003F000000700006020000C007003E000000C007003E000000C00700FB0700003C003F0000003C003F0000003C003F00000038003F0100007E003F0000007E003F0000007E00BE030000F8003F000000F801003E000000F80F003E000000E00F003F0000000E00BD000000E003003E000000E00F003E000000E07F003B00000080030001000000C0FF01000000003B00000080030002000000FE003B00000080030002000000F8000A130000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "00",
+            "Serial": "M109642"
+          },
+          "text": "0201000200001001000004000000040000000C01000001000200001001000004000000004400000006000000E003000B000000F01F000E0000000F0022000000E003000B000000F01F000E0000000F0022000000F001000B000000F01F000E0000000F0022000000F8000C000000F003000E0000000F002200000078003F00000078000C00000038002E000000F001000F0000007E000F00000070001E000000F003000F0000007E000F00000070001E000000F003000F0000007E000F00000070001E000000F003000F0000007E000D00000007000100000070002F0000003E000D00000007000100000070003D000000070080000000C001003E000000C001003E000000C00100BD0100000F003F0000000F003F0000000F00DE3D0000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "30",
+            "Serial": "C11679"
+          },
+          "text": "0201E00100000E01000004000000040000001A00000001E00100000E01000004000000483F000000483F0000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "30",
+            "Serial": "C11680"
+          },
+          "text": "0201E00100000E01000004000000040000001A00000001E00100000E01000004000000483F000000483F0000EFBE0000"
+        },
+        {
+          "attributes": {
+            "ImagerIndex": "30",
+            "Serial": "C11681"
+          },
+          "text": "0201E00100000E01000004000000040000001A00000001E00100000E01000004000000483F000000483F0000EFBE0000"
+        }
+      ]
+    },
+    "motive_build_info": {
+      "AppVersion": "3.4.0.2",
+      "BuildDate": "November 20, 2025 01:42 PM",
+      "BuildStamp": "2057-4505abcc"
+    },
+    "property_warehouse": {
+      "properties": {
+        "property": [
+          {
+            "attributes": {
+              "name": "PCResidual",
+              "value": "0.005648"
+            }
+          },
+          {
+            "attributes": {
+              "name": "PCMaxRayLength",
+              "value": "15.959897"
+            }
+          },
+          {
+            "attributes": {
+              "name": "ShowReconstructionBounds",
+              "value": "false"
+            }
+          },
+          {
+            "attributes": {
+              "name": "ReconstructionBoundsShape",
+              "value": "Cuboid"
+            }
+          },
+          {
+            "attributes": {
+              "name": "ReconstructionBoundsXCenter",
+              "value": "0.000000"
+            }
+          },
+          {
+            "attributes": {
+              "name": "ReconstructionBoundsYCenter",
+              "value": "0.000000"
+            }
+          },
+          {
+            "attributes": {
+              "name": "ReconstructionBoundsZCenter",
+              "value": "0.000000"
+            }
+          },
+          {
+            "attributes": {
+              "name": "ReconstructionBoundsXWidth",
+              "value": "12.000000"
+            }
+          },
+          {
+            "attributes": {
+              "name": "ReconstructionBoundsYWidth",
+              "value": "12.000000"
+            }
+          },
+          {
+            "attributes": {
+              "name": "ReconstructionBoundsZWidth",
+              "value": "12.000000"
+            }
+          }
+        ]
+      }
+    },
+    "raw_mcal": {
+      "attributes": {
+        "version": "1"
+      },
+      "children": {
+        "Calibration": {
+          "CalibrationAttributes": {
+            "Date": {
+              "attributes": {
+                "Day": "7",
+                "Hour": "15",
+                "Minute": "3",
+                "Month": "4",
+                "Second": "30",
+                "Year": "2026"
+              }
+            },
+            "Reprojection": {},
+            "TriangulationMeanResidual": {
+              "attributes": {
+                "Error": "0.003133516379768",
+                "Error50Percentile": "0.001951000000000",
+                "Error95Percentile": "0.012815000000000",
+                "Error99Percentile": "0.033460000000000"
+              }
+            },
+            "Wand": {
+              "attributes": {
+                "CenterOffset": "0.175000000000000",
+                "Length": "0.012384000000000",
+                "MeanError": "0.000652525602658",
+                "MeanError50Percentile": "0.000562000000000",
+                "MeanError95Percentile": "0.004417000000000",
+                "MeanError99Percentile": "0.012384000000000",
+                "MicronSeries": "0"
+              }
+            }
+          },
+          "Cameras": {
+            "Camera": [
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "0",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1088",
+                    "ImagerPixelWidth": "2048",
+                    "Model": "0",
+                    "Revision": "50",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "0.078355069377240",
+                    "OrientMatrix1": "-0.690096172591134",
+                    "OrientMatrix2": "0.719463519351715",
+                    "OrientMatrix3": "0.025420288280753",
+                    "OrientMatrix4": "0.722830700229059",
+                    "OrientMatrix5": "0.690557447103492",
+                    "OrientMatrix6": "-0.996601370682687",
+                    "OrientMatrix7": "-0.035819706607359",
+                    "OrientMatrix8": "0.074179893313158",
+                    "X": "4.297820568084717",
+                    "Y": "4.396180629730225",
+                    "Z": "0.257201075553894"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "1258.279907226562500",
+                    "LensCenterX": "1012.648315429687500",
+                    "LensCenterY": "555.545715332031250",
+                    "TangentialX": "0.001205612206832",
+                    "TangentialY": "-0.000004667883786",
+                    "VerticalFocalLength": "1259.411499023437500",
+                    "k1": "0.449572920799255",
+                    "k2": "-1.695473074913025",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "1258.279907226562500",
+                    "LensCenterX": "1012.648315429687500",
+                    "LensCenterY": "555.545715332031250",
+                    "TangentialX": "0.000740729983459",
+                    "TangentialY": "-0.000002876155889",
+                    "VerticalFocalLength": "1259.411499023437500",
+                    "k1": "0.169710418430497",
+                    "k2": "-0.241610259685357",
+                    "k3": "0.000016089046645"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "6",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M103517"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "0",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1088",
+                    "ImagerPixelWidth": "2048",
+                    "Model": "0",
+                    "Revision": "50",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "0.717021797539079",
+                    "OrientMatrix1": "0.420712437225023",
+                    "OrientMatrix2": "-0.555770444534440",
+                    "OrientMatrix3": "-0.075687903753795",
+                    "OrientMatrix4": "0.839593894273356",
+                    "OrientMatrix5": "0.537915824199528",
+                    "OrientMatrix6": "0.692929349269595",
+                    "OrientMatrix7": "-0.343632271277134",
+                    "OrientMatrix8": "0.633849965731429",
+                    "X": "-5.559320926666260",
+                    "Y": "3.422190666198730",
+                    "Z": "5.262549877166748"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "1252.265014648437500",
+                    "LensCenterX": "1028.671752929687500",
+                    "LensCenterY": "562.414489746093750",
+                    "TangentialX": "0.002735789399594",
+                    "TangentialY": "-0.001948600751348",
+                    "VerticalFocalLength": "1250.894409179687500",
+                    "k1": "0.372127741575241",
+                    "k2": "-1.289162516593933",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "1252.265014648437500",
+                    "LensCenterX": "1028.671752929687500",
+                    "LensCenterY": "562.414489746093750",
+                    "TangentialX": "0.001672828664453",
+                    "TangentialY": "-0.001191484019279",
+                    "VerticalFocalLength": "1250.894409179687500",
+                    "k1": "0.139135694954724",
+                    "k2": "-0.180223417713934",
+                    "k3": "0.000012846884775"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "9",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M103518"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "0",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1088",
+                    "ImagerPixelWidth": "2048",
+                    "Model": "0",
+                    "Revision": "50",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "0.984605359083953",
+                    "OrientMatrix1": "-0.070045418994460",
+                    "OrientMatrix2": "0.160143454880465",
+                    "OrientMatrix3": "-0.048740228239224",
+                    "OrientMatrix4": "0.769829903596347",
+                    "OrientMatrix5": "0.636385346845783",
+                    "OrientMatrix6": "-0.167859098693962",
+                    "OrientMatrix7": "-0.634393851488749",
+                    "OrientMatrix8": "0.754564618955144",
+                    "X": "0.785476386547089",
+                    "Y": "4.027365207672119",
+                    "Z": "5.871127605438232"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "1252.628784179687500",
+                    "LensCenterX": "1023.316589355468750",
+                    "LensCenterY": "557.779846191406250",
+                    "TangentialX": "0.000028455377105",
+                    "TangentialY": "0.000947791908402",
+                    "VerticalFocalLength": "1252.186645507812500",
+                    "k1": "0.340029031038284",
+                    "k2": "-1.080147147178650",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "1252.628784179687500",
+                    "LensCenterX": "1023.316589355468750",
+                    "LensCenterY": "557.779846191406250",
+                    "TangentialX": "0.000017410359921",
+                    "TangentialY": "0.000579702177680",
+                    "VerticalFocalLength": "1252.186645507812500",
+                    "k1": "0.127207981576113",
+                    "k2": "-0.151179776655886",
+                    "k3": "0.000011608545994"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "8",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M103519"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "0",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1088",
+                    "ImagerPixelWidth": "2048",
+                    "Model": "0",
+                    "Revision": "50",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "-0.726175890355129",
+                    "OrientMatrix1": "0.336553091868125",
+                    "OrientMatrix2": "-0.599500285755512",
+                    "OrientMatrix3": "-0.034937196799162",
+                    "OrientMatrix4": "0.852797883291306",
+                    "OrientMatrix5": "0.521071168396108",
+                    "OrientMatrix6": "0.686620687531881",
+                    "OrientMatrix7": "0.399334179113025",
+                    "OrientMatrix8": "-0.607523040588070",
+                    "X": "-5.127626419067383",
+                    "Y": "3.578000307083130",
+                    "Z": "-5.371140480041504"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "1233.463623046875000",
+                    "LensCenterX": "1003.658508300781250",
+                    "LensCenterY": "570.087341308593750",
+                    "TangentialX": "-0.011993312276900",
+                    "TangentialY": "0.000992888119072",
+                    "VerticalFocalLength": "1239.744018554687500",
+                    "k1": "0.261356383562088",
+                    "k2": "-0.740328729152679",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "1233.463623046875000",
+                    "LensCenterX": "1003.658508300781250",
+                    "LensCenterY": "570.087341308593750",
+                    "TangentialX": "-0.007223299296810",
+                    "TangentialY": "0.000597985213659",
+                    "VerticalFocalLength": "1239.744018554687500",
+                    "k1": "0.094808480742788",
+                    "k2": "-0.097427609335286",
+                    "k3": "0.000012526889778"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "3",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M103520"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "0",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1088",
+                    "ImagerPixelWidth": "2048",
+                    "Model": "0",
+                    "Revision": "50",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "-0.075005063658233",
+                    "OrientMatrix1": "0.507967383838136",
+                    "OrientMatrix2": "-0.858104525907109",
+                    "OrientMatrix3": "-0.022830246944677",
+                    "OrientMatrix4": "0.859428185917776",
+                    "OrientMatrix5": "0.510746486110797",
+                    "OrientMatrix6": "0.996921772382402",
+                    "OrientMatrix7": "0.057899310934763",
+                    "OrientMatrix8": "-0.052864444981576",
+                    "X": "-5.431175231933594",
+                    "Y": "3.566457748413086",
+                    "Z": "-0.255175232887268"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "1257.391479492187500",
+                    "LensCenterX": "1018.160217285156250",
+                    "LensCenterY": "554.672668457031250",
+                    "TangentialX": "0.004206927027553",
+                    "TangentialY": "0.000457523769001",
+                    "VerticalFocalLength": "1256.142211914062500",
+                    "k1": "0.421553462743759",
+                    "k2": "-1.356252193450928",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "1257.391479492187500",
+                    "LensCenterX": "1018.160217285156250",
+                    "LensCenterY": "554.672668457031250",
+                    "TangentialX": "0.002582893965003",
+                    "TangentialY": "0.000280897411263",
+                    "VerticalFocalLength": "1256.142211914062500",
+                    "k1": "0.158908396644107",
+                    "k2": "-0.192726640698709",
+                    "k3": "0.000014175595795"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "1",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M103521"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "0",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1088",
+                    "ImagerPixelWidth": "2048",
+                    "Model": "0",
+                    "Revision": "50",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "-0.974479793430961",
+                    "OrientMatrix1": "-0.137585225415368",
+                    "OrientMatrix2": "0.177368086030589",
+                    "OrientMatrix3": "0.005742093700446",
+                    "OrientMatrix4": "0.774608483812566",
+                    "OrientMatrix5": "0.632414994418644",
+                    "OrientMatrix6": "-0.224401783760039",
+                    "OrientMatrix7": "0.617294097293179",
+                    "OrientMatrix8": "-0.754050288039407",
+                    "X": "1.105315923690796",
+                    "Y": "4.134634494781494",
+                    "Z": "-5.522118091583252"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "1250.745971679687500",
+                    "LensCenterX": "1018.709838867187500",
+                    "LensCenterY": "572.042541503906250",
+                    "TangentialX": "0.000437438517110",
+                    "TangentialY": "-0.001010100706480",
+                    "VerticalFocalLength": "1250.397949218750000",
+                    "k1": "0.409653365612030",
+                    "k2": "-1.092215895652771",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "1250.745971679687500",
+                    "LensCenterX": "1018.709838867187500",
+                    "LensCenterY": "572.042541503906250",
+                    "TangentialX": "0.000267174019433",
+                    "TangentialY": "-0.000616890148980",
+                    "VerticalFocalLength": "1250.397949218750000",
+                    "k1": "0.152798353226729",
+                    "k2": "-0.151967157805356",
+                    "k3": "0.000023644220120"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "4",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M103522"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "1",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1024",
+                    "ImagerPixelWidth": "1280",
+                    "Model": "0",
+                    "Revision": "52",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "-0.092522799926578",
+                    "OrientMatrix1": "0.863404631358435",
+                    "OrientMatrix2": "-0.495955617008772",
+                    "OrientMatrix3": "0.010034858609138",
+                    "OrientMatrix4": "0.498875407026469",
+                    "OrientMatrix5": "0.866615618297333",
+                    "OrientMatrix6": "0.995659998747786",
+                    "OrientMatrix7": "0.075204858971881",
+                    "OrientMatrix8": "-0.054821492870758",
+                    "X": "-1.033334732055664",
+                    "Y": "3.132892847061157",
+                    "Z": "-0.152496919035912"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "770.795776367187500",
+                    "LensCenterX": "656.032653808593750",
+                    "LensCenterY": "514.698242187500000",
+                    "TangentialX": "0.001230854424648",
+                    "TangentialY": "-0.002517544664443",
+                    "VerticalFocalLength": "772.866577148437500",
+                    "k1": "0.213359549641609",
+                    "k2": "-0.372828334569931",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "770.795776367187500",
+                    "LensCenterX": "656.032653808593750",
+                    "LensCenterY": "514.698242187500000",
+                    "TangentialX": "0.000741203748184",
+                    "TangentialY": "-0.001516023874252",
+                    "VerticalFocalLength": "772.866577148437500",
+                    "k1": "0.077375118684603",
+                    "k2": "-0.049040793083218",
+                    "k3": "0.000009022574001"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "2",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "7",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M108490"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "1",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1024",
+                    "ImagerPixelWidth": "1280",
+                    "Model": "0",
+                    "Revision": "52",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "0.049646460523553",
+                    "OrientMatrix1": "-0.982684764682762",
+                    "OrientMatrix2": "0.178510173989801",
+                    "OrientMatrix3": "-0.007788628002511",
+                    "OrientMatrix4": "0.178344218957113",
+                    "OrientMatrix5": "0.983937333796424",
+                    "OrientMatrix6": "-0.998736484880432",
+                    "OrientMatrix7": "-0.050239355339844",
+                    "OrientMatrix8": "0.001200393150209",
+                    "X": "-0.895943999290466",
+                    "Y": "3.156495094299316",
+                    "Z": "0.070279426872730"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "771.277832031250000",
+                    "LensCenterX": "634.602844238281250",
+                    "LensCenterY": "508.499786376953125",
+                    "TangentialX": "-0.001390125020407",
+                    "TangentialY": "-0.000443607830675",
+                    "VerticalFocalLength": "773.834838867187500",
+                    "k1": "0.311331152915955",
+                    "k2": "-0.754011332988739",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "771.277832031250000",
+                    "LensCenterX": "634.602844238281250",
+                    "LensCenterY": "508.499786376953125",
+                    "TangentialX": "-0.000837637417665",
+                    "TangentialY": "-0.000267303478064",
+                    "VerticalFocalLength": "773.834838867187500",
+                    "k1": "0.113041750751630",
+                    "k2": "-0.099409003725362",
+                    "k3": "0.000006171256782"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "10",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "25",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M108496"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "0",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1088",
+                    "ImagerPixelWidth": "2048",
+                    "Model": "0",
+                    "Revision": "50",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "-0.591280505473161",
+                    "OrientMatrix1": "-0.434979383040320",
+                    "OrientMatrix2": "0.679102569703035",
+                    "OrientMatrix3": "0.022858559191475",
+                    "OrientMatrix4": "0.832694482439574",
+                    "OrientMatrix5": "0.553260684656320",
+                    "OrientMatrix6": "-0.806141954074525",
+                    "OrientMatrix7": "0.342655563568656",
+                    "OrientMatrix8": "-0.482413012507285",
+                    "X": "4.424825668334961",
+                    "Y": "3.373725891113281",
+                    "Z": "-5.287736415863037"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "1242.010620117187500",
+                    "LensCenterX": "1006.709289550781250",
+                    "LensCenterY": "555.192077636718750",
+                    "TangentialX": "-0.009539041668177",
+                    "TangentialY": "0.007339322008193",
+                    "VerticalFocalLength": "1247.340209960937500",
+                    "k1": "0.242334902286530",
+                    "k2": "-0.582247197628021",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "1242.010620117187500",
+                    "LensCenterX": "1006.709289550781250",
+                    "LensCenterY": "555.192077636718750",
+                    "TangentialX": "-0.005784950241464",
+                    "TangentialY": "0.004450920438347",
+                    "VerticalFocalLength": "1247.340209960937500",
+                    "k1": "0.089131839605213",
+                    "k2": "-0.078776295038000",
+                    "k3": "0.000015591126218"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "5",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M109641"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "0",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1088",
+                    "ImagerPixelWidth": "2048",
+                    "Model": "0",
+                    "Revision": "50",
+                    "RinglightType": "2",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "0.893233081282558",
+                    "OrientMatrix1": "-0.169735058770852",
+                    "OrientMatrix2": "0.416322798230559",
+                    "OrientMatrix3": "-0.030588065244166",
+                    "OrientMatrix4": "0.900909014200678",
+                    "OrientMatrix5": "0.432928768270925",
+                    "OrientMatrix6": "-0.448552151669219",
+                    "OrientMatrix7": "-0.399440806573411",
+                    "OrientMatrix8": "0.799529867657798",
+                    "X": "4.390398979187012",
+                    "Y": "3.281267166137695",
+                    "Z": "5.676516056060791"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "1250.507934570312500",
+                    "LensCenterX": "1009.493774414062500",
+                    "LensCenterY": "571.703857421875000",
+                    "TangentialX": "-0.000176366651431",
+                    "TangentialY": "0.000292606273433",
+                    "VerticalFocalLength": "1244.837524414062500",
+                    "k1": "0.329222440719604",
+                    "k2": "-1.039351820945740",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "1250.507934570312500",
+                    "LensCenterX": "1009.493774414062500",
+                    "LensCenterY": "571.703857421875000",
+                    "TangentialX": "-0.000107674308564",
+                    "TangentialY": "0.000178657276899",
+                    "VerticalFocalLength": "1244.837524414062500",
+                    "k1": "0.122749597791997",
+                    "k2": "-0.144491320943543",
+                    "k3": "0.000014110983565"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "7",
+                    "ContinuousIR": "0",
+                    "Enabled": "1",
+                    "EnabledForRecording": "1",
+                    "Exposure": "300",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "00",
+                    "Intensity": "15",
+                    "JPEGQua": "75",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "200",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "M109642"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "1",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1080",
+                    "ImagerPixelWidth": "1920",
+                    "Model": "0",
+                    "Revision": "37",
+                    "RinglightType": "0",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "ColorCamera": {
+                  "attributes": {
+                    "CameraResolution": "0",
+                    "ColorBitRate": "0.300000011920929",
+                    "ColorCompression": "0.200000002980232",
+                    "ColorCompressionMode": "1",
+                    "ColorGamma": "0.560000002384186",
+                    "SubModel": "2"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "-0.745937939223145",
+                    "OrientMatrix1": "-0.350380686819170",
+                    "OrientMatrix2": "0.566400887297728",
+                    "OrientMatrix3": "-0.195768620869098",
+                    "OrientMatrix4": "0.928213160668984",
+                    "OrientMatrix5": "0.316377899740019",
+                    "OrientMatrix6": "-0.636593463609656",
+                    "OrientMatrix7": "0.125114757982507",
+                    "OrientMatrix8": "-0.760982956066981",
+                    "X": "5.200365543365479",
+                    "Y": "2.925713777542114",
+                    "Z": "-5.682075977325439"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "2170.353515625000000",
+                    "LensCenterX": "964.096679687500000",
+                    "LensCenterY": "539.687194824218750",
+                    "TangentialX": "-0.000390283181332",
+                    "TangentialY": "-0.000611869210843",
+                    "VerticalFocalLength": "2171.308593750000000",
+                    "k1": "0.068800874054432",
+                    "k2": "-0.102018907666206",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "2170.353515625000000",
+                    "LensCenterX": "964.096679687500000",
+                    "LensCenterY": "539.687194824218750",
+                    "TangentialX": "-0.000441173957097",
+                    "TangentialY": "-0.000691653496633",
+                    "VerticalFocalLength": "2171.308593750000000",
+                    "k1": "0.087907214421673",
+                    "k2": "-0.166513558962900",
+                    "k3": "-0.000136597155098"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "11",
+                    "ContinuousIR": "0",
+                    "Enabled": "0",
+                    "EnabledForRecording": "1",
+                    "Exposure": "250",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "30",
+                    "Intensity": "0",
+                    "JPEGQua": "25",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "255",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "C11679"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "1",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1080",
+                    "ImagerPixelWidth": "1920",
+                    "Model": "0",
+                    "Revision": "37",
+                    "RinglightType": "0",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "ColorCamera": {
+                  "attributes": {
+                    "CameraResolution": "0",
+                    "ColorBitRate": "0.300000011920929",
+                    "ColorCompression": "0.200000002980232",
+                    "ColorCompressionMode": "1",
+                    "ColorGamma": "0.560000002384186",
+                    "SubModel": "2"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "0.840036046751684",
+                    "OrientMatrix1": "-0.175506690001199",
+                    "OrientMatrix2": "0.513358395200298",
+                    "OrientMatrix3": "-0.084027955056770",
+                    "OrientMatrix4": "0.892722465512315",
+                    "OrientMatrix5": "0.442702950451644",
+                    "OrientMatrix6": "-0.535983901742188",
+                    "OrientMatrix7": "-0.415022892542611",
+                    "OrientMatrix8": "0.735171582515799",
+                    "X": "4.925122261047363",
+                    "Y": "4.902492046356201",
+                    "Z": "5.084997177124023"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "2164.118896484375000",
+                    "LensCenterX": "946.762329101562500",
+                    "LensCenterY": "525.022521972656250",
+                    "TangentialX": "0.000007903840014",
+                    "TangentialY": "0.000526618794538",
+                    "VerticalFocalLength": "2163.869873046875000",
+                    "k1": "0.072575062513351",
+                    "k2": "-0.096292823553085",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "2164.118896484375000",
+                    "LensCenterX": "946.762329101562500",
+                    "LensCenterY": "525.022521972656250",
+                    "TangentialX": "0.000008913763522",
+                    "TangentialY": "0.000593574789151",
+                    "VerticalFocalLength": "2163.869873046875000",
+                    "k1": "0.092196685885714",
+                    "k2": "-0.155355034648961",
+                    "k3": "-0.000160123437692"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "12",
+                    "ContinuousIR": "0",
+                    "Enabled": "0",
+                    "EnabledForRecording": "1",
+                    "Exposure": "250",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "30",
+                    "Intensity": "0",
+                    "JPEGQua": "25",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "255",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "C11680"
+                }
+              },
+              {
+                "Attributes": {
+                  "attributes": {
+                    "FilterSwitchType": "1",
+                    "Group": "0",
+                    "ImagerPixelHeight": "1080",
+                    "ImagerPixelWidth": "1920",
+                    "Model": "0",
+                    "Revision": "37",
+                    "RinglightType": "0",
+                    "RinglightWavelength": "-1"
+                  }
+                },
+                "Calibration": {
+                  "attributes": {
+                    "PartitionID": "1"
+                  }
+                },
+                "CameraHardwareFilters": {
+                  "attributes": {
+                    "AspectBase": "1",
+                    "AspectStep": "1",
+                    "AspectTolerance": "64",
+                    "GrayscaleFloor": "48",
+                    "ObjectMargin": "2",
+                    "ObjectSkew": "64",
+                    "ROIGuardBand": "0.500000000000000",
+                    "ROIIntrusion": "1"
+                  }
+                },
+                "CameraSoftwareFilters": {
+                  "attributes": {
+                    "FilterLevel": "2",
+                    "MarkerMaxSize": "3000",
+                    "MarkerMinRoundness": "0.600000023841858",
+                    "MarkerMinSize": "4"
+                  }
+                },
+                "ColorCamera": {
+                  "attributes": {
+                    "CameraResolution": "0",
+                    "ColorBitRate": "0.300000011920929",
+                    "ColorCompression": "0.200000002980232",
+                    "ColorCompressionMode": "1",
+                    "ColorGamma": "0.560000002384186",
+                    "SubModel": "2"
+                  }
+                },
+                "Extrinsic": {
+                  "attributes": {
+                    "OrientMatrix0": "-0.638549893970697",
+                    "OrientMatrix1": "-0.138860826557431",
+                    "OrientMatrix2": "-0.756948943957120",
+                    "OrientMatrix3": "-0.174296770105907",
+                    "OrientMatrix4": "-0.931933271984229",
+                    "OrientMatrix5": "0.317995302637346",
+                    "OrientMatrix6": "-0.749582996632568",
+                    "OrientMatrix7": "0.334989622849060",
+                    "OrientMatrix8": "0.570882898450097",
+                    "X": "-5.059641838073730",
+                    "Y": "4.107350349426270",
+                    "Z": "4.793142795562744"
+                  }
+                },
+                "Intrinsic": {
+                  "attributes": {
+                    "CameraModelSelect": "2",
+                    "HorizontalFocalLength": "2165.895019531250000",
+                    "LensCenterX": "968.755126953125000",
+                    "LensCenterY": "528.713867187500000",
+                    "TangentialX": "0.000041466631956",
+                    "TangentialY": "-0.000148348597577",
+                    "VerticalFocalLength": "2166.451660156250000",
+                    "k1": "0.070474818348885",
+                    "k2": "-0.095136620104313",
+                    "k3": "0.000000000000000"
+                  }
+                },
+                "IntrinsicStandardCameraModel": {
+                  "attributes": {
+                    "HorizontalFocalLength": "2165.895019531250000",
+                    "LensCenterX": "968.755126953125000",
+                    "LensCenterY": "528.713867187500000",
+                    "TangentialX": "0.000046780787221",
+                    "TangentialY": "-0.000167348066533",
+                    "VerticalFocalLength": "2166.451660156250000",
+                    "k1": "0.089675742732334",
+                    "k2": "-0.153996073890582",
+                    "k3": "-0.000155455226504"
+                  }
+                },
+                "Properties": {
+                  "attributes": {
+                    "AutoExposureControl": "0",
+                    "AutoGainControl": "0",
+                    "CameraID": "13",
+                    "ContinuousIR": "0",
+                    "Enabled": "0",
+                    "EnabledForRecording": "1",
+                    "Exposure": "250",
+                    "FrameDecimation": "0",
+                    "FrameRate": "120",
+                    "GrayscaleDecimation": "0",
+                    "HighPower": "0",
+                    "IRFilter": "1",
+                    "ImagerGain": "3",
+                    "ImagerIndex": "30",
+                    "Intensity": "0",
+                    "JPEGQua": "25",
+                    "Orientation": "0.000000000000000",
+                    "Threshold": "255",
+                    "VideoType": "2"
+                  }
+                },
+                "attributes": {
+                  "Serial": "C11681"
+                }
+              }
+            ],
+            "attributes": {
+              "Count": "13"
+            }
+          }
+        },
+        "MaskData": {
+          "Mask": [
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M103517"
+              },
+              "text": "02010002000010010000040000000400000047000000010002000010010000040000000044000000AF060000E001003E000000E001003E000000E00100C10200000E003F0000000E003F0000000E003F0000000E004D390000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M103518"
+              },
+              "text": "020100020000100100000400000004000000500000000100020000100100000400000000440000008E07000070003F000000F8003F000000F8003F000000F8003F0000007000F50A0000F0003F000000F0003F000000F0003F000000F000BB2F0000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M103519"
+              },
+              "text": "020100020000100100000400000004000000BD01000001000200001001000004000000004400000003000000801F003E000000801F003E0000008007007E020000F0030007000000070002000000070033000000FE030006000000C007000100000080070033000000FF01000000030006000000C007000100000080070033000000FF01000000010006000000C0030001000000800300330000003F00010200000F003C000000F000020000003F003C000000FC0002000000FF01000000003C000000FC0002000000FE003C000000FC0002000000F8003C0000001C0002000000E000400000008003003E0000008003003E0000008003003E0000008003003E010000C03F003E000000FC3F003E000000FC3F003E000000FC03003E0000007C00410000000F003E000000800F003E000000800F003E000000800700B7000000C001003E000000C00F003E000000C03F003E000000C03F003F0000003F008000000078003F00000078003F00000078003F000000380042000000C007003E000000E007003E000000E007003E000000E007003E000000E0030079010000F8003F000000F83F003E000000F8FF01000000003E000000F0FF0100000003003E000000FC03003E000000E003007D310000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M103520"
+              },
+              "text": "0201000200001001000004000000040000002C000000010002000010010000040000000044000000BC15000070003F00000070003F0000007000C32D0000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M103521"
+              },
+              "text": "02010002000010010000040000000400000047000000010002000010010000040000000044000000F91C000007003F00000007003F00000007003E0000008007003E0000008007003E0000008007003F000000070086250000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M103522"
+              },
+              "text": "02010002000010010000040000000400000047020000010002000010010000040000000044000000ED000000F801003E000000F8070005000000380038000000F80F0005000000380038000000F00F00050000003800090000003E002E000000F00F0008000000F000060000007E002E000000C00F0008000000F00300050000007E0038000000F0070005000000780038000000C0070037000000C001000500000080070037000000C001003E000000C001003E000000C0010005000000E003003E000000E003003E000000E003003E000000E00100C4010000F0003F000000F803003E000000F803003E000000F803003E000000F803003E000000E00100FE000000E001003E000000FC01003E000000FC01003D000000E0FD001A000000F8030022000000F83D001A000000F8030022000000F801001A000000F803001B000000C0010005000000F8001B000000F870001B000000C0070021000000FC77001B000000C00F0021000000FC77001B000000C07F0021000000FC7F001C0000007F0021000000FC0F001C0000007C0021000000F80F003E000000780026000000F8003F000000FC003F000000FE003F000000FE003F0000003E003D000000C00F003E000000C00F003B0000001C0002000000F80F003B0000003C0001000000FF0200000007003B0000003C0001000000FF010000007F003C0000003C0001000000FF020000000F003D000000F0FF010000003F003E000000F03F003B000000F00002000000E03F003B000000F8003F000000F80F003E000000F83F003E000000783F003F0000003F003F0000003F003F0000001E0044330000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M108490"
+              },
+              "text": "0201800200000002000002000000020000001A0000000180020000000200000200000000A000000000A00000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M108496"
+              },
+              "text": "0201800200000002000002000000020000001A0000000180020000000200000200000000A000000000A00000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M109641"
+              },
+              "text": "0201000200001001000004000000040000009B010000010002000010010000040000000044000000F00200008003003E00000080031C003D00000080031F003F0000001F003F0000001F007D0300001C003F0000001C003F0000001CC003003E000000C003003E000000C00300080000001C0035000000800300080000001C003F0000001C003F0000001C0045070000C001003E000000C001003E000000C001003E000000C001003702000038003F0000003C003F0000003C003F0000003C00400100000F003F0000000F003F0000000F003F0000000700FC0400008003003D000000C08703003D000000C08703003D000000C00700B900000070003F00000070003F000000700006020000C007003E000000C007003E000000C00700FB0700003C003F0000003C003F0000003C003F00000038003F0100007E003F0000007E003F0000007E00BE030000F8003F000000F801003E000000F80F003E000000E00F003F0000000E00BD000000E003003E000000E00F003E000000E07F003B00000080030001000000C0FF01000000003B00000080030002000000FE003B00000080030002000000F8000A130000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "00",
+                "Serial": "M109642"
+              },
+              "text": "0201000200001001000004000000040000000C01000001000200001001000004000000004400000006000000E003000B000000F01F000E0000000F0022000000E003000B000000F01F000E0000000F0022000000F001000B000000F01F000E0000000F0022000000F8000C000000F003000E0000000F002200000078003F00000078000C00000038002E000000F001000F0000007E000F00000070001E000000F003000F0000007E000F00000070001E000000F003000F0000007E000F00000070001E000000F003000F0000007E000D00000007000100000070002F0000003E000D00000007000100000070003D000000070080000000C001003E000000C001003E000000C00100BD0100000F003F0000000F003F0000000F00DE3D0000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "30",
+                "Serial": "C11679"
+              },
+              "text": "0201E00100000E01000004000000040000001A00000001E00100000E01000004000000483F000000483F0000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "30",
+                "Serial": "C11680"
+              },
+              "text": "0201E00100000E01000004000000040000001A00000001E00100000E01000004000000483F000000483F0000EFBE0000"
+            },
+            {
+              "attributes": {
+                "ImagerIndex": "30",
+                "Serial": "C11681"
+              },
+              "text": "0201E00100000E01000004000000040000001A00000001E00100000E01000004000000483F000000483F0000EFBE0000"
+            }
+          ]
+        },
+        "MotiveBuildInfo": {
+          "attributes": {
+            "AppVersion": "3.4.0.2",
+            "BuildDate": "November 20, 2025 01:42 PM",
+            "BuildStamp": "2057-4505abcc"
+          }
+        },
+        "attributes": {
+          "version": "1"
+        },
+        "property_warehouse": {
+          "properties": {
+            "property": [
+              {
+                "attributes": {
+                  "name": "PCResidual",
+                  "value": "0.005648"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "PCMaxRayLength",
+                  "value": "15.959897"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "ShowReconstructionBounds",
+                  "value": "false"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "ReconstructionBoundsShape",
+                  "value": "Cuboid"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "ReconstructionBoundsXCenter",
+                  "value": "0.000000"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "ReconstructionBoundsYCenter",
+                  "value": "0.000000"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "ReconstructionBoundsZCenter",
+                  "value": "0.000000"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "ReconstructionBoundsXWidth",
+                  "value": "12.000000"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "ReconstructionBoundsYWidth",
+                  "value": "12.000000"
+                }
+              },
+              {
+                "attributes": {
+                  "name": "ReconstructionBoundsZWidth",
+                  "value": "12.000000"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "tag": "calibrationProfile"
+    }
+  },
+  "room": "cork",
+  "server_ip": "10.40.49.47",
+  "source_kind": "mcal",
+  "source_path": "C:\\ProgramData\\OptiTrack\\Motive\\System Calibration.mcal"
+}

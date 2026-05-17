@@ -1,0 +1,359 @@
+"""Base class for all algorithms."""
+
+import json
+import warnings
+from importlib import import_module
+from io import StringIO
+from typing import Any, Optional, TypeVar, Union
+
+import numpy as np
+import pandas as pd
+import tpcp
+from joblib import Memory
+from scipy.spatial.transform import Rotation
+from typing_extensions import Self
+
+from gaitmap.utils.consts import GF_ORI
+from gaitmap.utils.datatype_helper import (
+    OrientationList,
+    PositionList,
+    SensorData,
+    SingleSensorData,
+    SingleSensorOrientationList,
+    SingleSensorStrideList,
+    StrideList,
+    VelocityList,
+)
+from gaitmap.utils.rotations import rotate_dataset_series
+
+BaseType = TypeVar("BaseType", bound="_BaseSerializable")  # pylint: disable=invalid-name
+
+
+def _hint_tuples(item):
+    """Encode tuple values for json serialization.
+
+    Modified based on: https://stackoverflow.com/questions/15721363/preserve-python-tuples-with-json
+    """
+    if isinstance(item, tuple):
+        return {"_obj_type": "Tuple", "tuple": item}
+    if isinstance(item, list):
+        return [_hint_tuples(e) for e in item]
+    if isinstance(item, dict):
+        return {key: _hint_tuples(value) for key, value in item.items()}
+    return item
+
+
+def _import_hidden_markov_model():
+    return import_module("pomegranate.hmm").HiddenMarkovModel
+
+
+class _CustomEncoder(json.JSONEncoder):
+    def encode(self, o: Any) -> str:
+        return super().encode(_hint_tuples(o))
+
+    def default(self, o):  # noqa: C901, PLR0911
+        if isinstance(o, _BaseSerializable):
+            return o._to_json_dict()
+        if isinstance(o, Rotation):
+            return {"_obj_type": "Rotation", "quat": o.as_quat().tolist()}
+        if isinstance(o, np.generic):
+            return o.item()
+        if isinstance(o, np.ndarray):
+            return {"_obj_type": "Array", "array": o.tolist()}
+        if isinstance(o, pd.DataFrame):
+            return {"_obj_type": "DataFrame", "df": o.to_json(orient="split")}
+        if isinstance(o, pd.Series):
+            return {"_obj_type": "Series", "df": o.to_json(orient="split")}
+        try:
+            hidden_markov_model = _import_hidden_markov_model()
+        except ImportError:
+            hidden_markov_model = None
+
+        if hidden_markov_model is not None and isinstance(o, hidden_markov_model):
+            warnings.warn(
+                "Exporting `pomegranate.hmm.HiddenMarkovModel` objects to json can sometimes not provide perfect "
+                "round-trips. I.e. sometimes values (in particular weightings of distributions) might change "
+                "slightly in the re-imported model due to rounding issue. "
+                "This is a limitation of the underlying pomegrante library."
+            )
+            return {"_obj_type": "HiddenMarkovModel", "hmm": json.loads(o.to_json())}
+        if o is tpcp.NOTHING:
+            return {"_obj_type": "EmptyDefault"}
+        if isinstance(o, Memory):
+            warnings.warn(
+                "Exporting `joblib.Memory` objects to json is not supported. "
+                "The value will be replaced by `None` and caching needs to be reactivated after loading the "
+                "object again. "
+                "This can be using `instance.set_params(memory=Memory(...))`"
+            )
+            return None
+        # Let the base class default method raise the TypeError
+        return super().default(o)
+
+
+def _custom_deserialize(json_obj):  # pylint: disable=too-many-return-statements  # noqa: PLR0911
+    if "_gaitmap_obj" in json_obj:
+        return _BaseSerializable._find_subclass(json_obj["_gaitmap_obj"])._from_json_dict(json_obj)
+    if "_obj_type" in json_obj:
+        if json_obj["_obj_type"] == "Rotation":
+            return Rotation.from_quat(json_obj["quat"])
+        if json_obj["_obj_type"] == "Array":
+            return np.array(json_obj["array"])
+        if json_obj["_obj_type"] in ["Series", "DataFrame"]:
+            typ = "series" if json_obj["_obj_type"] == "Series" else "frame"
+            return pd.read_json(StringIO(json_obj["df"]), orient="split", typ=typ)
+        if json_obj["_obj_type"] == "HiddenMarkovModel":
+            hidden_markov_model = _import_hidden_markov_model()
+            with np.errstate(divide="ignore"):
+                # Sometimes probabilities are zero which can lead to warnings when the log-probabilities are
+                # calculated.
+                # We ignore these warnings here to avoid clutter in the output.
+                return hidden_markov_model.from_dict(json_obj["hmm"])
+        if json_obj["_obj_type"] == "EmptyDefault":
+            return tpcp.NOTHING
+        if json_obj["_obj_type"] == "Tuple":
+            return tuple(json_obj["tuple"])
+        raise ValueError("Unknown object type found in serialization!")
+
+    return json_obj
+
+
+class _BaseSerializable(tpcp.BaseTpcpObject):
+    @classmethod
+    def _get_subclasses(cls: type[Self]):
+        for subclass in cls.__subclasses__():
+            yield from subclass._get_subclasses()
+            yield subclass
+
+    @classmethod
+    def _find_subclass(cls: type[Self], name: str) -> type[Self]:
+        for subclass in _BaseSerializable._get_subclasses():
+            if subclass.__name__ == name:
+                return subclass
+        raise ValueError(f"No algorithm class with name {name} exists")
+
+    @classmethod
+    def _from_json_dict(cls: type[Self], json_dict: dict) -> Self:
+        params = json_dict["params"]
+        input_data = {k: params[k] for k in tpcp.get_param_names(cls) if k in params}
+        instance = cls(**input_data)
+        return instance
+
+    def _to_json_dict(self) -> dict[str, Any]:
+        json_dict: dict[str, Union[str, dict[str, Any]]] = {
+            "_gaitmap_obj": self.__class__.__name__,
+            "params": self.get_params(deep=False),
+        }
+        return json_dict
+
+    def to_json(self) -> str:
+        """Export the current object parameters as json.
+
+        For details have a look at the this :ref:`example <algo_serialize>`.
+
+        You can use the `from_json` method of any gaitmap algorithm to load the object again.
+
+        .. warning:: This will only export the Parameters of the instance, but **not** any results!
+
+        """
+        final_dict = self._to_json_dict()
+        return json.dumps(final_dict, indent=4, cls=_CustomEncoder)
+
+    @classmethod
+    def from_json(cls: type[Self], json_str: str) -> Self:
+        """Import an gaitmap object from its json representation.
+
+        For details have a look at the this :ref:`example <algo_serialize>`.
+
+        You can use the `to_json` method of a class to export it as a compatible json string.
+
+        Parameters
+        ----------
+        json_str
+            json formatted string
+
+        """
+        instance = json.loads(json_str, object_hook=_custom_deserialize)
+        return instance
+
+
+class BaseAlgorithm(tpcp.Algorithm, _BaseSerializable):
+    """Base class for all algorithms.
+
+    All type-specific algorithm classes should inherit from this class and need to
+
+    1. overwrite `_action_method` with the name of the actual action method of this class type
+    2. implement a stub for the action method
+
+    Attributes
+    ----------
+    _action_method
+        The name of the action method used by the Childclass
+
+    """
+
+
+class BaseSensorAlignment(BaseAlgorithm):
+    """Base class for all sensor alignment algorithms."""
+
+    _action_methods = ("align",)
+
+    aligned_data_: SensorData
+
+    def align(self, data: SensorData, **kwargs) -> Self:
+        """Align sensor data."""
+        raise NotImplementedError("Needs to be implemented by child class.")
+
+
+class BaseStrideSegmentation(BaseAlgorithm):
+    """Base class for all stride segmentation algorithms."""
+
+    _action_methods = ("segment",)
+
+    stride_list_: StrideList
+
+    def segment(self, data: SensorData, sampling_rate_hz: float, **kwargs) -> Self:
+        """Find stride candidates in data."""
+        raise NotImplementedError("Needs to be implemented by child class.")
+
+
+class BaseEventDetection(BaseAlgorithm):
+    """Base class for all event detection algorithms."""
+
+    _action_methods = ("detect",)
+
+    def detect(
+        self, data: SensorData, *, stride_event_list: Optional[SingleSensorStrideList] = None, sampling_rate_hz: float
+    ) -> Self:
+        """Find gait events in data within strides provided by roi_list."""
+        raise NotImplementedError("Needs to be implemented by child class.")
+
+
+class BaseOrientationMethod(BaseAlgorithm):
+    """Base class for the individual Orientation estimation methods that work on pd.DataFrame data."""
+
+    _action_methods = ("estimate",)
+    orientation_object_: Rotation
+
+    data: SingleSensorData
+    sampling_rate_hz: float
+
+    @property
+    def orientation_(self) -> SingleSensorOrientationList:
+        """Orientations as pd.DataFrame."""
+        df = pd.DataFrame(self.orientation_object_.as_quat(), columns=GF_ORI)
+        df.index.name = "sample"
+        return df
+
+    @property
+    def rotated_data_(self) -> SingleSensorData:
+        """Rotated data."""
+        return rotate_dataset_series(self.data, self.orientation_object_[:-1])
+
+    def estimate(
+        self,
+        data: SingleSensorData,
+        *,
+        stride_event_list: Optional[SingleSensorStrideList] = None,
+        sampling_rate_hz: float,
+    ) -> Self:
+        """Estimate the orientation of the sensor based on the input data."""
+        raise NotImplementedError("Needs to be implemented by child class.")
+
+
+class BasePositionMethod(BaseAlgorithm):
+    """Base class for the individual Position estimation methods that work on pd.DataFrame data."""
+
+    _action_methods = ("estimate",)
+    velocity_: VelocityList
+    position_: PositionList
+
+    def estimate(
+        self,
+        data: SingleSensorData,
+        *,
+        stride_event_list: Optional[SingleSensorStrideList] = None,
+        sampling_rate_hz: float,
+    ) -> Self:
+        """Estimate the position of the sensor based on the input data.
+
+        Note that the data is assumed to be in the global-frame (i.e. already rotated)
+        """
+        raise NotImplementedError("Needs to be implemented by child class.")
+
+
+class BaseTrajectoryMethod(BasePositionMethod, BaseOrientationMethod):
+    """Base class for methods that can compute orientation and position in one pass."""
+
+
+class BaseTrajectoryReconstructionWrapper(BaseAlgorithm):
+    """Base class for method that wrap position and orientation methods to be usable with default datatypes."""
+
+    _action_methods = ("estimate",)
+
+    orientation_: OrientationList
+    position_: PositionList
+    velocity_: VelocityList
+
+
+class BaseTemporalParameterCalculation(BaseAlgorithm):
+    """Base class for temporal parameters calculation."""
+
+    _action_methods = ("calculate",)
+
+    def calculate(self, stride_event_list: StrideList, sampling_rate_hz: float) -> Self:
+        """Find temporal parameters in strides after segmentation and detecting events of each stride."""
+        raise NotImplementedError("Needs to be implemented by child class.")
+
+
+class BaseSpatialParameterCalculation(BaseAlgorithm):
+    """Base class for spatial parameter calculation."""
+
+    _action_methods = ("calculate",)
+
+    def calculate(
+        self,
+        stride_event_list: StrideList,
+        positions: PositionList,
+        orientations: OrientationList,
+        sampling_rate_hz: float,
+    ) -> Self:
+        """Find spatial parameters in strides after segmentation and detecting events of each stride."""
+        raise NotImplementedError("Needs to be implemented by child class.")
+
+
+class BaseGaitDetection(BaseAlgorithm):
+    """Base class for all gait detection algorithms."""
+
+    _action_methods = ("detect",)
+
+    def detect(self, data: SensorData, sampling_rate_hz: float) -> Self:
+        """Find gait sequences or other regions of interest in data."""
+        raise NotImplementedError("Needs to be implemented by child class.")
+
+
+class BaseZuptDetector(BaseAlgorithm):
+    """Base class for all detection algorithms."""
+
+    _action_methods = ("detect",)
+
+    zupts_: pd.DataFrame
+    per_sample_zupts_: np.ndarray
+
+    # These two can be implemented optionally
+    min_vel_index_: Optional[int]
+    min_vel_value_: Optional[float]
+
+    data: SingleSensorData
+    stride_event_list: Optional[SingleSensorStrideList]
+    sampling_rate_hz: float
+
+    def detect(
+        self,
+        data: SingleSensorData,
+        *,
+        stride_event_list: Optional[SingleSensorStrideList] = None,
+        sampling_rate_hz: float,
+    ) -> Self:
+        """Find ZUPTs in data."""
+        raise NotImplementedError("Needs to be implemented by child class.")
