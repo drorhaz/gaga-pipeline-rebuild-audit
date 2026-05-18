@@ -1,21 +1,24 @@
 # Pipeline Rebuild Audit — Source of Truth
 
-**Current status:** Between Phase 12 and Phase 13
+**Current status:** Phase 12.5 COMPLETE — Ready for user approval of corrected backlog, then Phase 13
 **Date:** 2026-05-17
 **Approved strategy:** `hybrid_modular_rebuild`
 
 ---
 
-## CRITICAL: Do Not Start Phase 13 Yet
+## CRITICAL: Do Not Start Phase 13 Without User Approval
 
-Phase 12 (`12_implementation_backlog_ORIGINAL.md`) requires correction before implementation.
+Phase 12.5 (Opus Backlog Alignment Review) is **COMPLETE**. The corrected backlog exists.
 
-**Do NOT implement any ticket from the ORIGINAL backlog.**
+**Do NOT implement any ticket from the ORIGINAL backlog** (`12_implementation_backlog_ORIGINAL.md`).
 
-The corrected backlog (`12_implementation_backlog_CORRECTED.md`) does not yet exist.
-An Opus-level alignment review (`12.5_opus_backlog_alignment_review.md`) must be completed
-first. Phase 13 implementation begins only after that review is complete and the user
-approves the corrected backlog.
+**Implement ONLY from:** `12_implementation_backlog_CORRECTED.md` (highest authority).
+
+**Before Phase 13 begins:**
+1. User must approve the corrected backlog
+2. UD-006 (session label naming) must be resolved before Ticket 004
+3. NEW-D1 (Hampel column design) must be resolved before Ticket 011
+4. UD-001 (dance-band threshold) must be resolved before Ticket 015
 
 ---
 
@@ -65,6 +68,7 @@ When documents conflict, the later document supersedes the earlier one:
 |----|----------|--------|
 | UD-006 | Session label naming convention (`651` vs `Subject_651`) | Ticket 004 |
 | UD-001 | S04 dance-band threshold value | Ticket 015 |
+| NEW-D1 | Hampel outlier column design (Option B recommended) | Ticket 011 |
 
 These must be resolved before the blocked tickets begin. See the corrected backlog for details.
 
@@ -76,6 +80,7 @@ These must be resolved before the blocked tickets begin. See the corrected backl
 docs/pipeline_rebuild_audit/
 ├── README.md                          ← this file (start here)
 ├── GAGA_PIPELINE_AGENT_WORK_PLAN.md   ← agent phase instructions
+├── PROJECT_MEMORY_FOR_IMPLEMENTATION.md ← operational memory for Phase 13 agents
 ├── audit_index.md                     ← audit phase completion status
 │
 ├── phase_10_decision_gate/
@@ -90,8 +95,9 @@ docs/pipeline_rebuild_audit/
 │
 ├── phase_12_implementation_backlog/
 │   ├── 12_implementation_backlog_ORIGINAL.md   ← draft; do not implement from this
-│   ├── 12.5_opus_backlog_alignment_review.md   ← PLACEHOLDER; needed before Phase 13
-│   └── 12_implementation_backlog_CORRECTED.md  ← PLACEHOLDER; authoritative for Phase 13
+│   ├── 12.5_opus_backlog_alignment_review.md   ← correction source (COMPLETE)
+│   ├── 12_implementation_backlog_CORRECTED.md  ← authoritative for Phase 13 (COMPLETE)
+│   └── 12_source_cleanup_readiness_map.md      ← src/ file classifications (COMPLETE)
 │
 ├── earlier_audit_evidence/
 │   ├── 04.5_external_standards_alignment.md

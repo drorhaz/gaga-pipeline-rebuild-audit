@@ -19,5 +19,6 @@
 | 11 | Final target skeleton | **COMPLETE** | `11_final_target_skeleton.md` | 2026-05-17 |
 | 11.5 | Architecture compression and logging review | **COMPLETE** | `11.5_architecture_compression_and_logging_review.md` | 2026-05-17 |
 | 12 | Implementation backlog | **COMPLETE** | `12_implementation_backlog.md` | 2026-05-17 |
+| 12.5 | Opus Backlog Alignment Review | **COMPLETE** | `12.5_opus_backlog_alignment_review.md`, `12_implementation_backlog_CORRECTED.md`, `12_source_cleanup_readiness_map.md`, `PROJECT_MEMORY_FOR_IMPLEMENTATION.md` | 2026-05-17 |
 | 13 | Implementation, one ticket at a time | Pending | `13_implementation_logs/` | — |
 | 14 | Thesis-grade release and scale validation | Pending | `14_release_and_thesis_readiness_checklist.md` | — |
