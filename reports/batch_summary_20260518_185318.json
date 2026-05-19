@@ -1,0 +1,116 @@
+{
+  "total_files": 3,
+  "start_time": "2026-05-18T18:48:14.407526",
+  "runs": [
+    {
+      "csv_file": "data\\651\\T1\\651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005.csv",
+      "run_id": "651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005",
+      "start_time": "2026-05-18T18:48:14.418726",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 19.345022
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.877108
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 15.945182
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 67.994598
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.744369
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 40.299669
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.476737
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T18:50:59.129627",
+      "total_execution_time": 164.682685
+    },
+    {
+      "csv_file": "data\\651\\T2\\651_T2_P2_R2_Take 2026-01-26 05.24.12 PM_003.csv",
+      "run_id": "651_T2_P2_R2_Take 2026-01-26 05.24.12 PM_003",
+      "start_time": "2026-05-18T18:50:59.129627",
+      "notebooks": {
+        "01": {
+          "status": "failed",
+          "error": "\n---------------------------------------------------------------------------\nException encountered at \"In [7]\":\n---------------------------------------------------------------------------\nFileNotFoundError                         Traceback (most recent call last)\nCell In[7], line 1\n----> 1 frame_idx, time_s, pos_mm, q_global, loader_report = parse_optitrack_csv(\n      2     CSV_PATH,\n      3     schema\n      4 )\n      6 print(\"CSV parsed successfully.\")\n\nFile C:\\gaga_prj\\gaga-pipeline-rebuild-audit-main\\gaga-pipeline-rebuild-audit-main\\src\\preprocessing.py:135, in parse_optitrack_csv(csv_path, schema)\n    133 # --- 1. Robustly Read Rows ---\n    134 rows = []\n--> 135 with open(path, \"r\", encoding=\"utf-8\", errors=\"replace\", newline=\"\") as f:\n    136     reader = csv.reader(f)\n    137     for i, row in enumerate(reader):\n\nFileNotFoundError: [Errno 2] No such file or directory: 'C:\\\\gaga_prj\\\\gaga-pipeline-rebuild-audit-main\\\\gaga-pipeline-rebuild-audit-main\\\\data\\\\651\\\\T2\\\\651_T2_P2_R2_Take 2026-01-26 05.24.12 PM_003.csv'\n",
+          "execution_time": 4.203628
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-18T18:51:03.345599",
+      "total_execution_time": 4.203628
+    },
+    {
+      "csv_file": "data\\651\\T3\\651_T3_P2_R2_2026-02-11 05.50.42 PM_2030.csv",
+      "run_id": "651_T3_P2_R2_2026-02-11 05.50.42 PM_2030",
+      "start_time": "2026-05-18T18:51:03.361299",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 15.505558
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.493924
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.322969
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 57.114372
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 4.508155
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 37.008751
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.72866
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T18:53:18.063735",
+      "total_execution_time": 134.682389
+    }
+  ],
+  "success_count": 2,
+  "failed_count": 1,
+  "end_time": "2026-05-18T18:53:18.063735"
+}

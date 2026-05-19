@@ -1,0 +1,631 @@
+{
+  "schema_version": "v1",
+  "source": "BVH",
+  "bvh_filename": "763_T2_P2_R2_Take_2025-12-25 10.51.23 AM_005_763.bvh",
+  "bvh_sha256": "b004cb97b6f35e9e045a80b9391efc0a384ef65b05efa3ed6b3be861c10928cb",
+  "root_joint": "Hips",
+  "joint_names": [
+    "Hips",
+    "Spine",
+    "Spine1",
+    "Neck",
+    "Head",
+    "LeftShoulder",
+    "LeftArm",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftHandThumb1",
+    "LeftHandThumb2",
+    "LeftHandThumb3",
+    "LeftHandIndex1",
+    "LeftHandIndex2",
+    "LeftHandIndex3",
+    "LeftHandMiddle1",
+    "LeftHandMiddle2",
+    "LeftHandMiddle3",
+    "LeftHandRing1",
+    "LeftHandRing2",
+    "LeftHandRing3",
+    "LeftHandPinky1",
+    "LeftHandPinky2",
+    "LeftHandPinky3",
+    "RightShoulder",
+    "RightArm",
+    "RightForeArm",
+    "RightHand",
+    "RightHandThumb1",
+    "RightHandThumb2",
+    "RightHandThumb3",
+    "RightHandIndex1",
+    "RightHandIndex2",
+    "RightHandIndex3",
+    "RightHandMiddle1",
+    "RightHandMiddle2",
+    "RightHandMiddle3",
+    "RightHandRing1",
+    "RightHandRing2",
+    "RightHandRing3",
+    "RightHandPinky1",
+    "RightHandPinky2",
+    "RightHandPinky3",
+    "LeftUpLeg",
+    "LeftLeg",
+    "LeftFoot",
+    "LeftToeBase",
+    "RightUpLeg",
+    "RightLeg",
+    "RightFoot",
+    "RightToeBase"
+  ],
+  "parent_map": {
+    "Hips": null,
+    "Spine": "Hips",
+    "Spine1": "Spine",
+    "Neck": "Spine1",
+    "Head": "Neck",
+    "LeftShoulder": "Spine1",
+    "LeftArm": "LeftShoulder",
+    "LeftForeArm": "LeftArm",
+    "LeftHand": "LeftForeArm",
+    "LeftHandThumb1": "LeftHand",
+    "LeftHandThumb2": "LeftHandThumb1",
+    "LeftHandThumb3": "LeftHandThumb2",
+    "LeftHandIndex1": "LeftHand",
+    "LeftHandIndex2": "LeftHandIndex1",
+    "LeftHandIndex3": "LeftHandIndex2",
+    "LeftHandMiddle1": "LeftHand",
+    "LeftHandMiddle2": "LeftHandMiddle1",
+    "LeftHandMiddle3": "LeftHandMiddle2",
+    "LeftHandRing1": "LeftHand",
+    "LeftHandRing2": "LeftHandRing1",
+    "LeftHandRing3": "LeftHandRing2",
+    "LeftHandPinky1": "LeftHand",
+    "LeftHandPinky2": "LeftHandPinky1",
+    "LeftHandPinky3": "LeftHandPinky2",
+    "RightShoulder": "Spine1",
+    "RightArm": "RightShoulder",
+    "RightForeArm": "RightArm",
+    "RightHand": "RightForeArm",
+    "RightHandThumb1": "RightHand",
+    "RightHandThumb2": "RightHandThumb1",
+    "RightHandThumb3": "RightHandThumb2",
+    "RightHandIndex1": "RightHand",
+    "RightHandIndex2": "RightHandIndex1",
+    "RightHandIndex3": "RightHandIndex2",
+    "RightHandMiddle1": "RightHand",
+    "RightHandMiddle2": "RightHandMiddle1",
+    "RightHandMiddle3": "RightHandMiddle2",
+    "RightHandRing1": "RightHand",
+    "RightHandRing2": "RightHandRing1",
+    "RightHandRing3": "RightHandRing2",
+    "RightHandPinky1": "RightHand",
+    "RightHandPinky2": "RightHandPinky1",
+    "RightHandPinky3": "RightHandPinky2",
+    "LeftUpLeg": "Hips",
+    "LeftLeg": "LeftUpLeg",
+    "LeftFoot": "LeftLeg",
+    "LeftToeBase": "LeftFoot",
+    "RightUpLeg": "Hips",
+    "RightLeg": "RightUpLeg",
+    "RightFoot": "RightLeg",
+    "RightToeBase": "RightFoot"
+  },
+  "depth_order": [
+    "Hips",
+    "Spine",
+    "Spine1",
+    "Neck",
+    "Head",
+    "LeftShoulder",
+    "LeftArm",
+    "LeftForeArm",
+    "LeftHand",
+    "LeftHandThumb1",
+    "LeftHandThumb2",
+    "LeftHandThumb3",
+    "LeftHandIndex1",
+    "LeftHandIndex2",
+    "LeftHandIndex3",
+    "LeftHandMiddle1",
+    "LeftHandMiddle2",
+    "LeftHandMiddle3",
+    "LeftHandRing1",
+    "LeftHandRing2",
+    "LeftHandRing3",
+    "LeftHandPinky1",
+    "LeftHandPinky2",
+    "LeftHandPinky3",
+    "RightShoulder",
+    "RightArm",
+    "RightForeArm",
+    "RightHand",
+    "RightHandThumb1",
+    "RightHandThumb2",
+    "RightHandThumb3",
+    "RightHandIndex1",
+    "RightHandIndex2",
+    "RightHandIndex3",
+    "RightHandMiddle1",
+    "RightHandMiddle2",
+    "RightHandMiddle3",
+    "RightHandRing1",
+    "RightHandRing2",
+    "RightHandRing3",
+    "RightHandPinky1",
+    "RightHandPinky2",
+    "RightHandPinky3",
+    "LeftUpLeg",
+    "LeftLeg",
+    "LeftFoot",
+    "LeftToeBase",
+    "RightUpLeg",
+    "RightLeg",
+    "RightFoot",
+    "RightToeBase"
+  ],
+  "bones": [
+    [
+      "Hips",
+      "Spine"
+    ],
+    [
+      "Spine",
+      "Spine1"
+    ],
+    [
+      "Spine1",
+      "Neck"
+    ],
+    [
+      "Neck",
+      "Head"
+    ],
+    [
+      "Spine1",
+      "LeftShoulder"
+    ],
+    [
+      "LeftShoulder",
+      "LeftArm"
+    ],
+    [
+      "LeftArm",
+      "LeftForeArm"
+    ],
+    [
+      "LeftForeArm",
+      "LeftHand"
+    ],
+    [
+      "LeftHand",
+      "LeftHandThumb1"
+    ],
+    [
+      "LeftHandThumb1",
+      "LeftHandThumb2"
+    ],
+    [
+      "LeftHandThumb2",
+      "LeftHandThumb3"
+    ],
+    [
+      "LeftHand",
+      "LeftHandIndex1"
+    ],
+    [
+      "LeftHandIndex1",
+      "LeftHandIndex2"
+    ],
+    [
+      "LeftHandIndex2",
+      "LeftHandIndex3"
+    ],
+    [
+      "LeftHand",
+      "LeftHandMiddle1"
+    ],
+    [
+      "LeftHandMiddle1",
+      "LeftHandMiddle2"
+    ],
+    [
+      "LeftHandMiddle2",
+      "LeftHandMiddle3"
+    ],
+    [
+      "LeftHand",
+      "LeftHandRing1"
+    ],
+    [
+      "LeftHandRing1",
+      "LeftHandRing2"
+    ],
+    [
+      "LeftHandRing2",
+      "LeftHandRing3"
+    ],
+    [
+      "LeftHand",
+      "LeftHandPinky1"
+    ],
+    [
+      "LeftHandPinky1",
+      "LeftHandPinky2"
+    ],
+    [
+      "LeftHandPinky2",
+      "LeftHandPinky3"
+    ],
+    [
+      "Spine1",
+      "RightShoulder"
+    ],
+    [
+      "RightShoulder",
+      "RightArm"
+    ],
+    [
+      "RightArm",
+      "RightForeArm"
+    ],
+    [
+      "RightForeArm",
+      "RightHand"
+    ],
+    [
+      "RightHand",
+      "RightHandThumb1"
+    ],
+    [
+      "RightHandThumb1",
+      "RightHandThumb2"
+    ],
+    [
+      "RightHandThumb2",
+      "RightHandThumb3"
+    ],
+    [
+      "RightHand",
+      "RightHandIndex1"
+    ],
+    [
+      "RightHandIndex1",
+      "RightHandIndex2"
+    ],
+    [
+      "RightHandIndex2",
+      "RightHandIndex3"
+    ],
+    [
+      "RightHand",
+      "RightHandMiddle1"
+    ],
+    [
+      "RightHandMiddle1",
+      "RightHandMiddle2"
+    ],
+    [
+      "RightHandMiddle2",
+      "RightHandMiddle3"
+    ],
+    [
+      "RightHand",
+      "RightHandRing1"
+    ],
+    [
+      "RightHandRing1",
+      "RightHandRing2"
+    ],
+    [
+      "RightHandRing2",
+      "RightHandRing3"
+    ],
+    [
+      "RightHand",
+      "RightHandPinky1"
+    ],
+    [
+      "RightHandPinky1",
+      "RightHandPinky2"
+    ],
+    [
+      "RightHandPinky2",
+      "RightHandPinky3"
+    ],
+    [
+      "Hips",
+      "LeftUpLeg"
+    ],
+    [
+      "LeftUpLeg",
+      "LeftLeg"
+    ],
+    [
+      "LeftLeg",
+      "LeftFoot"
+    ],
+    [
+      "LeftFoot",
+      "LeftToeBase"
+    ],
+    [
+      "Hips",
+      "RightUpLeg"
+    ],
+    [
+      "RightUpLeg",
+      "RightLeg"
+    ],
+    [
+      "RightLeg",
+      "RightFoot"
+    ],
+    [
+      "RightFoot",
+      "RightToeBase"
+    ]
+  ],
+  "_offsets_note": "REFERENCE ONLY: These offsets are session-specific (extracted from BVH file). Not used by default in QC (use_bvh_offsets=False). Kept for documentation/reference only. For multi-subject data, QC uses consistency check (CV%) instead of BVH comparison.",
+  "offsets": {
+    "Hips": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Spine": [
+      0.0,
+      7.674516,
+      -0.0
+    ],
+    "Spine1": [
+      -0.0,
+      23.051079,
+      -0.0
+    ],
+    "Neck": [
+      1e-06,
+      24.383266,
+      -0.0
+    ],
+    "Head": [
+      0.0,
+      18.429642,
+      0.0
+    ],
+    "LeftShoulder": [
+      3.670301,
+      18.336586,
+      -0.034716
+    ],
+    "LeftArm": [
+      11.532102,
+      1e-06,
+      -1e-06
+    ],
+    "LeftForeArm": [
+      26.714369,
+      -4e-06,
+      1e-06
+    ],
+    "LeftHand": [
+      22.90847,
+      -4e-06,
+      1e-06
+    ],
+    "LeftHandThumb1": [
+      2.412751,
+      -2.741762,
+      3.83847
+    ],
+    "LeftHandThumb2": [
+      2.908779,
+      -2e-06,
+      -2e-06
+    ],
+    "LeftHandThumb3": [
+      2.290952,
+      0.0,
+      0.0
+    ],
+    "LeftHandIndex1": [
+      9.870353,
+      -1e-06,
+      3.838471
+    ],
+    "LeftHandIndex2": [
+      4.377037,
+      -4e-06,
+      2e-06
+    ],
+    "LeftHandIndex3": [
+      2.016682,
+      0.0,
+      0.0
+    ],
+    "LeftHandMiddle1": [
+      9.870353,
+      1e-06,
+      1.272179
+    ],
+    "LeftHandMiddle2": [
+      4.814741,
+      -1e-06,
+      -0.0
+    ],
+    "LeftHandMiddle3": [
+      2.420015,
+      0.0,
+      0.0
+    ],
+    "LeftHandRing1": [
+      9.322001,
+      -1e-06,
+      -1.272178
+    ],
+    "LeftHandRing2": [
+      4.377036,
+      -0.0,
+      0.0
+    ],
+    "LeftHandRing3": [
+      2.016682,
+      0.0,
+      0.0
+    ],
+    "LeftHandPinky1": [
+      8.77365,
+      -3e-06,
+      -3.83847
+    ],
+    "LeftHandPinky2": [
+      3.501632,
+      -0.0,
+      -0.0
+    ],
+    "LeftHandPinky3": [
+      1.61334,
+      0.0,
+      0.0
+    ],
+    "RightShoulder": [
+      -3.6703,
+      18.336586,
+      -0.034716
+    ],
+    "RightArm": [
+      -11.532104,
+      4e-06,
+      -1e-06
+    ],
+    "RightForeArm": [
+      -26.714369,
+      -6e-06,
+      1e-06
+    ],
+    "RightHand": [
+      -22.908464,
+      3e-06,
+      -1e-06
+    ],
+    "RightHandThumb1": [
+      -2.412751,
+      -2.741763,
+      3.838471
+    ],
+    "RightHandThumb2": [
+      -2.908776,
+      5e-06,
+      -1e-06
+    ],
+    "RightHandThumb3": [
+      -2.290952,
+      0.0,
+      0.0
+    ],
+    "RightHandIndex1": [
+      -9.870352,
+      0.0,
+      3.83847
+    ],
+    "RightHandIndex2": [
+      -4.377036,
+      1e-06,
+      1e-06
+    ],
+    "RightHandIndex3": [
+      -2.016682,
+      0.0,
+      0.0
+    ],
+    "RightHandMiddle1": [
+      -9.870353,
+      0.0,
+      1.272179
+    ],
+    "RightHandMiddle2": [
+      -4.814743,
+      -1e-06,
+      -1e-06
+    ],
+    "RightHandMiddle3": [
+      -2.420015,
+      0.0,
+      0.0
+    ],
+    "RightHandRing1": [
+      -9.322,
+      -1e-06,
+      -1.272179
+    ],
+    "RightHandRing2": [
+      -4.377037,
+      -3e-06,
+      -1e-06
+    ],
+    "RightHandRing3": [
+      -2.016682,
+      0.0,
+      0.0
+    ],
+    "RightHandPinky1": [
+      -8.773647,
+      -1e-06,
+      -3.838471
+    ],
+    "RightHandPinky2": [
+      -3.501628,
+      2e-06,
+      1e-06
+    ],
+    "RightHandPinky3": [
+      -1.61334,
+      0.0,
+      0.0
+    ],
+    "LeftUpLeg": [
+      9.214815,
+      -1e-06,
+      0.0
+    ],
+    "LeftLeg": [
+      1e-06,
+      -45.947273,
+      1e-06
+    ],
+    "LeftFoot": [
+      1e-06,
+      -29.412794,
+      -0.0
+    ],
+    "LeftToeBase": [
+      0.0,
+      0.0,
+      3.685928
+    ],
+    "RightUpLeg": [
+      -9.214815,
+      1e-06,
+      -0.0
+    ],
+    "RightLeg": [
+      0.0,
+      -45.947273,
+      -1e-06
+    ],
+    "RightFoot": [
+      1e-06,
+      -29.412794,
+      0.0
+    ],
+    "RightToeBase": [
+      0.0,
+      0.0,
+      3.685928
+    ]
+  },
+  "notes": {
+    "quat_convention": "xyzw (SciPy Rotation format)",
+    "intended_use": "schema + bone-length QC + joint hierarchy for q_local",
+    "offsets_note": "Offsets are session-specific (from BVH file). Not used by default in QC (use_bvh_offsets=False). Keep for reference/documentation only. For multi-subject data, QC uses consistency check (CV%) instead of BVH comparison."
+  }
+}

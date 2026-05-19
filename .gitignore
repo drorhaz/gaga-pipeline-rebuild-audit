@@ -1,0 +1,38 @@
+# Data
+data/
+raw_data/
+derivatives/
+outputs/
+*.parquet
+*.c3d
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Large/generated artifacts
+*.zip
+*.tar.gz
+
+# Ignore large binary files
+*.bin
+*.onnx
+*.pkl
+
+# Ignore specific heavy directories
+ref_repo_git/
+logs/
+
+references/REFERENCE_GUARDRAILS_FOR_PHASE13/
+
+*.xlsx
+*.png

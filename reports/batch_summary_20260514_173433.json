@@ -1,0 +1,54 @@
+{
+  "total_files": 3,
+  "start_time": "2026-05-14T17:34:13.409460",
+  "runs": [
+    {
+      "csv_file": "data/671/T1/671_T1_P1_R1_Take 2026-01-06 03.57.12 PM_001.csv",
+      "run_id": "671_T1_P1_R1_Take 2026-01-06 03.57.12 PM_001",
+      "start_time": "2026-05-14T17:34:13.409610",
+      "notebooks": {
+        "01": {
+          "status": "failed",
+          "error": "\n---------------------------------------------------------------------------\nException encountered at \"In [7]\":\n---------------------------------------------------------------------------\nFileNotFoundError                         Traceback (most recent call last)\nCell In[7], line 1\n----> 1 frame_idx, time_s, pos_mm, q_global, loader_report = parse_optitrack_csv(\n      2     CSV_PATH,\n      3     schema\n      4 )\n      6 print(\"CSV parsed successfully.\")\n\nFile ~/Desktop/gaga_pipeline_audit/gaga_pipeline_audit/src/preprocessing.py:135, in parse_optitrack_csv(csv_path, schema)\n    133 # --- 1. Robustly Read Rows ---\n    134 rows = []\n--> 135 with open(path, \"r\", encoding=\"utf-8\", errors=\"replace\", newline=\"\") as f:\n    136     reader = csv.reader(f)\n    137     for i, row in enumerate(reader):\n\nFileNotFoundError: [Errno 2] No such file or directory: '/Users/drorhazan/Desktop/gaga_pipeline_audit/gaga_pipeline_audit/data/671/T1/671_T1_P1_R1_Take 2026-01-06 03.57.12 PM_001.csv'\n",
+          "execution_time": 16.350109
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-14T17:34:29.768183",
+      "total_execution_time": 16.350109
+    },
+    {
+      "csv_file": "data/671/T2/671_T2_P1_R1_Take 2026-01-15 04.35.25 PM_005.csv",
+      "run_id": "671_T2_P1_R1_Take 2026-01-15 04.35.25 PM_005",
+      "start_time": "2026-05-14T17:34:29.768397",
+      "notebooks": {
+        "01": {
+          "status": "failed",
+          "error": "\n---------------------------------------------------------------------------\nException encountered at \"In [7]\":\n---------------------------------------------------------------------------\nFileNotFoundError                         Traceback (most recent call last)\nCell In[7], line 1\n----> 1 frame_idx, time_s, pos_mm, q_global, loader_report = parse_optitrack_csv(\n      2     CSV_PATH,\n      3     schema\n      4 )\n      6 print(\"CSV parsed successfully.\")\n\nFile ~/Desktop/gaga_pipeline_audit/gaga_pipeline_audit/src/preprocessing.py:135, in parse_optitrack_csv(csv_path, schema)\n    133 # --- 1. Robustly Read Rows ---\n    134 rows = []\n--> 135 with open(path, \"r\", encoding=\"utf-8\", errors=\"replace\", newline=\"\") as f:\n    136     reader = csv.reader(f)\n    137     for i, row in enumerate(reader):\n\nFileNotFoundError: [Errno 2] No such file or directory: '/Users/drorhazan/Desktop/gaga_pipeline_audit/gaga_pipeline_audit/data/671/T2/671_T2_P1_R1_Take 2026-01-15 04.35.25 PM_005.csv'\n",
+          "execution_time": 1.906481
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-14T17:34:31.716059",
+      "total_execution_time": 1.906481
+    },
+    {
+      "csv_file": "data/671/T3/671_T3_P1_R1_Take 2026-02-03 08.05.01 PM_000.csv",
+      "run_id": "671_T3_P1_R1_Take 2026-02-03 08.05.01 PM_000",
+      "start_time": "2026-05-14T17:34:31.716212",
+      "notebooks": {
+        "01": {
+          "status": "failed",
+          "error": "\n---------------------------------------------------------------------------\nException encountered at \"In [7]\":\n---------------------------------------------------------------------------\nFileNotFoundError                         Traceback (most recent call last)\nCell In[7], line 1\n----> 1 frame_idx, time_s, pos_mm, q_global, loader_report = parse_optitrack_csv(\n      2     CSV_PATH,\n      3     schema\n      4 )\n      6 print(\"CSV parsed successfully.\")\n\nFile ~/Desktop/gaga_pipeline_audit/gaga_pipeline_audit/src/preprocessing.py:135, in parse_optitrack_csv(csv_path, schema)\n    133 # --- 1. Robustly Read Rows ---\n    134 rows = []\n--> 135 with open(path, \"r\", encoding=\"utf-8\", errors=\"replace\", newline=\"\") as f:\n    136     reader = csv.reader(f)\n    137     for i, row in enumerate(reader):\n\nFileNotFoundError: [Errno 2] No such file or directory: '/Users/drorhazan/Desktop/gaga_pipeline_audit/gaga_pipeline_audit/data/671/T3/671_T3_P1_R1_Take 2026-02-03 08.05.01 PM_000.csv'\n",
+          "execution_time": 2.000529
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-14T17:34:33.724420",
+      "total_execution_time": 2.000529
+    }
+  ],
+  "success_count": 0,
+  "failed_count": 3,
+  "end_time": "2026-05-14T17:34:33.724426"
+}

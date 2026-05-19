@@ -1,0 +1,76 @@
+[
+  {
+    "subject_id": "651",
+    "n_sessions": 4,
+    "session_ids": [
+      "T1",
+      "T1",
+      "T2",
+      "T3"
+    ],
+    "Duration_sec_mean": 234.72500000000002,
+    "Duration_sec_std": 42.959384597547476,
+    "Duration_sec_min": 160.86,
+    "Duration_sec_max": 267.57,
+    "Duration_sec_cv_pct": 18.302006432015112,
+    "Path_Length_Total_m_mean": 898.495,
+    "Path_Length_Total_m_std": 184.53089151955018,
+    "Path_Length_Total_m_min": 615.47,
+    "Path_Length_Total_m_max": 1068.88,
+    "Path_Length_Total_m_cv_pct": 20.537776116678465,
+    "Intensity_Mean_m_per_s_mean": 0.208375,
+    "Intensity_Mean_m_per_s_std": 0.053763573867443015,
+    "Intensity_Mean_m_per_s_min": 0.1278,
+    "Intensity_Mean_m_per_s_max": 0.2791,
+    "Intensity_Mean_m_per_s_cv_pct": 25.801355185335577,
+    "Bilateral_Symmetry_Mean_mean": 0.89725,
+    "Bilateral_Symmetry_Mean_std": 0.01397095200764788,
+    "Bilateral_Symmetry_Mean_min": 0.88,
+    "Bilateral_Symmetry_Mean_max": 0.919,
+    "Bilateral_Symmetry_Mean_cv_pct": 1.5570857629030794,
+    "Raw_Missing_Data_Percent_mean": 0.0,
+    "Raw_Missing_Data_Percent_std": 0.0,
+    "Raw_Missing_Data_Percent_min": 0.0,
+    "Raw_Missing_Data_Percent_max": 0.0,
+    "Raw_Missing_Data_Percent_cv_pct": 0.0,
+    "Bone_Length_CV_Percent_mean": 0.73175,
+    "Bone_Length_CV_Percent_std": 0.3356779520611981,
+    "Bone_Length_CV_Percent_min": 0.351,
+    "Bone_Length_CV_Percent_max": 1.189,
+    "Bone_Length_CV_Percent_cv_pct": 45.87331083856483,
+    "movement_signature": {
+      "Neck": {
+        "mean": 0.148975,
+        "std": 0.10164121129410715
+      },
+      "Shoulders": {
+        "mean": 0.136325,
+        "std": 0.09425205125972945
+      },
+      "Elbows": {
+        "mean": 0.171775,
+        "std": 0.11719062462501001
+      },
+      "Wrists": {
+        "mean": 0.3951,
+        "std": 0.05978868343312693
+      },
+      "Knees": {
+        "mean": 0.24007499999999998,
+        "std": 0.12394857468590215
+      },
+      "Ankles": {
+        "mean": 0.27675,
+        "std": 0.14850599314505797
+      }
+    },
+    "consistency_assessment": {
+      "Duration_sec": "CONSISTENT",
+      "Path_Length_Total_m": "CONSISTENT",
+      "Intensity_Mean_m_per_s": "VARIABLE",
+      "Bilateral_Symmetry_Mean": "VERY_CONSISTENT",
+      "Raw_Missing_Data_Percent": "VERY_CONSISTENT",
+      "Bone_Length_CV_Percent": "VARIABLE"
+    }
+  }
+]

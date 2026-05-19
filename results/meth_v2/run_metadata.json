@@ -1,0 +1,105 @@
+{
+  "spec_revision": "METHODOLOGY_SPEC_v2.md (v3.0)",
+  "pipeline_version": "v2_feature_engine MVP",
+  "timestamp_utc": "2026-05-14T16:29:23.137837Z",
+  "subject_id": "671",
+  "reference_run_id": "671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002",
+  "active_run_ids": [
+    "671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002",
+    "671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006",
+    "671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001"
+  ],
+  "params": {
+    "CONFIG": {
+      "fs": 120.0,
+      "artifact_critical_threshold": 0.3,
+      "artifact_warning_threshold": 0.2,
+      "per_joint_artifact_exclude": 0.3,
+      "per_endpoint_artifact_flag": 0.2,
+      "min_clean_fraction_pca": 0.7,
+      "min_session_duration_s": 60.0,
+      "ref_search_sec": 8.0,
+      "static_search_step_sec": 0.1,
+      "reference_variance_threshold": 100.0,
+      "run_t2_isolation": false,
+      "params_locked": false,
+      "time_windows": {
+        "671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002": {
+          "start": 20.0,
+          "end": 140.0
+        },
+        "671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006": {
+          "start": 20.0,
+          "end": 140.0
+        },
+        "671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001": {
+          "start": 20.0,
+          "end": 140.0
+        }
+      }
+    },
+    "PARAMS_F1": {
+      "noise_floor_guard_mms": 1.0,
+      "static_baseline_guard_mms": 50.0,
+      "static_window_sec": 2.0,
+      "artifact_warning_threshold": 0.2,
+      "artifact_critical_threshold": 0.3,
+      "noise_floor_override_mms_by_joint": {},
+      "run_bootstrap": false
+    },
+    "PARAMS_F2": {
+      "min_segment_frames": 3,
+      "normalize_by_duration": true,
+      "run_bootstrap": false
+    },
+    "PARAMS_PCA_F4_F5": {
+      "kinematic_branch": "dynamics",
+      "n_components": 19,
+      "epsilon_deff": 1e-12,
+      "min_clean_fraction": 0.7,
+      "run_session_native_gini": true,
+      "run_session_native_deff": true,
+      "compute_ap_ratio": true,
+      "run_bootstrap": false
+    }
+  },
+  "quality_summary": [
+    {
+      "run_id": "671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002",
+      "n_frames": 14401,
+      "duration_s": 120.00833333333334,
+      "global_artifact_frac": 0.05284355253107423,
+      "clean_fraction_pca": 0.8824387195333657,
+      "hard_exclude": false,
+      "soft_warning": false,
+      "pca_low_confidence": false
+    },
+    {
+      "run_id": "671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006",
+      "n_frames": 14401,
+      "duration_s": 120.00833333333334,
+      "global_artifact_frac": 0.08277202972015832,
+      "clean_fraction_pca": 0.8323727518922297,
+      "hard_exclude": false,
+      "soft_warning": false,
+      "pca_low_confidence": false
+    },
+    {
+      "run_id": "671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001",
+      "n_frames": 14401,
+      "duration_s": 120.00833333333334,
+      "global_artifact_frac": 0.08478577876536351,
+      "clean_fraction_pca": 0.8462606763419207,
+      "hard_exclude": false,
+      "soft_warning": false,
+      "pca_low_confidence": false
+    }
+  ],
+  "bootstrap_run": false,
+  "t2_isolation_run": false,
+  "branch_d_active": false,
+  "branch_d_implemented": false,
+  "viz_exported": false,
+  "session_native_gini_skipped": false,
+  "session_native_deff_skipped": false
+}

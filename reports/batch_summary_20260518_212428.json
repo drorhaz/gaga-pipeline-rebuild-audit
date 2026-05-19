@@ -1,0 +1,579 @@
+{
+  "total_files": 14,
+  "start_time": "2026-05-18T20:32:27.589452",
+  "runs": [
+    {
+      "csv_file": "data\\651\\T1\\651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002.csv",
+      "run_id": "651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002",
+      "start_time": "2026-05-18T20:32:27.589452",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 19.545024
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.757776
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 10.18072
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 119.279374
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.860272
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 64.878431
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 9.279706
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T20:36:23.426239",
+      "total_execution_time": 235.78130300000004
+    },
+    {
+      "csv_file": "data\\651\\T1\\651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002.csv",
+      "run_id": "651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002",
+      "start_time": "2026-05-18T20:36:23.426239",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 18.314239
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.072784
+        },
+        "03": {
+          "status": "failed",
+          "error": "\n---------------------------------------------------------------------------\nException encountered at \"In [5]\":\n---------------------------------------------------------------------------\nValueError                                Traceback (most recent call last)\nCell In[5], line 76\n     74 # --- Execution ---\n     75 TARGET_FPS = CONFIG.get('fs_target', 120.0)\n---> 76 df_resampled = resample_timeseries(df_proc, target_fs=TARGET_FPS)\n\nCell In[5], line 61, in resample_timeseries(df, target_fs)\n     58 slerp = Slerp(t_old, rotations)\n     60 # Interpolate\n---> 61 rotations_new = slerp(t_new)\n     62 q_new = rotations_new.as_quat() # Returns (N, 4) -> x, y, z, w\n     64 df_resampled[f\"{seg}__qx\"] = q_new[:, 0]\n\nFile _rotation.pyx:3729, in scipy.spatial.transform._rotation.Slerp.__call__()\n\nValueError: Interpolation times must be within the range [0.0, 160.858333], both inclusive.\n",
+          "execution_time": 8.02079
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-18T20:36:56.897855",
+      "total_execution_time": 33.407813
+    },
+    {
+      "csv_file": "data\\651\\T1\\651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005.csv",
+      "run_id": "651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005",
+      "start_time": "2026-05-18T20:36:56.897855",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 20.982827
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.014259
+        },
+        "03": {
+          "status": "failed",
+          "error": "\n---------------------------------------------------------------------------\nException encountered at \"In [5]\":\n---------------------------------------------------------------------------\nValueError                                Traceback (most recent call last)\nCell In[5], line 76\n     74 # --- Execution ---\n     75 TARGET_FPS = CONFIG.get('fs_target', 120.0)\n---> 76 df_resampled = resample_timeseries(df_proc, target_fs=TARGET_FPS)\n\nCell In[5], line 61, in resample_timeseries(df, target_fs)\n     58 slerp = Slerp(t_old, rotations)\n     60 # Interpolate\n---> 61 rotations_new = slerp(t_new)\n     62 q_new = rotations_new.as_quat() # Returns (N, 4) -> x, y, z, w\n     64 df_resampled[f\"{seg}__qx\"] = q_new[:, 0]\n\nFile _rotation.pyx:3729, in scipy.spatial.transform._rotation.Slerp.__call__()\n\nValueError: Interpolation times must be within the range [0.0, 165.783333], both inclusive.\n",
+          "execution_time": 9.234885
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-18T20:37:33.185876",
+      "total_execution_time": 36.231971
+    },
+    {
+      "csv_file": "data\\651\\T2\\651_T2_P1_R1_Take 2026-01-26 05.24.12 PM.csv",
+      "run_id": "651_T2_P1_R1_Take 2026-01-26 05.24.12 PM",
+      "start_time": "2026-05-18T20:37:33.185876",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 22.681844
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.172603
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.254905
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 94.31545
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.344195
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 64.034889
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 10.541846
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T20:41:04.567075",
+      "total_execution_time": 211.34573200000003
+    },
+    {
+      "csv_file": "data\\651\\T2\\651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000.csv",
+      "run_id": "651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000",
+      "start_time": "2026-05-18T20:41:04.567075",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 17.253826
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.897798
+        },
+        "03": {
+          "status": "failed",
+          "error": "\n---------------------------------------------------------------------------\nException encountered at \"In [5]\":\n---------------------------------------------------------------------------\nValueError                                Traceback (most recent call last)\nCell In[5], line 76\n     74 # --- Execution ---\n     75 TARGET_FPS = CONFIG.get('fs_target', 120.0)\n---> 76 df_resampled = resample_timeseries(df_proc, target_fs=TARGET_FPS)\n\nCell In[5], line 61, in resample_timeseries(df, target_fs)\n     58 slerp = Slerp(t_old, rotations)\n     60 # Interpolate\n---> 61 rotations_new = slerp(t_new)\n     62 q_new = rotations_new.as_quat() # Returns (N, 4) -> x, y, z, w\n     64 df_resampled[f\"{seg}__qx\"] = q_new[:, 0]\n\nFile _rotation.pyx:3729, in scipy.spatial.transform._rotation.Slerp.__call__()\n\nValueError: Interpolation times must be within the range [0.0, 180.008333], both inclusive.\n",
+          "execution_time": 6.409279
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-18T20:41:34.173426",
+      "total_execution_time": 29.560902999999996
+    },
+    {
+      "csv_file": "data\\651\\T3\\651_T3_P1_R1_2026-02-11 05.50.42 PM_2026.csv",
+      "run_id": "651_T3_P1_R1_2026-02-11 05.50.42 PM_2026",
+      "start_time": "2026-05-18T20:41:34.173426",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 20.129232
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.940843
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.63513
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 103.315906
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.920622
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 104.117457
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 18.251659
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T20:46:04.557799",
+      "total_execution_time": 270.310849
+    },
+    {
+      "csv_file": "data\\651\\T3\\651_T3_P2_R1_2026-02-11 05.50.42 PM_2027.csv",
+      "run_id": "651_T3_P2_R1_2026-02-11 05.50.42 PM_2027",
+      "start_time": "2026-05-18T20:46:04.557799",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 30.149481
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 11.455508
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 16.177317
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 152.817006
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.923931
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 100.850594
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 12.834396
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T20:51:36.886100",
+      "total_execution_time": 332.208233
+    },
+    {
+      "csv_file": "data\\651\\T3\\651_T3_P2_R2_2026-02-11 05.50.42 PM_2030.csv",
+      "run_id": "651_T3_P2_R2_2026-02-11 05.50.42 PM_2030",
+      "start_time": "2026-05-18T20:51:36.886100",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 31.774022
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.598696
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.9314
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 113.834321
+        },
+        "05": {
+          "status": "failed",
+          "error": "A cell timed out while it was being executed, after 600 seconds.\nThe message was: Cell execution timed out.\nHere is a preview of the cell contents:\n-------------------\n# Papermill-injected when run from run_pipeline.py; leave empty for interactive use.\nRUN_ID = \"\"\ncurrent_csv = \"\"\n-------------------\n",
+          "execution_time": 605.07412
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-18T21:04:25.165325",
+      "total_execution_time": 768.212559
+    },
+    {
+      "csv_file": "data\\671\\T1\\671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002.csv",
+      "run_id": "671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002",
+      "start_time": "2026-05-18T21:04:25.165325",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 20.391903
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 7.343673
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 10.256849
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 76.437103
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.260489
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 59.442428
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 12.645401
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T21:07:36.988710",
+      "total_execution_time": 191.77784599999998
+    },
+    {
+      "csv_file": "data\\671\\T1\\671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004.csv",
+      "run_id": "671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004",
+      "start_time": "2026-05-18T21:07:36.989705",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 18.053634
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.455348
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.375302
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 91.163171
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.640014
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 51.520638
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 9.847698
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T21:10:48.107853",
+      "total_execution_time": 191.05580500000002
+    },
+    {
+      "csv_file": "data\\671\\T2\\671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006.csv",
+      "run_id": "671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006",
+      "start_time": "2026-05-18T21:10:48.107853",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 25.087683
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.23236
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 9.27799
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 85.703152
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.984268
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 57.564484
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 10.375321
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T21:14:08.415377",
+      "total_execution_time": 200.225258
+    },
+    {
+      "csv_file": "data\\671\\T2\\671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010.csv",
+      "run_id": "671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010",
+      "start_time": "2026-05-18T21:14:08.415377",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 16.554061
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.95989
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.429572
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 89.21944
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.359822
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 66.639828
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 10.361767
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T21:17:31.976303",
+      "total_execution_time": 203.52438
+    },
+    {
+      "csv_file": "data\\671\\T3\\671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001.csv",
+      "run_id": "671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001",
+      "start_time": "2026-05-18T21:17:31.976303",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 18.398671
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.341273
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.394182
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 92.440642
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.440479
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 54.779835
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 11.258213
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T21:20:50.055815",
+      "total_execution_time": 198.05329500000002
+    },
+    {
+      "csv_file": "data\\671\\T3\\671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006.csv",
+      "run_id": "671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006",
+      "start_time": "2026-05-18T21:20:50.055815",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 19.691853
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.734654
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.737099
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 112.885724
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.733034
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 55.68827
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 9.885296
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-18T21:24:28.452750",
+      "total_execution_time": 218.35593000000003
+    }
+  ],
+  "success_count": 10,
+  "failed_count": 4,
+  "end_time": "2026-05-18T21:24:28.452750"
+}

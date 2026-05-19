@@ -1,0 +1,193 @@
+{
+  "total_files": 4,
+  "start_time": "2026-05-19T00:57:03.519860",
+  "runs": [
+    {
+      "csv_file": "data\\651\\T1\\651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002.csv",
+      "run_id": "651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002",
+      "start_time": "2026-05-19T00:57:03.519860",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 18.020683
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.514511
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.422743
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 82.63009
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.216609
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 50.877071
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.739647
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-19T01:00:02.977230",
+      "total_execution_time": 179.421354
+    },
+    {
+      "csv_file": "data\\651\\T2\\651_T2_P1_R1_Take 2026-01-26 05.24.12 PM.csv",
+      "run_id": "651_T2_P1_R1_Take 2026-01-26 05.24.12 PM",
+      "start_time": "2026-05-19T01:00:02.977230",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 22.751024
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.454316
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.754542
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 99.382338
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.06064
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 57.187428
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.219361
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-19T01:03:29.833451",
+      "total_execution_time": 206.80964899999998
+    },
+    {
+      "csv_file": "data\\671\\T1\\671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002.csv",
+      "run_id": "671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002",
+      "start_time": "2026-05-19T01:03:29.833451",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 12.900757
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.077624
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 6.927981
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 56.49126
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.599873
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 34.764883
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.81564
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-19T01:05:40.476533",
+      "total_execution_time": 130.578018
+    },
+    {
+      "csv_file": "data\\671\\T3\\671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001.csv",
+      "run_id": "671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001",
+      "start_time": "2026-05-19T01:05:40.476533",
+      "notebooks": {
+        "01": {
+          "status": "success",
+          "error": null,
+          "execution_time": 16.396812
+        },
+        "02": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.33063
+        },
+        "03": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.049864
+        },
+        "04": {
+          "status": "success",
+          "error": null,
+          "execution_time": 66.335374
+        },
+        "05": {
+          "status": "success",
+          "error": null,
+          "execution_time": 5.024744
+        },
+        "06": {
+          "status": "success",
+          "error": null,
+          "execution_time": 46.079066
+        },
+        "08": {
+          "status": "success",
+          "error": null,
+          "execution_time": 8.988455
+        }
+      },
+      "status": "success",
+      "outputs_verified": true,
+      "end_time": "2026-05-19T01:08:16.747236",
+      "total_execution_time": 156.20494499999998
+    }
+  ],
+  "success_count": 4,
+  "failed_count": 0,
+  "end_time": "2026-05-19T01:08:16.747236"
+}

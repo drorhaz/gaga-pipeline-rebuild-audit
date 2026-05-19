@@ -1,0 +1,24 @@
+{
+  "total_files": 1,
+  "start_time": "2026-05-18T19:58:39.455164",
+  "runs": [
+    {
+      "csv_file": "data\\651\\T1\\651_T1_DEAD_TEST.csv",
+      "run_id": "651_T1_DEAD_TEST",
+      "start_time": "2026-05-18T19:58:39.455164",
+      "notebooks": {
+        "01": {
+          "status": "failed",
+          "error": "\n---------------------------------------------------------------------------\nException encountered at \"In [7]\":\n---------------------------------------------------------------------------\nValueError                                Traceback (most recent call last)\nCell In[7], line 1\n----> 1 frame_idx, time_s, pos_mm, q_global, loader_report = parse_optitrack_csv(\n      2     CSV_PATH,\n      3     schema\n      4 )\n      6 print(\"CSV parsed successfully.\")\n\nFile C:\\gaga_prj\\gaga-pipeline-rebuild-audit-main\\gaga-pipeline-rebuild-audit-main\\src\\preprocessing.py:192, in parse_optitrack_csv(csv_path, schema)\n    189     _gate_01_fail_reason = \"duration_too_short\"\n    191 if _gate_01_fail_reason is not None:\n--> 192     raise ValueError(\n    193         f\"S01_GATE_FAIL:n_frames={T}:duration_sec={_gate_01_duration_sec:.3f}\"\n    194         f\":reason={_gate_01_fail_reason}:threshold_frames=3600:threshold_duration_sec=30.0\"\n    195     )\n    197 # --- 4. Scan Headers & Map Names ---\n    198 found_cols = {} \n\nValueError: S01_GATE_FAIL:n_frames=5:duration_sec=0.033:reason=frame_count_too_short:threshold_frames=3600:threshold_duration_sec=30.0\n",
+          "execution_time": 6.48049
+        }
+      },
+      "status": "failed",
+      "end_time": "2026-05-18T19:58:45.966342",
+      "total_execution_time": 6.48049
+    }
+  ],
+  "success_count": 0,
+  "failed_count": 1,
+  "end_time": "2026-05-18T19:58:45.966342"
+}
