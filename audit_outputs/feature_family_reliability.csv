@@ -1,0 +1,99 @@
+session_id,subject_id,timepoint,piece,rep,feature_family,description,reliability_status,reason_codes,thesis_critical,safe_for_ml,overall_qc_status,filter_psd_verdict,lin_kine_n_joints_with_dropped_axes,quat_norm_gt5pct_warning
+651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P1,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,lin_kine_dropped=6_joints,True,False,PASS,PASS,6,False
+651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P1,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,lin_kine_dropped=6_joints; axial_lin_kine_risk,True,False,PASS,PASS,6,False
+651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P1,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,lin_kine_dropped=6_joints,True,False,PASS,PASS,6,False
+651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P1,R1,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,lin_kine_dropped=6_joints,False,False,PASS,PASS,6,False
+651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P1,R1,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,lin_kine_dropped=6_joints,True,False,PASS,PASS,6,False
+651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P1,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,RELIABLE,,True,True,PASS,PASS,6,False
+651_T1_P1_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P1,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),RELIABLE,,True,True,PASS,PASS,6,False
+651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P2,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P2,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P2,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P2,R1,ATF_transitional,"ATF transitional joints (arms, legs)",RELIABLE,,False,True,PASS,PASS,0,False
+651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P2,R1,TM_total_movement,Total Movement — integral of linear velocity over session,RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P2,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R1_Take 2026-01-15 04.35.25 PM_002,651,T1,P2,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005,651,T1,P2,R2,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005,651,T1,P2,R2,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005,651,T1,P2,R2,ATF_peripheral,"ATF peripheral joints (hands, feet)",RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005,651,T1,P2,R2,ATF_transitional,"ATF transitional joints (arms, legs)",RELIABLE,,False,True,PASS,PASS,0,False
+651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005,651,T1,P2,R2,TM_total_movement,Total Movement — integral of linear velocity over session,RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005,651,T1,P2,R2,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,RELIABLE,,True,True,PASS,PASS,0,False
+651_T1_P2_R2_Take 2026-01-15 04.35.25 PM_005,651,T1,P2,R2,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),RELIABLE,,True,True,PASS,PASS,0,False
+651_T2_P1_R1_Take 2026-01-26 05.24.12 PM,651,T2,P1,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,lin_kine_dropped=4_joints,True,False,PASS,PASS,4,False
+651_T2_P1_R1_Take 2026-01-26 05.24.12 PM,651,T2,P1,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,lin_kine_dropped=4_joints; axial_lin_kine_risk,True,False,PASS,PASS,4,False
+651_T2_P1_R1_Take 2026-01-26 05.24.12 PM,651,T2,P1,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,lin_kine_dropped=4_joints,True,False,PASS,PASS,4,False
+651_T2_P1_R1_Take 2026-01-26 05.24.12 PM,651,T2,P1,R1,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,lin_kine_dropped=4_joints,False,False,PASS,PASS,4,False
+651_T2_P1_R1_Take 2026-01-26 05.24.12 PM,651,T2,P1,R1,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,lin_kine_dropped=4_joints,True,False,PASS,PASS,4,False
+651_T2_P1_R1_Take 2026-01-26 05.24.12 PM,651,T2,P1,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,RELIABLE,,True,True,PASS,PASS,4,False
+651_T2_P1_R1_Take 2026-01-26 05.24.12 PM,651,T2,P1,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),RELIABLE,,True,True,PASS,PASS,4,False
+651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000,651,T2,P2,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,RELIABLE,,True,True,PASS,PASS,0,False
+651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000,651,T2,P2,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",RELIABLE,,True,True,PASS,PASS,0,False
+651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000,651,T2,P2,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",RELIABLE,,True,True,PASS,PASS,0,False
+651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000,651,T2,P2,R1,ATF_transitional,"ATF transitional joints (arms, legs)",RELIABLE,,False,True,PASS,PASS,0,False
+651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000,651,T2,P2,R1,TM_total_movement,Total Movement — integral of linear velocity over session,RELIABLE,,True,True,PASS,PASS,0,False
+651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000,651,T2,P2,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,RELIABLE,,True,True,PASS,PASS,0,False
+651_T2_P2_R1_Take 2026-01-26 05.24.12 PM_000,651,T2,P2,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),RELIABLE,,True,True,PASS,PASS,0,False
+651_T3_P1_R1_2026-02-11 05.50.42 PM_2026,651,T3,P1,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,RELIABLE,,True,True,PASS,PASS,0,False
+651_T3_P1_R1_2026-02-11 05.50.42 PM_2026,651,T3,P1,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",RELIABLE,,True,True,PASS,PASS,0,False
+651_T3_P1_R1_2026-02-11 05.50.42 PM_2026,651,T3,P1,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",RELIABLE,,True,True,PASS,PASS,0,False
+651_T3_P1_R1_2026-02-11 05.50.42 PM_2026,651,T3,P1,R1,ATF_transitional,"ATF transitional joints (arms, legs)",RELIABLE,,False,True,PASS,PASS,0,False
+651_T3_P1_R1_2026-02-11 05.50.42 PM_2026,651,T3,P1,R1,TM_total_movement,Total Movement — integral of linear velocity over session,RELIABLE,,True,True,PASS,PASS,0,False
+651_T3_P1_R1_2026-02-11 05.50.42 PM_2026,651,T3,P1,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,RELIABLE,,True,True,PASS,PASS,0,False
+651_T3_P1_R1_2026-02-11 05.50.42 PM_2026,651,T3,P1,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),RELIABLE,,True,True,PASS,PASS,0,False
+651_T3_P2_R1_2026-02-11 05.50.42 PM_2027,651,T3,P2,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R1_2026-02-11 05.50.42 PM_2027,651,T3,P2,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R1_2026-02-11 05.50.42 PM_2027,651,T3,P2,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R1_2026-02-11 05.50.42 PM_2027,651,T3,P2,R1,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,False,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R1_2026-02-11 05.50.42 PM_2027,651,T3,P2,R1,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R1_2026-02-11 05.50.42 PM_2027,651,T3,P2,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R1_2026-02-11 05.50.42 PM_2027,651,T3,P2,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R2_2026-02-11 05.50.42 PM_2030,651,T3,P2,R2,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R2_2026-02-11 05.50.42 PM_2030,651,T3,P2,R2,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R2_2026-02-11 05.50.42 PM_2030,651,T3,P2,R2,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R2_2026-02-11 05.50.42 PM_2030,651,T3,P2,R2,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,False,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R2_2026-02-11 05.50.42 PM_2030,651,T3,P2,R2,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R2_2026-02-11 05.50.42 PM_2030,651,T3,P2,R2,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+651_T3_P2_R2_2026-02-11 05.50.42 PM_2030,651,T3,P2,R2,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002,671,T1,P2,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002,671,T1,P2,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002,671,T1,P2,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002,671,T1,P2,R1,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,False,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002,671,T1,P2,R1,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002,671,T1,P2,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R1_Take 2026-01-06 03.57.12 PM_002,671,T1,P2,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004,671,T1,P2,R2,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004,671,T1,P2,R2,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004,671,T1,P2,R2,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004,671,T1,P2,R2,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,False,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004,671,T1,P2,R2,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004,671,T1,P2,R2,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T1_P2_R2_Take 2026-01-06 03.57.12 PM_004,671,T1,P2,R2,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006,671,T2,P2,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006,671,T2,P2,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006,671,T2,P2,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006,671,T2,P2,R1,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,False,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006,671,T2,P2,R1,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006,671,T2,P2,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R1_Take 2026-01-15 04.35.25 PM_006,671,T2,P2,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010,671,T2,P2,R2,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010,671,T2,P2,R2,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010,671,T2,P2,R2,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010,671,T2,P2,R2,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,False,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010,671,T2,P2,R2,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010,671,T2,P2,R2,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T2_P2_R2_Take 2026-01-15 04.35.25 PM_010,671,T2,P2,R2,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001,671,T3,P2,R1,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001,671,T3,P2,R1,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001,671,T3,P2,R1,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001,671,T3,P2,R1,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,False,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001,671,T3,P2,R1,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001,671,T3,P2,R1,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R1_Take 2026-02-03 08.05.01 PM_001,671,T3,P2,R1,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006,671,T3,P2,R2,ATF_whole_body,Active Time Fraction — whole-body median over all 19 joints,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006,671,T3,P2,R2,ATF_axial,"ATF axial chain (Spine, Spine1, Neck, Head — Hips excluded per T010)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006,671,T3,P2,R2,ATF_peripheral,"ATF peripheral joints (hands, feet)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006,671,T3,P2,R2,ATF_transitional,"ATF transitional joints (arms, legs)",USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,False,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006,671,T3,P2,R2,TM_total_movement,Total Movement — integral of linear velocity over session,USE_WITH_CAUTION,filter_psd=REVIEW_OVERSMOOTHING,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006,671,T3,P2,R2,Gini_angular_velocity,Gini coefficient of PCA-attributed angular velocity variance,USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False
+671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006,671,T3,P2,R2,D_eff_pca,Effective dimensionality from PCA on angular velocity (omega_mag),USE_WITH_CAUTION,overall_qc=WARN,True,False,WARN,REVIEW_OVERSMOOTHING,0,False

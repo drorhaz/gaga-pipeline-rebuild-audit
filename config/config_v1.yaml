@@ -1,7 +1,7 @@
 crop_sec:
 - 10.0
 - 110.0
-current_csv: 651/T3/651_T3_P2_R2_2026-02-11 05.50.42 PM_2030.csv
+current_csv: 671/T3/671_T3_P2_R2_Take 2026-02-03 08.05.01 PM_006.csv
 data_dir: data
 deriv_method: savgol
 derivatives_dir: derivatives
@@ -83,10 +83,10 @@ shortest_rotation: true
 static_search_step_sec: 0.1
 step_06:
   enforce_cleaning: false
-subject_height_cm: 184.0
+subject_height_cm: 179.0
 subject_height_source: measured
-subject_id: '651'
-subject_mass_kg: 78.0
+subject_id: '671'
+subject_mass_kg: 72.0
 subject_weight_source: measured
 thresh:
   bone_cv_alert: 0.05
